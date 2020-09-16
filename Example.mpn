@@ -1,0 +1,28 @@
+# Petri Net Parameters
+	name Test
+	units hrs
+	runMode schedule
+	visualise png
+	dot True
+
+# Run Parameters
+	maxClock 1E3
+	maxSteps 100
+	simsFactor 1
+	history False
+	analysisStep 1
+
+# Build Petri Net
+Places
+	P0 2
+	P1
+	P2
+	P3
+
+Transitions
+	T0:lognorm:1:1 IN P0 OUT P1 P3
+	T1:weibull:1:0.5 IN P1 OUT P2:2
+	T2:delay:2 IN P2:2 P3:inh OUT P1
+	T3:rate:15 IN P3:5:pcn P1 OUT P2
+	R:cyclic:7:1 IN P2 RESET P0:P1:P3
+	V:beta:1:2:0.25 IN P0 P1 P3 OUT P2 VOTE 2
