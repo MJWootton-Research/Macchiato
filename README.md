@@ -23,7 +23,7 @@ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 Be sure that you are working in the directory where you want to install Macchiato. 
 
 ## Usage
-*Consult, `Macchiato.pdf`. Further documentation pending...*
+Consult, [`Macchiato.pdf`](Macchiato.pdf). *Further documentation pending...*
 
 ## Acknowledgments
-Thanks to Dr Robert *"Larus"* Lee for the MS Visio graphic tools.
+Thanks to Dr Robert *"Larus"* Lee for the [MS Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) graphic tools.
