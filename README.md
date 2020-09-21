@@ -2,8 +2,7 @@
 ## A simple Petri Nets implementation for Python 3
 ### Version 20200916
 
-© Dr. Mark James Wootton 2020
-
+© Dr. Mark James Wootton 2020 <br>
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
 
 ## Dependencies
