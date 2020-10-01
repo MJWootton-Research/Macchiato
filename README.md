@@ -1,5 +1,5 @@
 # Macchiato
-## A simple Petri Nets implementation for Python 3
+## A Simple Petri Nets Implementation for Python 3
 ### Version 20200916
 
 © Dr. Mark James Wootton 2020 <br>
@@ -22,7 +22,7 @@ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 ```
 
 ## Usage
-For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I published updated documentation
+For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I've published updated documentation
 
 ### Macchiato Petri Net Files (`*.mpn`)
 ...
