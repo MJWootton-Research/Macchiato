@@ -10,7 +10,7 @@
 * [Graphiz](http://graphviz.org) — optional, required only for visualisations
 
 ## Installation
-Clonning the respoitory via [Git](https://git-scm.com) is the recommended method for installing Macchiato. Check to see if you have Git installed and the current version by opening a command-line terminal and running:
+Cloning the repository via [Git](https://git-scm.com) is the recommended method for installing Macchiato. Check to see if you have Git installed and the current version by opening a command-line terminal and running:
 ```
 git --version
 ```
@@ -46,5 +46,5 @@ For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I've published updated 
 ### Scripting Tools
 ...
 
-## Acknowledgments
+## Acknowledgements
 Thanks to Dr Robert *"Larus"* Lee for the [MS Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) graphic tools.
