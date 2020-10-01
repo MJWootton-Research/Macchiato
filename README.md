@@ -6,7 +6,8 @@
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
 
 ## Dependencies
-* [Python 3](https://www.python.org) (untested on older versions of Python)
+* [Python 3](https://www.python.org)
+* [Graphiz](http://graphviz.org) -- optional, required only for visualisations
 
 ## Installation
 Clonning the respoitory via [Git](https://git-scm.com) is the recommended method for installing Macchiato. Check to see if you have Git installed and the current version by opening a command-line terminal and running:
