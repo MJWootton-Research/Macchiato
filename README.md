@@ -22,7 +22,29 @@ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 ```
 
 ## Usage
-Consult [`Macchiato.pdf`](Macchiato.pdf). *Further documentation pending...*
+For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I published updated documentation
+
+### Macchiato Petri Net Files (`*.mpn`)
+...
+#### Simulation Parameters
+...
+#### Structure
+...
+#### Timed Transitions
+...
+#### Special Arc Properties
+...
+#### Special Transition Properties
+...
+
+### Visualisation
+...
+
+### Analysis
+...
+
+### Scripting Tools
+...
 
 ## Acknowledgments
 Thanks to Dr Robert *"Larus"* Lee for the [MS Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) graphic tools.
