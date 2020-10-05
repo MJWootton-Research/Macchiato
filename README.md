@@ -22,10 +22,21 @@ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 ```
 
 ## Usage
-For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I've published updated documentation
+For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I've published updated documentation. *Note that is assumed that the reader is alreadyfamiliar with the basics of standard Petri Net modelling[^1]*.
 
 ### Macchiato Petri Net Files (`*.mpn`)
-...
+Macchiato Petri Net structures are stored in `*.mpn` files. One may also create and manipulate Petri Net structures in a Python script, using the tools provided in the module `PetriNet.py`, see *Scripting Tools*.
+
+Substituting the appropriate file paths into the following command will run a batch of `N` simulations.
+
+```
+python /path/to/Macchiato.py /path/to/PetriNet.mpn N
+```
+
+Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. Depending on system step up, one may need to substitute `python3` for `python`. The default version of Python can be found via `python --version`.
+
+If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see *Simulation Parameters*. 
+
 #### Simulation Parameters
 ...
 #### Structure
@@ -48,3 +59,7 @@ For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I've published updated 
 
 ## Acknowledgements
 Thanks to Dr Robert *"Larus"* Lee for the [MS Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) graphic tools.
+
+## References
+
+[^1]:  Carl  Adam  Petri. *Kommunikation  mit  Automaten*  (In  German).   PhD  thesis,  Technical University Darmstadt, 1962.
