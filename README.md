@@ -22,7 +22,7 @@ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 ```
 
 ## Usage
-For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I've published updated documentation. *Note that is assumed that the reader is alreadyfamiliar with the basics of standard Petri Net modelling[^1]*.
+For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I've published updated documentation. *Note that is assumed that the reader is alreadyfamiliar with the basics of standard Petri Net modelling* <sup>[1](#r1)</sup>*.*
 
 ### Macchiato Petri Net Files (`*.mpn`)
 Macchiato Petri Net structures are stored in `*.mpn` files. One may also create and manipulate Petri Net structures in a Python script, using the tools provided in the module `PetriNet.py`, see *Scripting Tools*.
@@ -62,4 +62,4 @@ Thanks to Dr Robert *"Larus"* Lee for the [MS Visio](https://www.microsoft.com/e
 
 ## References
 
-[^1]:  Carl  Adam  Petri. *Kommunikation  mit  Automaten*  (In  German).   PhD  thesis,  Technical University Darmstadt, 1962.
+<b id="r1">[1]</b> Carl  Adam  Petri. *Kommunikation  mit  Automaten*  (In  German).   PhD  thesis,  Technical University Darmstadt, 1962.
