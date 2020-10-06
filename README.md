@@ -71,7 +71,7 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 
 `simsFactor` — Parameterises the total number of simulations performed (Default is 1.5×10<sup>3</sup>).  Repetition of simulations ends once the total simulated time surpasses the product of `maxClock` and `simsFactor`.  If a set number of simulations is specified at the command line, `simsFactor` is overruled.
 
-**Important Note:** It is not recommended to use the `dot` or `visualise` options beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the post-simulation tools provided by `...` and `...`.
+**Important Note:** It is not recommended to use the `visualise` option beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the tools provided by [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py) and [`dot_to_image.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/dot_to_image.py) after the simulations are complete. If one is not intending to use `dot_to_image.py`, then it is also recommened to set `dot` to `False`.
 
 #### Places
 
