@@ -156,18 +156,18 @@ Transitions
 
 Python scripts are currently available to aid analysis of simulation results. As the data produced by Macchiato is saved `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
 
-#### `TimingData.py`
+#### [`TimingData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TimingData.py)
 
-This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. This is achieved by inspected of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by colons, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
+This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. This is achieved by inspected of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
 
 Example:
 ```
 $ python TimingData.py Results_Folder 3:8:16
 ```
 
-#### `TransFireFrequency.py`
+#### [`TransFireFrequency.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TransFireFrequency.py)
 
-This script produces statistics for transition firings, with standard error given. Simply provide the folder containing the results for inspection and a plain text file will be produced in the current working directory.
+This script produces statistics for transition firings, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. Simply provide the directory containing the results for inspection and a plain text file will be produced in the current working directory.
 
 Example:
 ```
@@ -177,6 +177,12 @@ $ python TransFireFrequency.py Results_Folder
 ### Visualisation
 
 #### Scripts
+
+##### [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py)
+
+...
+
+##### [`dot_to_image.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/dot_to_image.py)
 
 ...
 
