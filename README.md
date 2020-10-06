@@ -7,7 +7,9 @@
 
 ## Dependencies
 * [Python 3](https://www.python.org)
-* [Graphiz](http://graphviz.org) — optional, required only for visualisations
+* [Graphiz](http://graphviz.org) — only required by visualisation
+* [NumPy](https://numpy.org/) — only required by analysis scripts
+* [Matplotlib](https://matplotlib.org/) — only required by analysis scripts
 
 ## Installation
 Cloning the repository via [Git](https://git-scm.com) is the recommended method for installing Macchiato. Check to see if you have Git installed and the current version by opening a command-line terminal and running:
@@ -35,7 +37,7 @@ $ python /path/to/Macchiato.py /path/to/PetriNet.mpn N
 
 Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. Depending on system step up, one may need to substitute `python3` for `python`. The default version of Python can be found via `$ python --version`.
 
-If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). 
+If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `V` at the end of the above command, but be aware that this will impact performance.
 
 #### Structure
 
@@ -45,7 +47,7 @@ An `*.mpn` should be comprised of three sections — the simulation parameters, 
 
 If a parameter is not specified in the `*.mpn` file, it takes its default value. To set a parameter, add a line with its name, followed directly by a single space and the desired value.
 
-`name — The label given to the Petri Net and used in output directories
+`name` — The label given to the Petri Net and used in output directories
 
 `units` — The units of time to be used by the Petri Net (Default is `hrs`)
 
@@ -73,7 +75,7 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 
 #### Places
 
-The places section of the file begins following the line `Places`.  To add a place, simple add a new line with the desired name (spaces are not permitted). By default, a place's initial token count is zero, but a value may be specified after a space on the same line, e.g. `SomePlace 2` will add a place of name *SomePlace* with two tokens at the start of each simulation.
+The places section of the file begins following the line `Places`.  To add a place, simple add a new line with the desired name (spaces are not permitted). By default, a place's initial token count is zero, but a value may be specified after a space on the same line, e.g. `P1 2` will add a place of name *P1* with two tokens at the start of each simulation.
 
 #### Transitions
 
@@ -103,10 +105,13 @@ The transitions section of the file begins following the line `Transitions`. A t
 
 Note that a transition must be continuously enabled for the duration from firing time generation until it fires. If its enabled status is interrupted, its scheduled firing time will be discarded.
 
-#### Special Arc Properties
-...
-#### Special Transition Properties
-...
+#### Arc Properties
+Any places listed after `IN` and `OUT` will be connected to the transition by incoming and outgoing arcs respectively and places listed should be separated by a single space. The weight of an arc is 1 by default and can be given some other value by appending it, separated by `:`, to the name of the relevant place in the list. for example, `IN P1 P2:3 P3 OUT P4 P5:2` specifies three incoming arcs, the second of which has a weight of 3, and two outgoing arcs, the latter of which has a weight of 2.
+
+An incoming arc may be designated as a place conditional or inhibit arc with the code `:pnc` or `:inh` respectively, placed after the arc weight. The action of an inhibit arc is simple to disable its target transition when its weight is met, regardless of the status of the other arcs. A place conditional arc does not enable or disable its target transition but instead modifies its firing time parameters. The modification factor for a transition with *C* place conditional arcs is a function of the arc weights (which can be non-integer for place conditionals) and the number of tokens on the connected places, such that, <img src="https://render.githubusercontent.com/render/math?math=P = 1 %2B \sum_{i}^{c} W_{i} N_{i}">. The alterations to parameters are then, <img src="https://render.githubusercontent.com/render/math?math=a \rightarrow \frac{a}{P}">, <img src="https://render.githubusercontent.com/render/math?math=u \rightarrow \frac{u}{P}">, <img src="https://render.githubusercontent.com/render/math?math=c \rightarrow \frac{c}{P}">, <img src="https://render.githubusercontent.com/render/math?math=a \rightarrow \frac{a}{P}">, <img src="https://render.githubusercontent.com/render/math?math=%3C t %3E \rightarrow \frac{%3C t %3E}{P}">, <img src="https://render.githubusercontent.com/render/math?math=\mu \rightarrow \frac{\mu}{P}">, <img src="https://render.githubusercontent.com/render/math?math=k \rightarrow \frac{k}{P}">, and <img src="https://render.githubusercontent.com/render/math?math=r \rightarrow r P">.
+
+#### Additional Transition Features
+Transitions may also be given the properties `VOTE` and `RESET`. A voting transition does not require all of its incoming arc weights to be met to become enabled. Instead, only a given threshold need be met, placed after `VOTE`, separated by a single space. For example, a transition, `T1` with the place relationship given by `T1:instant IN P1 P2 P3 OUT P4 VOTE 2` would only require two of `P1`, `P2`, and `P3` to hold a token in order to fire. Note that *all* incoming arcs whose weight is satisfied are treated normally for the purposes of removing tokens when the transition fires. A reset transition has an associated list of places, delimited by `:` and following `RESET`, separated by a single space, e.g. `RESET P1:P2:P3`. When the transition fires, the places marked for reset are restored to the token count held at the beginning of the simulation.
 
 #### Example
 
@@ -143,14 +148,41 @@ Transitions
 
 ...
 
-### Visualisation
+### Scripting Tools
+
 ...
 
 ### Analysis
+
+Python scripts are currently available to aid analysis of simulation results. As the data produced by Macchiato is saved `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
+
+#### `TimingData.py`
+
+This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. This is achieved by inspected of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by colons, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
+
+Example:
+```
+$ python TimingData.py Results_Folder 3:8:16
+```
+
+#### `TransFireFrequency.py`
+
+This script produces statistics for transition firings, with standard error given. Simply provide the folder containing the results for inspection and a plain text file will be produced in the current working directory.
+
+Example:
+```
+$ python TransFireFrequency.py Results_Folder
+```
+
+### Visualisation
+
+#### Scripts
+
 ...
 
-### Scripting Tools
-...
+#### Visualisation Groupings
+
+To assign a grouping for visualisation to a transition or place add the label `GROUP` to the end of the line on which it is specified followed by a space and an integer, which serves as its group assignment. Object in the same group will be displaced together if visualisation is active. Note that places and transitions have separate groupings, even if the same numbers are used.
 
 ## Acknowledgements
 Thanks to Dr Robert *"Larus"* Lee for the [MS Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) graphic tools.
