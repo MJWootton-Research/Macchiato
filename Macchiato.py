@@ -13,7 +13,7 @@
 Welcome to Macchiato - a simple Petri Nets implementation for Python 3
 (c) Dr. Mark James Wootton 2020
 mark.wootton@nottingham.ac.uk
-Version-20200916
+Version-20191119
 ================================================================================
 
 This modules read and writes Petri Net structures to .mpn file, and when called
@@ -28,6 +28,9 @@ import os
 import sys
 import math
 import time
+
+# Note to user: Remember to add the directory in which the Macchiato files are stored your Python Path
+import PetriNet as PN
 
 # Disable
 def blockPrint():
@@ -46,9 +49,6 @@ def blockPrint():
 # Restore
 def enablePrint():
     sys.stdout = sys.__stdout__
-
-# Note to user: Remember to add the directory in which the Macchiato files are stored your Python Path
-import PetriNet as PN
 
 def read(file):
     """

@@ -2,15 +2,15 @@
 	name Test
 	units hrs
 	runMode schedule
-	visualise png
-	dot True
+	#visualise png
+	#dot True
+	visualise None
+	dot False
 
 # Run Parameters
 	maxClock 1E3
 	maxSteps 100
 	simsFactor 1
-	history False
-	analysisStep 1
 
 # Build Petri Net
 Places

@@ -100,7 +100,7 @@ class PetriNet(object):
     orientation : string
         "rankdir" option for Graphviz/dot, eg) "LR" for left to right orientation. Default is top to bottom.
     runMode : string
-    *  all : All not conflicting transitions are fired simultaneously
+    *  all : All non-conflicting transitions are fired simultaneously
     *  single : One transition is randomly selected and fired
     *  stochastic : One transition is selected for firing in proportion to its rates (plus instant and fixed delay transitions)
     *  schedule : Schedule based Monte Carlo integration (Default)
@@ -365,7 +365,7 @@ class PetriNet(object):
         mode : string
         tOut : boolean
             Toggles terminal print out
-        *  all : All not conflicting transitions are fired simultaneously
+        *  all : All non-conflicting transitions are fired simultaneously
         *  single : One transition is randomly selected and fired
         *  stochastic : One transition is selected for firing in proportion to its rates (plus instant and fixed delay transitions)
         *  schedule : Transitions whose requisites are met are assigned a firing time based on their timing distribution, and are fired in chronological order (timings are assinged when requisites are met, and persist until either it is fire, or requisites are withdrawn).
@@ -411,7 +411,7 @@ class PetriNet(object):
         Parameters
         ----------
         mode : string
-        *  all : All not conflicting transitions are fired simultaneously
+        *  all : All non-conflicting transitions are fired simultaneously
         *  single : One transition is randomly selected and fired
         *  stochastic : One transition is selected for firing in proportion to its rates (plus instant and fixed delay transitions)
         *  schedule : Transitions whose requisites are met are assigned a firing time based on their timing distribution, and are fired in chronological order (timings are assinged when requisites are met, and persist until either it is fire, or requisites are withdrawn).
@@ -954,7 +954,7 @@ class PetriNet(object):
         Parameters
         ----------
         mode : string
-        *  all : All not conflicting transitions are fired simultaneously
+        *  all : All non-conflicting transitions are fired simultaneously
         *  single : One transition is randomly selected and fired
         *  stochastic : One transition is selected for firing in proportion to its rates (plus instant and fixed delay transitions)
         *  schedule : Transitions whose requisites are met are assigned a firing time based on their timing distribution, and are fired in chronological order (timings are assinged when requisites are met, and persist until either it is fire, or requisites are withdrawn).
@@ -1022,7 +1022,7 @@ class PetriNet(object):
         tlist : filepointer
             Object indicating location to which list of transitions fired is writen
         mode : string
-        *  all : All not conflicting transitions are fired simultaneously
+        *  all : All non-conflicting transitions are fired simultaneously
         *  single : One transition is randomly selected and fired
         *  stochastic : One transition is selected for firing in proportion to its rates (plus instant and fixed delay transitions)
 
@@ -1052,14 +1052,14 @@ class PetriNet(object):
         if self.savedot:
             self.dot(mode=mode)
 
-    def dot(self, mode="single", visualise=None):
+    def dot(self, mode="schedule", visualise=None):
         """
         Write net net Graphviz "*.dot" format and generates image file
 
         Parameters
         ----------
         mode : string
-        *  all : All not conflicting transitions are fired simultaneously
+        *  all : All non-conflicting transitions are fired simultaneously
         *  single : One transition is randomly selected and fired (Default)
         *  stochastic : One transition is selected for firing in proportion to its rates (plus instant and fixed delay transitions)
         *  schedule : Transitions whose requisites are met are assigned a firing time based on their timing distribution, and are fired in chronological order (timings are assinged when requisites are met, and persist until either it is fire, or requisites are withdrawn).
@@ -1067,11 +1067,16 @@ class PetriNet(object):
             Toggle image output file type eg: png, svg... (Default = None for no file output)
             Only use to override self.visualise format, but will not suppress file output.
 
+        Returns
+        ----------
+        path : string
+            Path to *.dot file
+
         """
         # File and directory operations
         if not os.path.exists(os.path.join(os.getcwd(), self.name)):
             os.mkdir(os.path.join(os.getcwd(), self.name))
-        if self.debug:
+        if self.debug or self.time is None:
             rPath = os.path.join(os.getcwd(), self.name, "Visualisation")
         else:
             rPath = os.path.join(os.getcwd(), self.name, "Visualisation_%d" % self.time)
@@ -1180,6 +1185,8 @@ class PetriNet(object):
             oPath = os.path.join(rPath, "%d.%s" % (self.step, format))
             if self.dotLoc is not None:
                 subprocess.call("\"%s\" %s -T %s -o \"%s\""  % (self.dotLoc, path, format, oPath), shell=True)
+
+        return path
 
     def dotPlaces(self, p, out):
         """
@@ -1377,7 +1384,7 @@ class PetriNet(object):
         maxClock : float
             Maximum clock time permitted
         mode : string
-        *  all : All not conflicting transitions are fired simultaneously
+        *  all : All non-conflicting transitions are fired simultaneously
         *  single : One transition is randomly selected and fired
         *  stochastic : One transition is selected for firing in proportion to its rates (plus instant and fixed delay transitions)
         *  schedule : Transitions whose requisites are met are assigned a firing time based on their timing distribution, and are fired in chronological order (timings are assinged when requisites are met, and persist until either it is fire, or requisites are withdrawn).
