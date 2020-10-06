@@ -1,6 +1,6 @@
 # Macchiato
 ## A Simple Petri Nets Implementation for Python 3
-### Version 20200916
+### Version 1-4
 
 © Dr. Mark James Wootton 2020 <br>
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)

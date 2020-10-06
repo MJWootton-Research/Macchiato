@@ -13,7 +13,7 @@
 Welcome to Macchiato - a simple Petri Nets implementation for Python 3
 (c) Dr. Mark James Wootton 2020
 mark.wootton@nottingham.ac.uk
-Version-20200916
+Version 1-4
 ================================================================================
 
 This module contains all object definitions pertaining to Macchiato Petri Net
