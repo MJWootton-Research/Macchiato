@@ -174,7 +174,7 @@ The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`
 
 ### Analysis
 
-Python scripts are currently available to aid analysis of simulation results. As the data produced by Macchiato is saved `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
+Some Python scripts are currently available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
 
 #### [`TimingData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TimingData.py)
 
