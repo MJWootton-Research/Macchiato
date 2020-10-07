@@ -21,11 +21,11 @@
     * [Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)
     * [Scripting Tools](#scripting-tools)
     * [Analysis](#analysis)
-        * [`TimingData.py`](timingdatapy)
-        * [`TransFireFrequency.py`](transfirefrequencypy)
+        * [`TimingData.py`](#timingdatapy)
+        * [`TransFireFrequency.py`](#transfirefrequencypy)
     * [Visualisation](#visualisation)
-    * [`mpn_to_dot.py`](mpn_to_dotpy)
-    * [`dot_to_image.py`](dot_to_imagepy)
+    * [`mpn_to_dot.py`](#mpn_to_dotpy)
+    * [`dot_to_image.py`](#dot_to_imagepy)
 * [Acknowledgements](#acknowledgements)
 * [References](#references)
 
@@ -174,7 +174,7 @@ The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`
 
 ### Analysis
 
-Python scripts are currently available to aid analysis of simulation results. As the data produced by Macchiato is saved `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
+Some Python scripts are currently available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
 
 #### [`TimingData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TimingData.py)
 
