@@ -7,9 +7,10 @@
 
 ## Dependencies
 * [Python 3](https://www.python.org)
-* [Graphiz](http://graphviz.org) — only required by visualisation
+* [Graphiz](http://graphviz.org) — only required by visualisation features
 * [NumPy](https://numpy.org/) — only required by analysis scripts
 * [Matplotlib](https://matplotlib.org/) — only required by analysis scripts
+* [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for graphical Petri Net construction tool
 
 ## Installation
 Cloning the repository via [Git](https://git-scm.com) is the recommended method for installing Macchiato. Check to see if you have Git installed and the current version by opening a command-line terminal and running:
@@ -47,31 +48,27 @@ An `*.mpn` should be comprised of three sections — the simulation parameters, 
 
 If a parameter is not specified in the `*.mpn` file, it takes its default value. To set a parameter, add a line with its name, followed directly by a single space and the desired value.
 
-`name` — The label given to the Petri Net and used in output directories
+- `name` — The label given to the Petri Net and used in output directories
+- `units` — The units of time to be used by the Petri Net (Default is `hrs`)
+- `runMode` — The mode of integration to be used for simulation (Default is `schedule`). Don't play with this setting unless you know what you are doing.
 
-`units` — The units of time to be used by the Petri Net (Default is `hrs`)
+- `dot` — Toggle creation of snapshots of the Petri Net during simulation in `*.dot` format (Default is `False`).
+- `visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `sgv` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect). 
+- `details` — Toggles label with Petri Net name, step, and clock in visualisations (Default is `True`)
 
-`runMode` — The mode of integration to be used for simulation (Default is `schedule`). Don't play with this setting unless you know what you are doing.
+- `useGroup`: Toggles use of place and transition groups in visualisation (Default is `True`)
 
-`dot` — Toggle creation of snapshots of the Petri Net during simulation in `*.dot` format (Default is `False`).
+- `orientationOption` — Orientation of Petri Net in visualisations.  Options are `LR`, `RL`, `TB`, and `BT`.
 
-`visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `sgv` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect). 
+- `debug` — Default is `False`.
 
-`details` — Toggles label with Petri Net name, step, and clock in visualisations (Default is `True`)
+- `maxClock` — Greatest clock duration permitted in any one simulation (Default is 10<sup>6</sup> `units` of time)
 
-`useGroup`: Toggles use of place and transition groups in visualisation (Default is `True`)
+- `maxSteps` — Greatest number of steps permitted in anyone simulation (Default is 10<sup>12</sup>)
 
-`orientationOption` — Orientation of Petri Net in visualisations.  Options are `LR`, `RL`, `TB`, and `BT`.
+- `simsFactor` — Parameterises the total number of simulations performed (Default is 1.5×10<sup>3</sup>).  Repetition of simulations ends once the total simulated time surpasses the product of `maxClock` and `simsFactor`.  If a set number of simulations is specified at the command line, `simsFactor` is overruled.
 
-`debug` — Default is `False`.
-
-`maxClock` — Greatest clock duration permitted in any one simulation (Default is 10<sup>6</sup> `units` of time)
-
-`maxSteps` — Greatest number of steps permitted in anyone simulation (Default is 10<sup>12</sup>)
-
-`simsFactor` — Parameterises the total number of simulations performed (Default is 1.5×10<sup>3</sup>).  Repetition of simulations ends once the total simulated time surpasses the product of `maxClock` and `simsFactor`.  If a set number of simulations is specified at the command line, `simsFactor` is overruled.
-
-**Important Note:** It is not recommended to use the `visualise` option beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the tools provided by [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py) and [`dot_to_image.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/dot_to_image.py) after the simulations are complete. If one is not intending to use `dot_to_image.py`, then it is also recommened to set `dot` to `False`.
+**Important Note:** It is not recommended to use the `visualise` option beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the tools provided by [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py) and [`dot_to_image.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/dot_to_image.py) after the simulations are complete. If one is not intending to use `dot_to_image.py`, then it is also recommended to set `dot` to `False`.
 
 #### Places
 
@@ -87,21 +84,18 @@ The transitions section of the file begins following the line `Transitions`. A t
 
 `Timing` specifies the duration from the enabling of a transition to its firing, which may be instantaneous, of a fixed length, or generated from a stochastic distribution. Most options require one or multiple parameters, subsequently delimited by `:` and expressed in terms of the parameter `units` where relevant. The following timing options are available:
 
-`instant` — A instant transition will fire on the next simulation step with zero advancement of the system clock. If multiple instant transitions are simultaneously enabled, one will be chosen at random with uniform weight.
+- `instant` — A instant transition will fire on the next simulation step with zero advancement of the system clock. If multiple instant transitions are simultaneously enabled, one will be chosen at random with uniform weight.
+- `delay:a` — A transition with a fixed delay fired after a set duration `a` once enabled.
 
-`delay:a` — A transition with a fixed delay fired after a set duration `a` once enabled.
+- `uniform:u` — A transition with a uniform distribution will fire at some time, *t*, in the interval 0 < *t* < `u`.
 
-`uniform:u` — A transition with a uniform distribution will fire at some time, *t*, in the interval 0 < *t* < `u`.
+- `cyclic:c:ω` — A cyclic transition fires at the next instance at with the simulation clock is a non-zero integer multiple of `c`. The second parameter `ω` allows one to apply an offset. For instance, if two transitions with the parameters `cyclic:1:0` and `cyclic:1:0.5` are persistently enabled, they will respectively fire at the system times, 1, 2, 3 `units` etc, and 1.5, 2.5, 3.5 `units` etc.
+- `weibull:<t>:β:σ` — A transition with this option will be characterised by a Weibull distribution<sup>[[2]](#r2)</sup> with mean `<t>` and shape parameter `β`. Its firing time, *t*, is given by <img src="https://render.githubusercontent.com/render/math?math=t = \eta [\ln(X)]^{-\beta}">, where *η* is the scale parameter, such that <img src="https://render.githubusercontent.com/render/math?math=\eta = %3C t %3E [\Gamma(\beta^{-1} %2B 1)]^{-1}">, and *X* is a random variable uniformly distributed in the range 0 < *X* < 1, with *Γ*  being the Gamma Function<sup>[[3]](#r3)</sup>. The parameter `σ` is optional and is used when the mean time has an associated uncertainty, such that the scale parameter used for each firing delay calculated is produced from a normal distribution<sup>[[4]](#r4)</sup> with mean equal to the default *η* and a standard deviation of `σ`.
 
-`cyclic:c:ω` — A cyclic transition fires at the next instance at with the simulation clock is a non-zero integer multiple of `c`. The second parameter `ω` allows one to apply an offset. For instance, if two transitions with the parameters `cyclic:1:0` and `cyclic:1:0.5` are persistently enabled, they will respectively fire at the system times, 1, 2, 3 `units` etc, and 1.5, 2.5, 3.5 `units` etc.
+- `lognorm:μ:σ` — A transition with log-normal distribution<sup>[[5]](#54)</sup> timing fires after time, *t*, where <img src="https://render.githubusercontent.com/render/math?math=t = \exp(\mu %2B \sigma X)">, with *X* being a standard normal variable, and `μ` and `σ` respectively being the mean and standard deviation of the natural logarithm of the firing delay.
+- `rate:r` — A transition of this type fires with a constant rate parameterised by `r`. Firing time, *t*, is exponentially distributed <sup>[[6]](#r6)</sup>, such that <img src="https://render.githubusercontent.com/render/math?math=t = -r^{-1}\ln(X)">, where *X* is a random uniform variable in the range 0 < *X* < 1.
 
-`weibull:<t>:β:σ` — A transition with this option will be characterised by a Weibull distribution<sup>[[2]](#r2)</sup> with mean `<t>` and shape parameter `β`. Its firing time, *t*, is given by <img src="https://render.githubusercontent.com/render/math?math=t = \eta [\ln(X)]^{-\beta}">, where *η* is the scale parameter, such that <img src="https://render.githubusercontent.com/render/math?math=\eta = %3C t %3E [\Gamma(\beta^{-1} %2B 1)]^{-1}">, and *X* is a random variable uniformly distributed in the range 0 < *X* < 1, with *Γ*  being the Gamma Function<sup>[[3]](#r3)</sup>. The parameter `σ` is optional and is used when the mean time has an associated uncertainty, such that the scale parameter used for each firing delay calculated is produced from a normal distribution<sup>[[4]](#r4)</sup> with mean equal to the default *η* and a standard deviation of `σ`.
-
-`lognorm:μ:σ` — A transition with log-normal distribution<sup>[[5]](#54)</sup> timing fires after time, *t*, where <img src="https://render.githubusercontent.com/render/math?math=t = \exp(\mu %2B \sigma X)">, with *X* being a standard normal variable, and `μ` and `σ` respectively being the mean and standard deviation of the natural logarithm of the firing delay.
-
-`rate:r` — A transition of this type fires with a constant rate parameterised by `r`. Firing time, *t*, is exponentially distributed <sup>[[6]](#r6)</sup>, such that <img src="https://render.githubusercontent.com/render/math?math=t = -r^{-1}\ln(X)">, where *X* is a random uniform variable in the range 0 < *X* < 1.
-
-`beta:p:q:k` — A transition with the Beta Distribution<sup>[[6]](#r6)</sup> produces a firing delay, *t*, in the interval 0 < *t* < 1, parameterised by `p` and `q`, which weight the probability density towards the extreme or central regions of the available outcome space. An optional parameter `k` can be added to scale the distribution, such that the range of possible values becomes 0 < *t* < `k`.
+- `beta:p:q:k` — A transition with the Beta Distribution<sup>[[6]](#r6)</sup> produces a firing delay, *t*, in the interval 0 < *t* < 1, parameterised by `p` and `q`, which weight the probability density towards the extreme or central regions of the available outcome space. An optional parameter `k` can be added to scale the distribution, such that the range of possible values becomes 0 < *t* < `k`.
 
 Note that a transition must be continuously enabled for the duration from firing time generation until it fires. If its enabled status is interrupted, its scheduled firing time will be discarded.
 
@@ -146,11 +140,13 @@ Transitions
 
 #### Graphical Petri Net Construction with Microsoft Visio
 
-...
+As an alternative to transcribing a Petri Net structure by hand, it is possible to graphically construct a model in Microsoft Visio and export as an `*.mpn`. This is general considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.
+
+In the directory [`PetriNetDrawingTools`](PetriNetDrawingTools), one will find a Microsoft Visio drawing and a stencil file. Create a copy of these files to produce Petri Nets graphically — both must be found in the same directory. To use the tool, make sure that stencils and shape data are set to be visible and that macros are enabled. The shortcut *Ctrl+e* will export the Petri Net to an `*.mpn` file with the properties specified in the *Parameters* object. It is recommended to export models frequently to avoid being caught out by Microsoft Visio's occasional idiosyncrasies.
 
 ### Scripting Tools
 
-...
+The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`](PetriNet) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function.
 
 ### Analysis
 
@@ -162,7 +158,7 @@ This script will provide information on the proportion of simulations ending in 
 
 Example:
 ```
-$ python TimingData.py Results_Folder 3:8:16
+$ python /path/to/TimingData.py /path/to/Results_Folder 3:8:16
 ```
 
 #### [`TransFireFrequency.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TransFireFrequency.py)
@@ -171,27 +167,33 @@ This script produces statistics for transition firings, with [standard error](ht
 
 Example:
 ```
-$ python TransFireFrequency.py Results_Folder
+$ python /path/to/TransFireFrequency.py /path/to/Results_Folder
 ```
 
 ### Visualisation
 
-#### ...
+Two scripts are available to visualise Petri Nets described in `*mpn` files. These rely on Graphviz are best suited for inspection and verification. Due to the limitations of Graphviz, they are not recommended as tools to produce images for reports etc. For this purpose, a dedicated graphical tool such as Microsoft Visio is better suited, see *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. By default, Graphviz will attempt to enforce a hierarchical structure on the Petri Net visualisation, but this unsuitable in many cases, particularly with systems with multiple looping sequences. To compensate for this, one can add a place or transition to a grouping, which will force objects to appear next to those of the same assignment. This is achieved through the addition of the label `GROUP` to the end of the line on which the object is specified followed by a space and an integer, which serves as its group reference. Note that places and transitions have separate groupings, i.e. the places and transitions in `P1 GROUP 1`, `P2 GROUP 1`, `T1:instant IN P1 OUT P2 GROUP 1`, and `T2:instant IN P2 OUT P1 GROUP 1` will be organised as two independent groups.
 
 #### [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py)
 
-...
+This script will produce a single `*.dot` file (readable by Graphviz) depicting a Petri Net in its initial state, as described in an `*.mpn` file. Replacing `PetriNet.mpn` with the path of the target `*.mpn` , it is used with the following command:
+
+```
+$ python /path/to/mpn_to_dot.py /path/to/PetriNet.mpn format1 format2 format3
+```
+
+Additionally, one may optionally add multiple image file formats, such as `svg`, `png`, `pdf` etc. If supplied, a file of each of the given types will also be produced.
 
 #### [`dot_to_image.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/dot_to_image.py)
 
-...
+This script will read a `.dot` file, or a directory of `*.dot` files, and produce image files of types from the given list of formats. Substituting `/path/to/target` for the directory or file to be read, the script is executed with the following command, with the desired image formats listed at the end.
 
-#### Visualisation Groupings
-
-To assign a grouping for visualisation to a transition or place add the label `GROUP` to the end of the line on which it is specified followed by a space and an integer, which serves as its group assignment. Object in the same group will be displaced together if visualisation is active. Note that places and transitions have separate groupings, even if the same numbers are used.
+```
+$ python /path/to/dot_to_image.py /path/to/target format1 format2 format 3
+```
 
 ## Acknowledgements
-Thanks to Dr Robert *"Larus"* Lee for the [MS Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) graphic tools.
+Thanks to Dr Robert *"Larus"* Lee for the [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) graphical construction tools.
 
 ## References
 
