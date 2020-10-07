@@ -5,6 +5,34 @@
 © Dr. Mark James Wootton 2020 <br>
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
 
+### Table of Contents
+
+<small>
+* [Macchiato](#macchiato)
+    * [Table of Contents](#table-of-contents)
+    * [Dependencies](#dependencies)
+    * [Installation](#installation)
+    * [Usage](#usage)
+        * [Macchiato Petri Net Files (`*.mpn`)](#macchiato-petri-net-files-mpn)
+            * [Structure](#structure)
+            * [Simulation Parameters](#simulation-parameters)
+            * [Places](#places)
+            * [Transitions](#transitions)
+            * [Arc Properties](#arc-properties)
+            * [Additional Transition Features](#additional-transition-features)
+            * [Example](#example)
+        * [Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)
+        * [Scripting Tools](#scripting-tools)
+        * [Analysis](#analysis)
+            * [`TimingData.py`](timingdatapy)
+            * [`TransFireFrequency.py`](transfirefrequencypy)
+        * [Visualisation](#visualisation)
+        * [`mpn_to_dot.py`](mpn_to_dotpy)
+        * [`dot_to_image.py`](dot_to_imagepy)
+    * [Acknowledgements](#acknowledgements)
+    * [References](#references)
+</small>
+
 ## Dependencies
 * [Python 3](https://www.python.org)
 * [Graphiz](http://graphviz.org) — only required by visualisation features
@@ -53,7 +81,7 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 - `runMode` — The mode of integration to be used for simulation (Default is `schedule`). Don't play with this setting unless you know what you are doing.
 
 - `dot` — Toggle creation of snapshots of the Petri Net during simulation in `*.dot` format (Default is `False`).
-- `visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `sgv` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect). 
+- `visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `sgv` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect).
 - `details` — Toggles label with Petri Net name, step, and clock in visualisations (Default is `True`)
 
 - `useGroup`: Toggles use of place and transition groups in visualisation (Default is `True`)
