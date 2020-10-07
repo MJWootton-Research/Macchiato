@@ -146,7 +146,7 @@ In the directory [`PetriNetDrawingTools`](PetriNetDrawingTools), one will find a
 
 ### Scripting Tools
 
-The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`](PetriNet) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function.
+The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`](PetriNet.py) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function.
 
 ### Analysis
 
@@ -193,7 +193,7 @@ $ python /path/to/dot_to_image.py /path/to/target format1 format2 format 3
 ```
 
 ## Acknowledgements
-Thanks to Dr Robert *"Larus"* Lee for the [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) graphical construction tools.
+Thank-you to Dr Robert *"Larus"* Lee for developing the Microsoft Visio graphical construction tools.
 
 ## References
 
