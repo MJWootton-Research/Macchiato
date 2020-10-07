@@ -938,7 +938,6 @@ class PetriNet(object):
                 if trans.lastFired == self.clock:
                     w += trans.cyclic[0]/con
                 wait += w
-            # TODO: Check indentation of this else statement
             else:
                 # Allows instant firing place conditional
                 raise NotImplementedError("Conversion of PCN to instant not yet writen")
