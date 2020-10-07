@@ -5,7 +5,7 @@
 © Dr. Mark James Wootton 2020 <br>
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
 
-### Table of Contents
+## Table of Contents
 
 * [Dependencies](#dependencies)
 * [Installation](#installation)
