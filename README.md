@@ -24,8 +24,8 @@
         * [`TimingData.py`](#timingdatapy)
         * [`TransFireFrequency.py`](#transfirefrequencypy)
     * [Visualisation](#visualisation)
-    * [`mpn_to_dot.py`](#mpn_to_dotpy)
-    * [`dot_to_image.py`](#dot_to_imagepy)
+        * [`mpn_to_dot.py`](#mpn_to_dotpy)
+        * [`dot_to_image.py`](#dot_to_imagepy)
 * [Acknowledgements](#acknowledgements)
 * [References](#references)
 
