@@ -199,10 +199,10 @@ Thanks to Dr Robert *"Larus"* Lee for the [MS Visio](https://www.microsoft.com/e
 
 <b id="r2">[2]</b> Athanasios Papoulis and S. Unnikrishna Pillai. Probability, *Random Variables and Stochastic Processes*.  McGraw Hill, 4<sup>th</sup> edition, 2002
 
-<b id="r3">[3]</b> Eric W. Weisstein. *"Gamma Function." From* MathWorld*--A Wolfram Web Resource*. www.mathworld.wolfram.com/GammaFunction.html *Accessed October 2020*, Last edited: 2005.
+<b id="r3">[3]</b> Eric W. Weisstein. *"Gamma Function." From* MathWorld​*--A Wolfram Web Resource*. www.mathworld.wolfram.com/GammaFunction.html *Accessed October 2020*, Last edited: 2005.
 
-<b id="r4">[4]</b> Eric W. Weisstein. *"Normal  Distribution." From* MathWorld*--A Wolfram Web Resource*. www.mathworld.wolfram.com/NormalDistribution.html *Accessed October 2019*, Last edited: 2019.
+<b id="r4">[4]</b> Eric W. Weisstein. *"Normal  Distribution." From* MathWorld​*--A Wolfram Web Resource*. www.mathworld.wolfram.com/NormalDistribution.html *Accessed October 2019*, Last edited: 2019.
 
 <b id="r5">[5]</b> Brian Dennis and G. P. Patil. *Lognormal Distributions, Theory and Applications*. Marcel Dekker New York, 1987.
 
-<b id="r6">[6]</b> Eric W. Weisstein. *"Exponential Distribution." From* MathWorld*--A Wolfram Web Resource.* https://mathworld.wolfram.com/ExponentialDistribution.html
+<b id="r6">[6]</b> Eric W. Weisstein. *"Exponential Distribution." From* MathWorld​*--A Wolfram Web Resource.* https://mathworld.wolfram.com/ExponentialDistribution.html *Accessed October 2019*, Last edited: 2006.
