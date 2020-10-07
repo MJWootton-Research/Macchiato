@@ -7,7 +7,6 @@
 
 ### Table of Contents
 
-<small>
 * [Macchiato](#macchiato)
     * [Table of Contents](#table-of-contents)
     * [Dependencies](#dependencies)
@@ -31,7 +30,6 @@
         * [`dot_to_image.py`](dot_to_imagepy)
     * [Acknowledgements](#acknowledgements)
     * [References](#references)
-</small>
 
 ## Dependencies
 * [Python 3](https://www.python.org)
