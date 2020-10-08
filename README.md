@@ -37,19 +37,34 @@
 * [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for graphical Petri Net construction tool
 
 ## Installation
-Cloning the repository via [Git](https://git-scm.com) is the recommended method for installing Macchiato. Check to see if you have Git installed and the current version by opening a command-line terminal and running:
+Cloning the repository via [Git](https://git-scm.com) is the recommended method for installing Macchiato. To see whether you have Git installed and the current version, open a command-line terminal and run:
 ```
 $ git --version
 ```
-If no Git installation is found, consult [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for further instructions. Furthermore, it is recommended to [create a SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to one’s GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to eliminate the need for password entry during push & push requests.
+Be aware that the `$` symbol indicates a terminal command, and should not be copied with the rest of the line. If no Git installation is found, consult [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for further instructions. It is recommended to [create an SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to one’s GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to eliminate the need for password entry during pull requests.
 
 The following command will create a local instance of the repository in the current working directory:
 ```
 $ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 ```
 
+To update the repository, execute the following command in its directory:
+
+```
+$ git pull
+```
+
+In the following sections, it is assumed that Python 3 is invoked by `python`. Depending on system step up, one may need to substitute this command with `python3`. The default version of Python can be found via:
+
+```
+$ python --version
+```
+
+If not already installed, Python 3 can be obtained from www.python.org
+
 ## Usage
-For now, consult [`Macchiato.pdf`](Macchiato.pdf), until I've published updated documentation. *Note that is assumed that the reader is already familiar with the basics of standard Petri Net modelling*<sup>[[1]](#r1)</sup>*.*
+
+Note: It is assumed that the reader is already familiar with the basics of standard Petri Net modelling<sup>[[1]](#r1)</sup>.
 
 ### Macchiato Petri Net Files (`*.mpn`)
 Macchiato Petri Net structures are stored in `*.mpn` files. One may also create and manipulate Petri Net structures in a Python script, using the tools provided in the module `PetriNet.py`, see [*Scripting Tools*](#scripting-tools).
@@ -60,9 +75,7 @@ Substituting the appropriate file paths into the following command will run a ba
 $ python /path/to/Macchiato.py /path/to/PetriNet.mpn N
 ```
 
-Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. Depending on system step up, one may need to substitute `python3` for `python`. The default version of Python can be found via `$ python --version`.
-
-If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `V` at the end of the above command, but be aware that this will impact performance.
+Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `V` at the end of the above command, but be aware that this will impact performance. 
 
 #### Structure
 
@@ -77,7 +90,7 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 - `runMode` — The mode of integration to be used for simulation (Default is `schedule`). Don't play with this setting unless you know what you are doing.
 
 - `dot` — Toggle creation of snapshots of the Petri Net during simulation in `*.dot` format (Default is `False`).
-- `visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `sgv` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect).
+- `visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `svg` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect).
 - `details` — Toggles label with Petri Net name, step, and clock in visualisations (Default is `True`)
 
 - `useGroup`: Toggles use of place and transition groups in visualisation (Default is `True`)
@@ -88,7 +101,7 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 
 - `maxClock` — Greatest clock duration permitted in any one simulation (Default is 10<sup>6</sup> `units` of time)
 
-- `maxSteps` — Greatest number of steps permitted in anyone simulation (Default is 10<sup>12</sup>)
+- `maxSteps` — Greatest number of steps permitted in any one simulation (Default is 10<sup>12</sup>)
 
 - `simsFactor` — Parameterises the total number of simulations performed (Default is 1.5×10<sup>3</sup>).  Repetition of simulations ends once the total simulated time surpasses the product of `maxClock` and `simsFactor`.  If a set number of simulations is specified at the command line, `simsFactor` is overruled.
 
@@ -174,11 +187,11 @@ The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`
 
 ### Analysis
 
-Some Python scripts are currently available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
+Some Python scripts are currently available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved in `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
 
 #### [`TimingData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TimingData.py)
 
-This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. This is achieved by inspected of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
+This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. This is achieved by inspection of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
 
 Example:
 ```
@@ -196,11 +209,11 @@ $ python /path/to/TransFireFrequency.py /path/to/Results_Folder
 
 ### Visualisation
 
-Two scripts are available to visualise Petri Nets described in `*mpn` files. These rely on Graphviz are best suited for inspection and verification. Due to the limitations of Graphviz, they are not recommended as tools to produce images for reports etc. For this purpose, a dedicated graphical tool such as Microsoft Visio is better suited, see *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. By default, Graphviz will attempt to enforce a hierarchical structure on the Petri Net visualisation, but this unsuitable in many cases, particularly with systems with multiple looping sequences. To compensate for this, one can add a place or transition to a grouping, which will force objects to appear next to those of the same assignment. This is achieved through the addition of the label `GROUP` to the end of the line on which the object is specified followed by a space and an integer, which serves as its group reference. Note that places and transitions have separate groupings, i.e. the places and transitions in `P1 GROUP 1`, `P2 GROUP 1`, `T1:instant IN P1 OUT P2 GROUP 1`, and `T2:instant IN P2 OUT P1 GROUP 1` will be organised as two independent groups.
+Two scripts are available to visualise Petri Nets described in `*mpn` files. These depend on Graphviz if image files are required, and are best suited for inspection and verification. Due to the limitations of Graphviz, they are not recommended as tools to produce images for reports etc. For this purpose, a dedicated graphical tool such as Microsoft Visio is better suited, see *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. By default, Graphviz will attempt to enforce a hierarchical structure on the Petri Net visualisation, but this is unsuitable in many cases, particularly with systems with multiple looping sequences. To compensate for this, one can add a place or transition to a grouping, which will force objects to appear next to those of the same assignment. This is achieved through the addition of the label `GROUP` to the end of the line on which the object is specified followed by a space and an integer, which serves as its group reference. Note that places and transitions have separate groupings, i.e. the places and transitions in `P1 GROUP 1`, `P2 GROUP 1`, `T1:instant IN P1 OUT P2 GROUP 1`, and `T2:instant IN P2 OUT P1 GROUP 1` will be organised as two independent groups.
 
 #### [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py)
 
-This script will produce a single `*.dot` file (readable by Graphviz) depicting a Petri Net in its initial state, as described in an `*.mpn` file. Replacing `PetriNet.mpn` with the path of the target `*.mpn` , it is used with the following command:
+This script will produce a single `*.dot` file (readable by Graphviz) depicting a Petri Net in its initial state, as described in an `*.mpn` file. Replacing `PetriNet.mpn` with the path of the target `*.mpn` , it is invoked with the following command:
 
 ```
 $ python /path/to/mpn_to_dot.py /path/to/PetriNet.mpn format1 format2 format3
