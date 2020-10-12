@@ -1,4 +1,7 @@
 # Macchiato
+
+[[makˈkjaːto](https://pmchollywoodlife.files.wordpress.com/2016/01/starbucks-introduces-latte-macchiato-5-things-ftr.jpg?w=600)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://pmchollywoodlife.files.wordpress.com/2016/01/starbucks-introduces-latte-macchiato-5-things-ftr.jpg?w=600), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
+
 ## A Simple Petri Nets Implementation for Python 3
 ### Version 1-4
 
