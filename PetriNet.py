@@ -301,6 +301,9 @@ class PetriNet(object):
         weibull : list
             Length two or three list of parameters for a Weibull distribution (all floats)
             eta & beta, such that t = eta[-ln(X)]^-beta, and 0 < X < 1, and option sigma for uncertainty
+        beta : list
+            Length two list of parameters for a Beta distribution (both floats)
+            alpha & beta, with optional third scale parameter
         lognorm : list
             Length two list of parameters for a Lognormal distribution (both floats)
             mu & sigma

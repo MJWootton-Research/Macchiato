@@ -41,25 +41,25 @@
 
 ## Installation
 Cloning the repository via [Git](https://git-scm.com) is the recommended method for installing Macchiato. To see whether you have Git installed and the current version, open a command-line terminal and run:
-```
+```shell
 $ git --version
 ```
 Be aware that the `$` symbol indicates a terminal command, and should not be copied with the rest of the line. If no Git installation is found, consult [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for further instructions. It is recommended to [create an SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to one’s GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to eliminate the need for password entry during pull requests.
 
 The following command will create a local instance of the repository in the current working directory:
-```
+```shell
 $ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 ```
 
 To update the repository, execute the following command in its directory:
 
-```
+```shell
 $ git pull
 ```
 
 In the following sections, it is assumed that Python 3 is invoked by `python`. Depending on system step up, one may need to substitute this command with `python3`. The default version of Python can be found via:
 
-```
+```shell
 $ python --version
 ```
 
@@ -74,7 +74,7 @@ Macchiato Petri Net structures are stored in `*.mpn` files. One may also create 
 
 Substituting the appropriate file paths into the following command will run a batch of `N` simulations.
 
-```
+```shell
 $ python /path/to/Macchiato.py /path/to/PetriNet.mpn N
 ```
 
@@ -186,7 +186,146 @@ In the directory [`PetriNetDrawingTools`](PetriNetDrawingTools), one will find a
 
 ### Scripting Tools
 
-The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`](PetriNet.py) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function.
+The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`](PetriNet.py) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function. A few examples are found below.
+
+#### Reading & Writing `*.mpn` Files
+
+Importing  [`Macchiato.py`](Macchiato.py)  gives access to the `read` and `write` functions, which allow the handling of `*.mpn` files. The function `read` takes a file path and returns a `PetriNet` object (as defined in [`PetriNet.py`](PetriNet.py)) and `list` object containing the simulation parameters in the file.
+
+```python
+# Import module
+import Macchiato as MC
+
+# Read *.mpn file
+pn, simParams = MC.read('/path/to/PetriNet.mpn')
+```
+
+Conversely, `write` takes a `PetriNet` object and writes it to an `*.mpn` file
+
+```python
+# Import module
+import Macchiato as MC
+
+# Creat a Petri Net
+pn = #.....
+# Write Petri Net to *.mpn file
+MC.write(pn, overwrite=False, rp=None, altName=None)
+```
+
+Note the parameters `overwrite`, `rp`, and `altName` are optional, and respectively control whether existing files can be overwritten (default value is `False`), a `list` object containing the simulation parameters written to the file (default value is `None`, resulting in the default parameters being used, see [Simulation Parameters](#simulation-parameters)), and the name given to the Petri Net in the file produced (default value is `None`, which results in no change in name).
+
+#### Manipulating Petri Nets
+
+To create a `PetriNet` object from scratch, import the module [`PetriNet.py`](PetriNet.py) and initialise an instance of the class, with any parameter not provided by the user defaulting to the value shown in the following example (a value should ideally always be given for `name`).
+
+```python
+# Import module
+import PetriNet as PN
+
+# Create instance of PetriNet object
+pn = PN.PetriNet(name=None, units="hrs", runMode="schedule", dot=False, visualise=None, details=True, useGroup=True, orientation=None, debug=False, dotLoc=None)
+```
+
+The structure of a `PetriNet` object created by either of methods discussed may be constructed or edited by the methods, `addPlace`, `rmvPlace`, `addTrans`, and `rmvTrans`. The `PetriNet` object has the attributes `places` and `trans` (both of type `list`) which store objects of the class `Place` and `Trans` respectively. The `Trans` object has the methods `addInArc`, `rmInARc`, `addOutArc`, and `rmOutARc`, to link and unlink it from `Place` objects via `Arc` objects. In the following example, a simple loop is created from two places and two transitions.
+
+```python
+# Import module
+import PetriNet as PN
+
+# Create instance of PetriNet object
+pn = PN.PetriNet(name='Example')
+# Add places
+pn.addPlace('P1', tokens=2)
+pn.addPlace('P2')
+# Add transition T1 and its arcs
+pn.addTrans('T1', weibull=[100000, 1.2])
+pn.trans['T1'].addInArc('P1')
+pn.trans['T1'].addOutArc('P2')
+# Add transition T2 and its arcs
+pn.addTrans('T2', delay=48)
+pn.trans['T2'].addInArc('P2', weight=2)
+pn.trans['T2'].addOutArc('P1', weight=2)
+```
+
+The optional parameters for `addPlace` are:
+
+* `tokens` — Type: `integer`. The initial number of tokens held (Default is 0)
+* `min` — Type: `integer`. Minimum limit for tokens held by the place (Default is `None`, i.e. no lower limit)
+* `max` — Type: `integer`. Maximum limit for tokens held by the place (Default is `None`, i.e. no upper limit)
+* `limits` — Type: `list` of length two, containing `integer` types. If the number of tokens held by the place is found to be less than the first entry or greater than the second, a simulation of the Petri Net is terminated.
+* group — Type: `integer`. Grouping label for Graphviz.
+
+The optional parameters for `addTrans` are:
+
+* A timing parameter, pick one of the following or omit to produce an instant transition:
+  * `rate` — Type: `float`. Mean rate of fire per unit time
+  * `uniform` — Type: `float`. Uniformly distribution in 0 to `uniform`
+  * `delay` — Type: `float`. Value of fixed delay
+  * `weibull` — Type: `list` of `float` types. Two or three of parameters for a Weibull distribution (`<t>` and `β`) and optional uncertainty parameter (`σ`).
+  * `beta` — Type: `list` of `float` types. Two parameters for Beta distribution (`p` and `q`) and optional scale parameter (`k`.
+  * `lognorm` — Type: `list` of `float` types. Two parameters for log-normal distribution (`μ` and `σ`).
+  * `cyclic` — Type: `list` of `float` types. Two parameters for cyclic distribution (`c` and `ω`).
+* `maxFire` — Type: `integer`: Maximum number of times the transition can fire before the simulation terminates
+* `reset` — Type: `list` of `string` types: The labels of places reset when the transition fires.
+* `vote` — Type: `integer`. Voting threshold for the transition (Default is `None`, which results in no voting behaviour)
+* `group` — Type: `integer`. Grouping label for Graphviz.
+
+The optional parameters for `addInArc` are:
+
+* `weight` — Type: `integer`. The weight of the arc.
+* `type` — Type: `string`. The type of the arc. Default is `'std'`, i.e. a normal arc. Other options are `'inh'` for an inhibit arc and `'pcn'` for a place conditional arc.
+
+There is one optional parameter for `addOutArc`:
+
+* `weight` — Type: `integer`. The weight of the arc.
+
+The methods `rmvPlace`, `rmvTrans`, `rmInArc`, and `rmOutArc` all remove objects of the corresponding type from the parent object (a `PetriNet` for `Place` and `Trans`, a `Trans` for `Arc`). They all only take only one argument, i.e. a `string` containing the relevant object label, which is the label of the object itself for `Place` and `Trans`, but is the label of the connecting `Place` object for `Arc` objects.
+
+The `PetriNet` object has the method `run` which will simulate the Petri Net specified up to a given maximum number of steps (`integer`), and optionally, a maximum simulated time (`float`). In the example below, a `PetriNet` object, `pn`, is to be run for maximum of 100 steps or a maximum simulated time of 5×10<sup>5</sup> units.
+
+```python
+pn.run(100, maxClock=500000)
+```
+
+This makes it possible to run any arbitrary code between steps for highly customisable simulation scripts. For example:
+
+```python
+# Import modules
+import Macciato as MC
+import PetriNet as PN
+
+# Create instance of PetriNet object
+pn = PN.PetriNet(name='Example')
+# Add places
+pn.addPlace('P1', tokens=2)
+pn.addPlace('P2')
+# Add transition T1 and its arcs
+pn.addTrans('T1', weibull=[100000, 1.2])
+pn.trans['T1'].addInArc('P1')
+pn.trans['T1'].addOutArc('P2')
+# Add transition T2 and its arcs
+pn.addTrans('T2', delay=48)
+pn.trans['T2'].addInArc('P2', weight=2)
+pn.trans['T2'].addOutArc('P1', weight=2)
+
+# Write initial structure to *.mpn file
+MC.write(pn, altName='%s_start'%pn.name)
+
+# Begin simulation process
+while True:
+    pn.run(1)
+    if fooCondition:
+        # Modify the Petri Net or run some other code
+        # ...
+        fooProcess
+        # ...
+    else:
+        # Conditions for terminating simulation
+        break
+        
+# Write final structure to *.mpn file
+MC.write(pn, altName='%s_end'%pn.name) 
+```
 
 ### Analysis
 
@@ -197,7 +336,7 @@ Some Python scripts are currently available in the [`Analysis`](Analysis) direct
 This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. This is achieved by inspection of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
 
 Example:
-```
+```shell
 $ python /path/to/TimingData.py /path/to/Results_Folder 3:8:16
 ```
 
@@ -206,7 +345,7 @@ $ python /path/to/TimingData.py /path/to/Results_Folder 3:8:16
 This script produces statistics for transition firings, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. Simply provide the directory containing the results for inspection and a plain text file will be produced in the current working directory.
 
 Example:
-```
+```shell
 $ python /path/to/TransFireFrequency.py /path/to/Results_Folder
 ```
 
@@ -218,7 +357,7 @@ Two scripts are available to visualise Petri Nets described in `*mpn` files. The
 
 This script will produce a single `*.dot` file (readable by Graphviz) depicting a Petri Net in its initial state, as described in an `*.mpn` file. Replacing `PetriNet.mpn` with the path of the target `*.mpn` , it is invoked with the following command:
 
-```
+```shell
 $ python /path/to/mpn_to_dot.py /path/to/PetriNet.mpn format1 format2 format3
 ```
 
@@ -228,7 +367,7 @@ Additionally, one may optionally add multiple image file formats, such as `svg`,
 
 This script will read a `.dot` file, or a directory of `*.dot` files, and produce image files of types from the given list of formats. Substituting `/path/to/target` for the directory or file to be read, the script is executed with the following command, with the desired image formats listed at the end.
 
-```
+```shell
 $ python /path/to/dot_to_image.py /path/to/target format1 format2 format 3
 ```
 
