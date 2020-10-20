@@ -23,6 +23,8 @@
         * [Example](#example)
     * [Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)
     * [Scripting Tools](#scripting-tools)
+        * [Reading & Writing `*.mpn` Files](#reading--writing-mpn-files)
+        * [Manipulating Petri Nets](#manipulating-petri-nets)
     * [Analysis](#analysis)
         * [`TimingData.py`](#timingdatapy)
         * [`TransFireFrequency.py`](#transfirefrequencypy)
