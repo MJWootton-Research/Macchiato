@@ -264,7 +264,7 @@ The optional parameters for `addTrans` are:
   * `uniform` — Type: `float`. Uniformly distribution in 0 to `uniform`
   * `delay` — Type: `float`. Value of fixed delay
   * `weibull` — Type: `list` of `float` types. Two or three of parameters for a Weibull distribution (`<t>` and `β`, and optional uncertainty parameter `σ`).
-  * `beta` — Type: `list` of `float` types. Two parameters for Beta distribution (`p` and `q`) and optional scale parameter (`k`.
+  * `beta` — Type: `list` of `float` types. Two parameters for Beta distribution (`p` and `q`) and optional scale parameter (`k`).
   * `lognorm` — Type: `list` of `float` types. Two parameters for log-normal distribution (`μ` and `σ`).
   * `cyclic` — Type: `list` of `float` types. Two parameters for cyclic distribution (`c` and `ω`).
 * `maxFire` — Type: `integer`: Maximum number of times the transition can fire before the simulation terminates
