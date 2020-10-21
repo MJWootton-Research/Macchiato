@@ -255,33 +255,36 @@ The optional parameters for `addPlace` are:
 * `min` — Type: `integer`. Minimum limit for tokens held by the place (Default is `None`, i.e. no lower limit)
 * `max` — Type: `integer`. Maximum limit for tokens held by the place (Default is `None`, i.e. no upper limit)
 * `limits` — Type: `list` of length two, containing `integer` types. If the number of tokens held by the place is found to be less than the first entry or greater than the second, a simulation of the Petri Net is terminated.
-* group — Type: `integer`. Grouping label for Graphviz.
+* group — Type: `integer`. Grouping label for Graphviz
 
 The optional parameters for `addTrans` are:
 
-* A timing parameter, pick one of the following or omit to produce an instant transition:
+* A timing parameter, pick one of the following or omit it to produce an instant transition:
   * `rate` — Type: `float`. Mean rate of fire per unit time
   * `uniform` — Type: `float`. Uniformly distribution in 0 to `uniform`
   * `delay` — Type: `float`. Value of fixed delay
-  * `weibull` — Type: `list` of `float` types. Two or three of parameters for a Weibull distribution (`<t>` and `β`) and optional uncertainty parameter (`σ`).
+  * `weibull` — Type: `list` of `float` types. Two or three of parameters for a Weibull distribution (`<t>` and `β`, and optional uncertainty parameter `σ`).
   * `beta` — Type: `list` of `float` types. Two parameters for Beta distribution (`p` and `q`) and optional scale parameter (`k`.
   * `lognorm` — Type: `list` of `float` types. Two parameters for log-normal distribution (`μ` and `σ`).
   * `cyclic` — Type: `list` of `float` types. Two parameters for cyclic distribution (`c` and `ω`).
 * `maxFire` — Type: `integer`: Maximum number of times the transition can fire before the simulation terminates
-* `reset` — Type: `list` of `string` types: The labels of places reset when the transition fires.
+* `reset` — Type: `list` of `string` types: The labels of places which are reset when the transition fires.
 * `vote` — Type: `integer`. Voting threshold for the transition (Default is `None`, which results in no voting behaviour)
-* `group` — Type: `integer`. Grouping label for Graphviz.
+* `group` — Type: `integer`. Grouping label for Graphviz
 
 The optional parameters for `addInArc` are:
 
-* `weight` — Type: `integer`. The weight of the arc.
-* `type` — Type: `string`. The type of the arc. Default is `'std'`, i.e. a normal arc. Other options are `'inh'` for an inhibit arc and `'pcn'` for a place conditional arc.
+* `weight` — Type: `integer`. The weight of the arc
+* `type` — Type: `string`. The type of the arc. The available options are:
+  * `'std'` — a normal arc and the default value
+  * `'inh'` — an inhibit arc
+  * `'pcn'` — a place conditional arc
 
 There is one optional parameter for `addOutArc`:
 
 * `weight` — Type: `integer`. The weight of the arc.
 
-The methods `rmvPlace`, `rmvTrans`, `rmInArc`, and `rmOutArc` all remove objects of the corresponding type from the parent object (a `PetriNet` for `Place` and `Trans`, a `Trans` for `Arc`). They all only take only one argument, i.e. a `string` containing the relevant object label, which is the label of the object itself for `Place` and `Trans`, but is the label of the connecting `Place` object for `Arc` objects.
+The methods `rmvPlace`, `rmvTrans`, `rmInArc`, and `rmOutArc` all remove objects of the corresponding type from the parent object (a `PetriNet` for `Place` and `Trans`, a `Trans` for `Arc`). They all only take only one argument, i.e. a `string` containing the relevant object label, which is the label of the object itself for `Place` and `Trans`, but is the label of the connecting `Place` object for `Arc` objects. Removing a place or transition from the Petri Net also removes all of its  associated arcs.
 
 The `PetriNet` object has the method `run` which will simulate the Petri Net specified up to a given maximum number of steps (`integer`), and optionally, a maximum simulated time (`float`). In the example below, a `PetriNet` object, `pn`, is to be run for maximum of 100 steps or a maximum simulated time of 5×10<sup>5</sup> units.
 
@@ -319,7 +322,7 @@ while True:
     if fooCondition:
         # Modify the Petri Net or run some other code
         # ...
-        fooProcess
+        fooProcess(pn)
         # ...
     else:
         # Conditions for terminating simulation
