@@ -225,7 +225,9 @@ To create a `PetriNet` object from scratch, import the module [`PetriNet.py`](Pe
 import PetriNet as PN
 
 # Create instance of PetriNet object
-pn = PN.PetriNet(name=None, units="hrs", runMode="schedule", dot=False, visualise=None, details=True, useGroup=True, orientation=None, debug=False, dotLoc=None)
+pn = PN.PetriNet(name=None, units="hrs", runMode="schedule", dot=False,
+                 visualise=None, details=True, useGroup=True, orientation=None,
+                 debug=False, dotLoc=None)
 ```
 
 The structure of a `PetriNet` object created by either of methods discussed may be constructed or edited by the methods, `addPlace`, `rmvPlace`, `addTrans`, and `rmvTrans`. The `PetriNet` object has the attributes `places` and `trans` (both of type `list`) which store objects of the class `Place` and `Trans` respectively. The `Trans` object has the methods `addInArc`, `rmInARc`, `addOutArc`, and `rmOutARc`, to link and unlink it from `Place` objects via `Arc` objects. In the following example, a simple loop is created from two places and two transitions.
