@@ -16,6 +16,29 @@ Command line arguments taken in order:
 
 """
 
+def eDataToFile(eData, pLen):
+    print(eData)
+    # eFile = open(os.path.join(os.getcwd(), "allTimes.csv"), "w")
+    pFile = open(os.path.join(os.getcwd(), "percentiles.txt"), "w")
+    pFile.write("10th  90th")
+    all = np.array([])
+    for p in range(pLen):
+        a = len(eData[p])
+        for i in range(len(eData[p])):
+            if eData[p][i] == 0.0:
+                a = i
+                break
+            # eFile.write("%f," % eData[p][i])
+        # eFile.write("\n")
+        if a:
+            pFile.write("%f    %f\n" % (np.percentile(eData[p][:a], 10), np.percentile(eData[p][:a], 90)))
+            all = np.concatenate(all, eData[p][:a])
+        else:
+            pFile.write("-    -\n")
+    pFile.write("\nAll: %f    %f" % (np.percentile(all, 10), np.percentile(all, 90)))
+    # eFile.close()
+    pFile.close()
+
 def main():
     # Measure number of files to inspect in directory given by command line arguments
     nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),"Macchiato_PetriNet_Places_*.csv"))
@@ -115,6 +138,8 @@ def main():
         allD = np.array([])
         allE = [0.0,0.0]
         # Error analysis (subsets)
+        if errorAnalysis:
+            eDataToFile(eData, len(pList))
         for p in range(nP-1):
             if len(eData[p][0:data[p][1]]):
                 ed[p][0] = np.mean(eData[p][0:data[p][1]])

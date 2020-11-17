@@ -340,7 +340,7 @@ Some Python scripts are currently available in the [`Analysis`](Analysis) direct
 
 #### [`TimingData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TimingData.py)
 
-This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. This is achieved by inspection of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
+This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given, as well as a separate file containing the 10<sup>th</sup> and 90<sup>th</sup> percentiles. This is achieved by inspection of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
 
 Example:
 ```shell
@@ -368,7 +368,9 @@ This script will produce a single `*.dot` file (readable by Graphviz) depicting 
 $ python /path/to/mpn_to_dot.py /path/to/PetriNet.mpn format1 format2 format3
 ```
 
-Additionally, one may optionally add multiple image file formats, such as `svg`, `png`, `pdf` etc. If supplied, a file of each of the given types will also be produced.
+If multiple image file formats are supplied a file of each of the given types will also be produced. Formats should be specified by their file extension only, e.g. `svg` or `eps`. 
+
+**Note:** For best results, it is highly recommended to use vector image supporting formats (e.g. `svg`, `eps`, `pdf`) instead of raster images (e.g. `png`, `jpg`, `gif`, `bmp`).
 
 #### [`dot_to_image.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/dot_to_image.py)
 
