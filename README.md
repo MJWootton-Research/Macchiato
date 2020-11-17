@@ -225,7 +225,7 @@ To create a `PetriNet` object from scratch, import the module [`PetriNet.py`](Pe
 import PetriNet as PN
 
 # Create instance of PetriNet object
-pn = PN.PetriNet(name=None, units="hrs", runMode="schedule", dot=False,
+pn = PN.PetriNet(name=None, units='hrs', runMode='schedule', dot=False,
                  visualise=None, details=True, useGroup=True, orientation=None,
                  debug=False, dotLoc=None)
 ```
