@@ -5,7 +5,7 @@
 ## A Simple Petri Nets Implementation for Python 3
 ### Version 1-4
 
-© Dr. Mark James Wootton 2020  
+© Dr. Mark James Wootton 2016-2021  
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
 
 ## Contents
