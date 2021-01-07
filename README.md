@@ -365,7 +365,7 @@ $ python /path/to/TransFireFrequency.py /path/to/Results_Folder
 
 #### [`ExtractPlaceEndings.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/ExtractPlaceEndings.py)
 
-This script will extract the final state of every instance of a given set of places (specified by column numbers separate by `:`) within a directory and write them to file.
+This script will extract the final state of every instance of a given set of places (specified by column numbers separated by `:`) within a directory and write them to file.
 
 Example:
 
