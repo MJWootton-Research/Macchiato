@@ -14,9 +14,9 @@ def main(pn=None, formats=None):
             if target.endswith('.mpn'):
                 pn, _ = Macchiato.read(target)
             else:
-                sys.ext('ERROR: "%s" is not an "*.mpn" file.' % target)
+                sys.exit('ERROR: "%s" is not an "*.mpn" file.' % target)
         else:
-            sys.ext('ERROR: "%s" is a directory.' % target)
+            sys.exit('ERROR: "%s" is a directory.' % target)
 
     if len(formats) == 0:
         if len(sys.argv) > 2:
