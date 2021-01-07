@@ -28,6 +28,7 @@
     * [Analysis](#analysis)
         * [`TimingData.py`](#timingdatapy)
         * [`TransFireFrequency.py`](#transfirefrequencypy)
+        * [`ExtractPlaceEndings.py`](#extractplaceendingspy)
     * [Visualisation](#visualisation)
         * [`mpn_to_dot.py`](#mpn_to_dotpy)
         * [`dot_to_image.py`](#dot_to_imagepy)
@@ -360,6 +361,16 @@ This script produces statistics for transition firings, with [standard error](ht
 Example:
 ```shell
 $ python /path/to/TransFireFrequency.py /path/to/Results_Folder
+```
+
+#### [`ExtractPlaceEndings.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/ExtractPlaceEndings.py)
+
+This script will extract the final state of every instance of a given set of places (specified by column numbers separate by `:`) within a directory and write them to file.
+
+Example:
+
+```shell
+$ python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder 3:8:16
 ```
 
 ### Visualisation
