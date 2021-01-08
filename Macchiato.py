@@ -11,7 +11,7 @@
 --------------------------------------------------------------------------------
 
 Welcome to Macchiato - a simple Petri Nets implementation for Python 3
-(c) Dr. Mark James Wootton 2020
+(c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
 Version 1-4
 ================================================================================
