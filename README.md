@@ -8,6 +8,11 @@
 © Dr. Mark James Wootton 2016-2021  
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
 
+<p align="center">
+  <img src='src/MacchiatoBanner_Thin.png' width='1200' title='Macchiato'>
+</p>
+
+
 ## Contents
 
 * [Dependencies](#dependencies)
