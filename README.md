@@ -1,4 +1,6 @@
-# Macchiato
+<p align="center">
+  <img src='src/MacchiatoBanner_Thin.png' width='1200' title='Macchiato'>
+</p>
 
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
@@ -8,9 +10,6 @@
 © Dr. Mark James Wootton 2016-2021  
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
 
-<p align="center">
-  <img src='src/MacchiatoBanner_Thin.png' width='1200' title='Macchiato'>
-</p>
 
 
 ## Contents
