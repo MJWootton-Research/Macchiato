@@ -339,6 +339,7 @@ while True:
         # ...
     else:
         # Conditions for terminating simulation
+        # ...
         break
         
 # Write final structure to *.mpn file
@@ -379,7 +380,7 @@ $ python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder 3:8:16
 
 ### Visualisation
 
-Two scripts are available to visualise Petri Nets described in `*mpn` files. These depend on Graphviz if image files are required, and are best suited for inspection and verification. Due to the limitations of Graphviz, they are not recommended as tools to produce images for reports etc. For this purpose, a dedicated graphical tool such as Microsoft Visio is better suited, see *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. By default, Graphviz will attempt to enforce a hierarchical structure on the Petri Net visualisation, but this is unsuitable in many cases, particularly with systems with multiple looping sequences. To compensate for this, one can add a place or transition to a grouping, which will force objects to appear next to those of the same assignment. This is achieved through the addition of the label `GROUP` to the end of the line on which the object is specified followed by a space and an integer, which serves as its group reference. Note that places and transitions have separate groupings, i.e. the places and transitions in `P1 GROUP 1`, `P2 GROUP 1`, `T1:instant IN P1 OUT P2 GROUP 1`, and `T2:instant IN P2 OUT P1 GROUP 1` will be organised as two independent groups.
+Two scripts are available to visualise Petri Nets described in `*.mpn` files. These depend on Graphviz if image files are required, and are best suited for inspection and verification. Due to the limitations of Graphviz, they are not recommended as tools to produce images for reports etc. For this purpose, a dedicated graphical tool such as Microsoft Visio is better suited, see *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. By default, Graphviz will attempt to enforce a hierarchical structure on the Petri Net visualisation, but this is unsuitable in many cases, particularly with systems with multiple looping sequences. To compensate for this, one can add a place or transition to a grouping, which will force objects to appear next to those of the same assignment. This is achieved through the addition of the label `GROUP` to the end of the line on which the object is specified followed by a space and an integer, which serves as its group reference. Note that places and transitions have separate groupings, i.e. the places and transitions in `P1 GROUP 1`, `P2 GROUP 1`, `T1:instant IN P1 OUT P2 GROUP 1`, and `T2:instant IN P2 OUT P1 GROUP 1` will be organised as two independent groups.
 
 #### [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py)
 
