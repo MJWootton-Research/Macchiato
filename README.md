@@ -352,12 +352,14 @@ Some Python scripts are currently available in the [`Analysis`](Analysis) direct
 
 #### [`TimingData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TimingData.py)
 
-This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given, as well as a separate file containing the 10<sup>th</sup> and 90<sup>th</sup> percentiles. This is achieved by inspection of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
+This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given, as well as a separate file containing the 10<sup>th</sup> and 90<sup>th</sup> percentiles. This is achieved by inspection of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16` (see note below). The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
 
 Example:
 ```shell
 $ python /path/to/TimingData.py /path/to/Results_Folder 3:8:16
 ```
+
+Note: The column number can be found by opening one of the `*.csv` files in a spreadsheet application and looking up the column label [in this table](https://www.vishalon.net/blog/excel-column-letter-to-number-quick-reference), **subtracting 1 from the result**. The `COLUMN()` function can be used to similar effect.
 
 #### [`TransFireFrequency.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TransFireFrequency.py)
 
