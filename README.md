@@ -353,14 +353,12 @@ Some Python scripts are currently available in the [`Analysis`](Analysis) direct
 
 #### [`TimingData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TimingData.py)
 
-This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given, as well as a separate file containing the 10<sup>th</sup> and 90<sup>th</sup> percentiles. This is achieved by inspection of the final states of a given list of places. This list is specified by column numbers, which count from *zero*, and should be separated by `:`, e.g. `3:8:16` (see note below). The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
+This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given, as well as a separate file containing the 10<sup>th</sup> and 90<sup>th</sup> percentiles. This is achieved by inspection of the final states of a given list of places, with with labels delimited by `:`, e.g. `P1:P2:P3`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
 
 Example:
 ```shell
-$ python /path/to/TimingData.py /path/to/Results_Folder 3:8:16
+$ python /path/to/TimingData.py /path/to/Results_Folder P1:P2:P3
 ```
-
-Note: The column number can be found by opening one of the `*.csv` files in a spreadsheet application and looking up the column label [in this table](https://www.vishalon.net/blog/excel-column-letter-to-number-quick-reference), **subtracting 1 from the result**. The `COLUMN()` function can be used to similar effect.
 
 #### [`TransFireFrequency.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TransFireFrequency.py)
 
@@ -373,12 +371,12 @@ $ python /path/to/TransFireFrequency.py /path/to/Results_Folder
 
 #### [`ExtractPlaceEndings.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/ExtractPlaceEndings.py)
 
-This script will extract the final state of every instance of a given set of places (specified by column numbers separated by `:`) within a directory and write them to file.
+This script will extract the final state of every instance of a given set of places (delimited by `:`) within a directory and write them to file.
 
 Example:
 
 ```shell
-$ python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder 3:8:16
+$ python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder P1:P2:P3
 ```
 
 #### [`Places_wrt_Time.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/Places_wrt_Time.py)
@@ -389,7 +387,7 @@ This script will give the average number of tokens in each of a given set of pla
 $ python /path/to/Places_wrt_Time.py /path/to/Results_Folder max_time interval P1:P2:P3
 ```
 
-where `max_time` is the greatest time up to which the script will sample, `interval` is the gap between samplings, and `:` separates the list of places to sample given at the end.
+where `max_time` is the greatest time up to which the script will sample, `interval` is the gap between samplings, and `:` delimits the list of places to sample given at the end.
 
 ### Visualisation
 

@@ -8,19 +8,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-"""
+'''
 TimingData.py produces average simulation durations for simulations that end with specific token configurations, and the number of such simulations thereof, along with the overall average duration.
 Command line arguments taken in order:
 * Name of simulation results folder (run this script in the parent directory).
-* Column numbers (counting from 0) of the terminal places to count, separated by colons (eg, "2:5").
+* Column numbers (counting from 0) of the terminal places to count, separated by colons (eg, '2:5').
 
-"""
+'''
 
 def eDataToFile(eData, pLen):
     print(eData)
-    # eFile = open(os.path.join(os.getcwd(), "allTimes.csv"), "w")
-    pFile = open(os.path.join(os.getcwd(), "percentiles.txt"), "w")
-    pFile.write("10th  90th\n")
+    # eFile = open(os.path.join(os.getcwd(), 'allTimes.csv'), 'w')
+    pFile = open(os.path.join(os.getcwd(), 'percentiles.txt'), 'w')
+    pFile.write('10th  90th\n')
     all = np.array([])
     for p in range(pLen):
         a = len(eData[p])
@@ -28,39 +28,59 @@ def eDataToFile(eData, pLen):
             if eData[p][i] == 0.0:
                 a = i
                 break
-            # eFile.write("%f," % eData[p][i])
-        # eFile.write("\n")
+            # eFile.write('%f,' % eData[p][i])
+        # eFile.write('\n')
         if a:
-            pFile.write("%f    %f\n" % (np.percentile(eData[p][:a], 10), np.percentile(eData[p][:a], 90)))
+            pFile.write('%f    %f\n' % (np.percentile(eData[p][:a], 10), np.percentile(eData[p][:a], 90)))
             all = np.concatenate((all, eData[p][:a]))
         else:
-            pFile.write("-    -\n")
-    pFile.write("\nAll: %f    %f" % (np.percentile(all, 10), np.percentile(all, 90)))
+            pFile.write('-    -\n')
+    pFile.write('\nAll: %f    %f' % (np.percentile(all, 10), np.percentile(all, 90)))
     # eFile.close()
     pFile.close()
 
 def main():
     # Measure number of files to inspect in directory given by command line arguments
-    nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),"Macchiato_PetriNet_Places_*.csv"))
-    print("\nDiscovered %d files to inspect in \"%s\".\n" % (nFiles, sys.argv[1]))
+    nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),'Macchiato_PetriNet_Places_*.csv'))
+    print('\nDiscovered %d files to inspect in \'%s\'.\n' % (nFiles, sys.argv[1]))
 
     # # Get runmode from command line arguments
     # if len(sys.argv) > 3:
-    #     errorAnalysis = (sys.argv[3] == "E")
+    #     errorAnalysis = (sys.argv[3] == 'E')
     #     if not errorAnalysis:
-    #         raise RuntimeError("Unknown command line option \"%s\"" % sys.argv[3])
+    #         raise RuntimeError('Unknown command line option \'%s\'' % sys.argv[3])
     #     else:
     #         try:
     #             import numpy as np
     #         except:
-    #             sys.exit("Failed to import NumPy -- required for error analysis")
+    #             sys.exit('Failed to import NumPy -- required for error analysis')
     # else:
     #     errorAnalysis = False
     errorAnalysis = True
 
     last = 0.0
     # Get target places from command line arguments
-    pList = sys.argv[2].split(":")
+    pListLab = sys.argv[2].split(':')
+    searchP = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_1.csv'))
+    sp = 0
+    pList = []
+    for line in searchP:
+        print(line)
+        if sp == 0:
+            sp+=1
+        elif sp == 1:
+            psline = line.strip('\n').split(',')
+            for pl in pListLab:
+                for i in range(len(psline)):
+                    if pl == psline[i]:
+                        pList.append(i)
+                        break
+            break
+    searchP.close()
+    print('Place columns found:')
+    for i in range(len(pList)):
+        print(pListLab[i],':',pList[i])
+    print()
     nP = len(pList)+1
     endings = []
     for e in range(nP):
@@ -78,7 +98,7 @@ def main():
 
     # Loop over results files
     for i in range(nFiles):
-        file = open(os.path.join(os.getcwd(), sys.argv[1], "Macchiato_PetriNet_Places_%d.csv" % (i+1)))
+        file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i+1)))
         l = 0
         # Skip over title lines
         for line in file:
@@ -86,7 +106,7 @@ def main():
                 l += 1
                 continue
             done = False
-            sLine = line.split(",")
+            sLine = line.split(',')
             for p in range(len(pList)):
                 pp = int(pList[p])
                 # Seek data from final step
@@ -117,19 +137,19 @@ def main():
 
     outDir = sys.argv[1]
     while True:
-        if outDir[-1] in ["\\", "/"]:
+        if outDir[-1] in ['\\', '/']:
             outDir = outDir[:-1]
         else:
             break
-    ends = open(os.path.join(os.getcwd(), "%s_Endings.txt" % sys.argv[1]), "w")
+    ends = open(os.path.join(os.getcwd(), '%s_Endings.txt' % sys.argv[1]), 'w')
     for e in range(nP):
         if e < nP-1:
-            ends.write("Ending [%d]:\n" % int(pList[e]))
+            ends.write('Ending [%d]:\n' % int(pList[e]))
         else:
-            ends.write("Timeouts:\n")
+            ends.write('Timeouts:\n')
         for f in endings[e]:
-            ends.write("%d\n" %f)
-        ends.write("\n")
+            ends.write('%d\n' %f)
+        ends.write('\n')
     ends.close()
 
     # Organise data
@@ -146,71 +166,71 @@ def main():
                 ed[p][1] = np.std(eData[p][0:data[p][1]])/math.sqrt(data[p][1])
                 allD = np.concatenate((allD, eData[p][0:data[p][1]]))
             else:
-                ed[p][0] = float("nan")
-                ed[p][1] = float("nan")
+                ed[p][0] = float('nan')
+                ed[p][1] = float('nan')
             # if not math.isnan(ed[p][0]):
-            #     print("%g +/- %g" % (ed[p][0], ed[p][1]))
+            #     print('%g +/- %g' % (ed[p][0], ed[p][1]))
             # else:
-            #     print("N/A")
+            #     print('N/A')
         # Check data integrity
-        assert(len(allD)+data[-1][1] == nFiles), "Data object mismatches with number of files."
+        assert(len(allD)+data[-1][1] == nFiles), 'Data object mismatches with number of files.'
         # Error analysis (all)
         allE[0] = np.mean(allD)
         allE[1] = np.std(allD)/math.sqrt(nFiles)
         # Compile string for file output
-        outputString = ",N,Ratio,Ratio_Error,Mean_Time,Time_Error\n"
-        pList.append("Timeout")
+        outputString = ',N,Ratio,Ratio_Error,Mean_Time,Time_Error\n'
+        pListLab.append('Timeout')
         for p in range(nP):
             r = float(data[p][1])/float(nFiles)
             rE = math.sqrt((r-r**2)/nFiles)
-            outputString += "[%s],%d,%f,%f" % (pList[p],data[p][1], r, rE)
+            outputString += '[%s],%d,%f,%f' % (pListLab[p],data[p][1], r, rE)
             if p < nP-1:
                 try:
                     f = math.floor(math.log(ed[p][0],10))
                 except ValueError:
-                    f = float("NaN")
+                    f = float('NaN')
                 if math.isnan(ed[p][0]):
-                    outputString += "0"
+                    outputString += '0'
                 else:
-                    outputString += ",%g,%g,,[(,%.2f,+/-,%.2f,)*10^,%d,]" % (ed[p][0], ed[p][1], ed[p][0]/(10**f), ed[p][1]/(10**f), f)
-            outputString += "\n"
+                    outputString += ',%g,%g,,[(,%.2f,+/-,%.2f,)*10^,%d,]' % (ed[p][0], ed[p][1], ed[p][0]/(10**f), ed[p][1]/(10**f), f)
+            outputString += '\n'
         f = math.floor(math.log(allE[0],10))
-        outputString += "[All],,,,%g,%g,,[(,%.2f,+/-,%.2f,)*10^,%d,]\n" % (allE[0], allE[1], allE[0]/(10**f), allE[1]/(10**f), f)
+        outputString += '[All],,,,%g,%g,,[(,%.2f,+/-,%.2f,)*10^,%d,]\n' % (allE[0], allE[1], allE[0]/(10**f), allE[1]/(10**f), f)
     else:
-        outputString = "N,Mean_Time\n"
+        outputString = 'N,Mean_Time\n'
         for d in data:
-            dt = "_"
+            dt = '_'
             if d[1] > 0.0:
-                dt = "%g" % (d[0]/float(d[1]))
+                dt = '%g' % (d[0]/float(d[1]))
             #print(d[1], dt)
-            outputString += "%d,%s\n" % (d[1], dt)
+            outputString += '%d,%s\n' % (d[1], dt)
 
     #Median
     if errorAnalysis:
-        outputString += "Median\n%g\n" % np.median(allD)
+        outputString += 'Median\n%g\n' % np.median(allD)
 
     # Output results
-    outF = open(os.path.join(os.getcwd(), "%s_TimingData.csv" % sys.argv[1]), "w")
+    outF = open(os.path.join(os.getcwd(), '%s_TimingData.csv' % sys.argv[1]), 'w')
     outF.write(outputString)
     outF.close()
-    print("\n   %s" % re.sub(",", " ", outputString))
+    print('\n   %s' % re.sub(',', ' ', outputString))
 
 # New
     # for d in data:
-    dsF = open(os.path.join(os.getcwd(), "ds_%s.csv" % outDir), "w")
+    dsF = open(os.path.join(os.getcwd(), 'ds_%s.csv' % outDir), 'w')
     for p in range(len(pList)):
         if len(eData[p][0:data[p][1]]):
-            ds = "%s,|" % pList[p]
+            ds = '%s,|' % pListLab[p]
             for ee in eData[p][0:data[p][1]]:
-                ds += ",%r" % ee
+                ds += ',%r' % ee
             # print(ds)
-            dsF.write("%s\n" % ds)
+            dsF.write('%s\n' % ds)
             plt.hist(eData[p][0:data[p][1]], bins=100)
-            plt.xlabel("Duration")
-            plt.ylabel("Count")
-            plt.savefig("%s_[%s].png" % (sys.argv[1], pList[p]))
+            plt.xlabel('Duration')
+            plt.ylabel('Count')
+            plt.savefig('%s_%s_end_histogram.png' % (sys.argv[1], pListLab[p]))
             plt.clf()
     dsF.close()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -4,6 +4,7 @@ import glob
 import math
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 def main():
     """
@@ -118,7 +119,7 @@ def main():
 
         results = []
         t = 0.0
-        output = open(os.path.join(os.getcwd(), "%s_%s.csv" % (os.path.split(os.path.dirname(sys.argv[1]))[1], P)), "w")
+        output = open(os.path.join(os.getcwd(), "%s_%s_averages.csv" % (os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1], P)), "w")
         output.write("time,simulations running,mean,std error\n")
         for b in range(len(B)):
             C = 0.0
@@ -134,8 +135,22 @@ def main():
                 Ce = np.std(B[b])/math.sqrt(len(B[b]))
             print("%r\t| %.3f\t| %r\t\t| %r +/- %r |" % (b,t,len(B[b]),C,Ce))
             output.write("%f,%d,%r,%r\n" % (t,len(B[b]),C,Ce))
+            results.append([C,Ce,t])
             t+=deltaT
-            results.append([C,Ce])
+
+        rr = []
+        cc = []
+        ee = []
+        for r in results:
+            rr.append(r[2])
+            cc.append(r[0])
+            ee.append(r[1])
+        plt.errorbar(rr,cc,yerr=ee)
+        plt.title(P)
+        plt.xlabel('Time')
+        plt.ylabel('Average Tokens')
+        plt.savefig('%s_%s_averages.png' % (sys.argv[1], P))
+        plt.clf()
 
     output.close()
 

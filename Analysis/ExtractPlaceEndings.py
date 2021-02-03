@@ -9,11 +9,35 @@ def main():
     """
     nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),"Macchiato_PetriNet_Places_*.csv"))
     print("\nDiscovered %d files to inspect in \"%s\".\n" % (nFiles, sys.argv[1]))
-    
-    places = sys.argv[2].split(':')
-    ends = []
-    for place in places:
-        placeN = int(place)
+
+    pListLab = sys.argv[2].split(':')
+    searchP = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_1.csv'))
+    sp = 0
+    pList = []
+    for line in searchP:
+        print(line)
+        if sp == 0:
+            sp+=1
+        elif sp == 1:
+            psline = line.strip('\n').split(',')
+            for pl in pListLab:
+                for i in range(len(psline)):
+                    if pl == psline[i]:
+                        pList.append(i)
+                        break
+            break
+    searchP.close()
+    print('Place columns found:')
+    for i in range(len(pList)):
+        print(pListLab[i],':',pList[i])
+    print()
+
+    # places = sys.argv[2].split(':')
+    # pList = places
+    for p in range(len(pList)):
+        ends = []
+        place = pList[p]
+        # placeN = int(place)
         for i in range(nFiles):
             inFile = open(os.path.join(os.getcwd(), sys.argv[1], "Macchiato_PetriNet_Places_%d.csv" % (i+1)))
             ends.append(None)
@@ -23,12 +47,13 @@ def main():
                     break
                 else:
                     try:
-                        ends[-1] = line.split(',')[placeN]
+                        ends[-1] = line.split(',')[place]
+                        # ends[-1] = line.split(',')[placeN]
                     except IndexError:
                         pass
 
 
-        outFile = open(os.path.join(os.getcwd(), '[%d].csv'%placeN), 'w')
+        outFile = open(os.path.join(os.getcwd(), '%s_%s_endings.csv'%(os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1], pListLab[p])), 'w')
         for e in ends:
             outFile.write('%d\n'%e)
 
