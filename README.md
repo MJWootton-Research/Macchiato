@@ -59,7 +59,7 @@ The following command will create a local instance of the repository in the curr
 $ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 ```
 
-or if SSH key authentication is not set up, the repository can instead be accessed via username and password through the command:
+or if SSH key authentication has not been set up, the repository can instead be accessed via username and password through the command:
 
 ````shell
 $ git clone https://github.com/MJWootton-Resilience-Projects/Macchiato.git
