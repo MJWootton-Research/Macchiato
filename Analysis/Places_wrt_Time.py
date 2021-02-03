@@ -149,11 +149,18 @@ def main():
         plt.title(P)
         plt.xlabel('Time')
         plt.ylabel('Average Tokens')
-        plt.savefig('%s_%s_averages.png' % (sys.argv[1], P))
+        plt.savefig('%s_%s_averages.png' % (os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1], P))
         plt.clf()
 
     output.close()
-
+    Bt = []
+    for b in B:
+        Bt.append(len(b))
+    plt.plot(rr,Bt)
+    plt.title('Simulations Running')
+    plt.xlabel('Time')
+    plt.ylabel('Number of Simulations')
+    plt.savefig('%s_simulations_running.png' % (os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1]))
 
 if __name__ == "__main__":
     main()

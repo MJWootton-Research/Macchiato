@@ -353,7 +353,7 @@ Some Python scripts are currently available in the [`Analysis`](Analysis) direct
 
 #### [`TimingData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TimingData.py)
 
-This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given, as well as a separate file containing the 10<sup>th</sup> and 90<sup>th</sup> percentiles. This is achieved by inspection of the final states of a given list of places, with with labels delimited by `:`, e.g. `P1:P2:P3`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and an image are produced in the current working directory.
+This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given, as well as a separate file containing the 10<sup>th</sup> and 90<sup>th</sup> percentiles. This is achieved by inspection of the final states of a given list of places, with with labels delimited by `:`, e.g. `P1:P2:P3`. The script will also produce a histogram to represent the results, with *"Duration"* taking the same units as those specified in the simulated Petri Net. A plain text file and a set of images are produced in the current working directory.
 
 Example:
 ```shell
@@ -381,7 +381,9 @@ $ python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder P1:P2:P3
 
 #### [`Places_wrt_Time.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/Places_wrt_Time.py)
 
-This script will give the average number of tokens in each of a given set of places, plus standard error, sampling the simulation results at a user specified time interval. The total number of simulations continuing to run up to that point is also given.
+This script will give the average number of tokens in each of a given set of places, plus standard error, sampling the simulation results at a user specified time interval. The total number of simulations continuing to run up to that point is also given. Graphs illustrating these results are produced.
+
+Example:
 
 ```sh
 $ python /path/to/Places_wrt_Time.py /path/to/Results_Folder max_time interval P1:P2:P3
