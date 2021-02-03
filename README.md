@@ -33,6 +33,7 @@
         * [`TimingData.py`](#timingdatapy)
         * [`TransFireFrequency.py`](#transfirefrequencypy)
         * [`ExtractPlaceEndings.py`](#extractplaceendingspy)
+        * [`Places_wrt_Time.py`](#placeswrttimepy)
     * [Visualisation](#visualisation)
         * [`mpn_to_dot.py`](#mpn_to_dotpy)
         * [`dot_to_image.py`](#dot_to_imagepy)
@@ -379,6 +380,16 @@ Example:
 ```shell
 $ python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder 3:8:16
 ```
+
+#### [`Places_wrt_Time.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/Places_wrt_Time.py)
+
+This script will give the average number of tokens in each of a given set of places, plus standard error, sampling the simulation results at a user specified time interval. The total number of simulations continuing to run up to that point is also given.
+
+```sh
+$ python /path/to/Places_wrt_Time.py /path/to/Results_Folder max_time interval P1:P2:P3
+```
+
+where `max_time` is the greatest time up to which the script will sample, `interval` is the gap between samplings, and `:` separates the list of places to sample given at the end.
 
 ### Visualisation
 
