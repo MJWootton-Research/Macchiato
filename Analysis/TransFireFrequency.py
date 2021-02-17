@@ -4,6 +4,8 @@ import sys
 import math
 import glob
 
+import numpy as np
+
 """
 TransFireFrequency.py creates a list of the number of times that each transition fired with error analysis.
 Command line arguments taken in order:
