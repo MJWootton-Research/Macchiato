@@ -35,6 +35,8 @@ def eDataToFile(eData, pLen):
             all = np.concatenate((all, eData[p][:a]))
         else:
             pFile.write('-    -\n')
+    if not len(all):
+        raise RuntimeError('Results array is empty - Consider sanity checking results or simulation parameters')
     pFile.write('\nAll: %f    %f' % (np.percentile(all, 10), np.percentile(all, 90)))
     # eFile.close()
     pFile.close()
