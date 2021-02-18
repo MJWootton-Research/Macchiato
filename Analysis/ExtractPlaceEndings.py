@@ -53,7 +53,7 @@ def main():
                         pass
 
 
-        outFile = open(os.path.join(os.getcwd(), '%s_%s_endings.csv'%(os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1], pListLab[p])), 'w')
+        outFile = open(os.path.join(os.getcwd(), 'Endings_%s_%s.csv'%(os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1], pListLab[p])), 'w')
         for e in ends:
             outFile.write('%d\n'%e)
 
