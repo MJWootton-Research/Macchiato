@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 TimingData.py produces average simulation durations for simulations that end with specific token configurations, and the number of such simulations thereof, along with the overall average duration.
 Command line arguments taken in order:
 * Name of simulation results folder (run this script in the parent directory).
-* Column numbers (counting from 0) of the terminal places to count, separated by colons (eg, '2:5').
+* Labels of the terminal places to count, separated by colons (eg, 'P1:P2:P3').
 
 '''
 

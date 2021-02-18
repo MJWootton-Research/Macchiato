@@ -4,7 +4,7 @@ import glob
 
 def main():
     """
-    Extracts all final states of a given place in a direction sys.argv[1], indicated by results file column given by sys.argv[2].
+    Extracts all final states of a given place in a direction sys.argv[1], indicated by its label given by sys.argv[2].
 
     """
     nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),"Macchiato_PetriNet_Places_*.csv"))
