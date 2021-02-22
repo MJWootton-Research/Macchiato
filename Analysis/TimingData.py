@@ -67,7 +67,6 @@ def main():
     sp = 0
     pList = []
     for line in searchP:
-        print(line)
         if sp == 0:
             sp+=1
         elif sp == 1:
