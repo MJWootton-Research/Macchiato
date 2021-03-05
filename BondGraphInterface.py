@@ -131,6 +131,36 @@ class pnbg(object):
             print("-"*80+"\nWarning: FMU integration uses seconds. Petri Net units are set to \"%s\", but values will be treated as seconds!\n"%(self.pn.units)+"-"*80)
             time.sleep(5)
 
+    def processResults(self, lables):
+        """
+        Extracts and records results to file after simulations
+
+        Parameters
+        ----------
+        labels : list of string objects
+            The labels of system varriables to be extracted from the model, specified in the form in which they appear in Modelica
+
+        """
+        lables = ["time"] + lables
+        pn = self.pn
+        procRes = {}
+        for name in lables:
+            procRes[name] = np.array([])
+            for r in range(len(self.results)):
+                procRes[name] = np.append(procRes[name], self.results[r][name])
+
+        path = os.path.join(os.getcwd(), pn.name, "%s_FMU_%d.csv" % (pn.name, pn.time))
+        rfile = open(path, "w")
+        rfile.write("Time")
+        for n in range(1,len(lables)):
+            rfile.write(",%s" % lables[n])
+        rfile.write("\n")
+        for i in range(len(procRes[lables[0]])):
+            for n in range(len(lables)):
+                rfile.write("%f," % procRes[lables[n]][i])
+            rfile.write("\n")
+        rfile.close()
+
     def run(self):
         """
         Runs model
