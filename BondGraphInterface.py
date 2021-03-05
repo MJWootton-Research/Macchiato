@@ -52,6 +52,36 @@ class pnbg(object):
 
         self.pfile, self.tfile, self.tlist = self.pn.writeNetStart(self.pn.runMode)
 
+    def inputFunction(self, t):
+        """
+        Control of Bond Graph by Petri Net status and time
+
+        Returns
+        ----------
+        v1, v2, v3... : float
+            Must return as many values as anticipated by the FMU
+
+        """
+        pass
+
+    def netUpdate(self, t):
+        """
+        Effects changes to Petri Net based on status of the Bond Graph
+
+        Parameters
+        ----------
+        t : float
+            Clock time of updated net
+
+        Returns
+        ----------
+        update : boolean
+            Indicates if changes to the Petri Net have been made
+
+        """
+        update = False
+        return update
+
     def newPN(self, pnNew):
         """
         Updates self.pn with accepted new verion of the Petri Net for next step and writes output
@@ -100,37 +130,6 @@ class pnbg(object):
         if self.pn.units not in ["seconds", "sec", "s"]:
             print("-"*80+"\nWarning: FMU integration uses seconds. Petri Net units are set to \"%s\", but values will be treated as seconds!\n"%(self.pn.units)+"-"*80)
             time.sleep(5)
-
-
-    def inputFunction(self, t):
-        """
-        Control of Bond Graph by Petri Net status and time
-
-        Returns
-        ----------
-        v1, v2, v3... : float
-            Must return as many values as anticipated by the FMU
-
-        """
-        pass
-
-    def netUpdate(self, t):
-        """
-        Effects changes to Petri Net based on status of the Bond Graph
-
-        Parameters
-        ----------
-        t : float
-            Clock time of updated net
-
-        Returns
-        ----------
-        update : boolean
-            Indicates if changes to the Petri Net have been made
-
-        """
-        update = False
-        return update
 
     def run(self):
         """
