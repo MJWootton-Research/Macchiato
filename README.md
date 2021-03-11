@@ -79,11 +79,20 @@ $ python --version
 
 If not already installed, Python 3 can be obtained from www.python.org
 
+## Petri Net Integration Algorithm
+
+The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation.
+
+<p align="center">
+  <img src='src/Algorithm.png' width='1000' title='Macchiato&#39s Petri Net Integration Algorithm'>
+</p>
+
 ## Usage
 
 Note: It is assumed that the reader is already familiar with the basics of standard Petri Net modelling<sup>[[1]](#r1)</sup>.
 
 ### Macchiato Petri Net Files (`*.mpn`)
+
 Macchiato Petri Net structures are stored in `*.mpn` files. One may also create and manipulate Petri Net structures in a Python script using the tools provided in the module `PetriNet.py`, see [*Scripting Tools*](#scripting-tools).
 
 Substituting the appropriate file paths into the following command will run a batch of `N` simulations.
