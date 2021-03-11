@@ -84,7 +84,7 @@ If not already installed, Python 3 can be obtained from www.python.org
 The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation.
 
 <p align="center">
-  <img src='src/Algorithm.png' width='800' title='Macchiato&#39s Petri Net Integration Algorithm'>
+  <img src='src/Algorithm.png' width='750' title='Macchiato&#39s Petri Net Integration Algorithm'>
 </p>
 
 ## Usage
