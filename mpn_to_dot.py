@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
 """
 Takes Petri Net from *.mpn file and writes graph in *.dot format
 """
