@@ -16,6 +16,10 @@
 
 * [Dependencies](#dependencies)
 * [Installation](#installation)
+    * [Download](#download)
+    * [System Integration](system-integration)
+        * [Bash](#bash)
+        * [PowerShell](#powershell)
 * [Usage](#usage)
     * [Macchiato Petri Net Files (`*.mpn`)](#macchiato-petri-net-files-mpn)
         * [Structure](#structure)
@@ -48,7 +52,10 @@
 * [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for graphical Petri Net construction tool
 
 ## Installation
+### Download
+
 Cloning the repository via [Git](https://git-scm.com) is the recommended method for installing Macchiato. To see whether you have Git installed and the current version, open a command-line terminal and run:
+
 ```shell
 $ git --version
 ```
@@ -79,6 +86,35 @@ $ python --version
 
 If not already installed, Python 3 can be obtained from www.python.org
 
+### System Integration
+
+One can configure their system to allow Macchiato to be accessed conveniently from any working directory within a terminal or Python session, such that simulations can be initiated with command `Macchiato` from any location, and that a Python script using the module need only include the line `import Macchiato`, regardless of the file path.
+
+#### Bash
+
+In environments using Bash, such as is default in many Linux distributions and MacOS, add the following two lines to the file `.bashrc` found in the Home directory.
+
+```bash
+alias Macchiato="python $HOME/git/Macchiato/Macchiato.py" # Execute Macchiato simulations from any directory
+export PYTHONPATH=$HOME/.local/bin:$HOME/git/Macchiato:$PYTHONPATH # Make Macchiato availible to import from any directory
+```
+
+The changes will take effect immediately in any new terminal instance. In an existing terminal, you can update via the command `source ~/.bashrc`.
+
+You may need to change the path `$HOME/git/Macchiato` if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` on the first line.
+
+#### PowerShell
+
+For users of PowerShell on Windows 10, the integration must be done in two steps. To allow easy execution of Macchiato simulations from any directory, create a folder in `Documents` called `WindowsPowerShell`. In this new folder, add a plain text file with the name `Microsoft.PowerShell_profile.ps1` containing the line:
+
+```powershell
+Set-Alias Macchiato "python C:\Users\{YOUR_USERSNAME}\git\Macchiato\Macchiato.py" # Execute Macchiato simulations from any directory
+```
+
+To make Macchiato available for import to any Python instance or script, open "Settings" from the Start Menu and search for "advanced system settings". You will see a result for "View advanced system settings". Clicking on this option will open a window title "System Properties". On the "Advanced" tab, there is a button labelled "Environmental Variables", which brings up a window with the same name. In the beneath the "System variables" selection, click on "New...". In the field "Variable name" enter `PYTHONPATH` and in "Variable value" enter `C:\Users\{YOUR_USERSNAME}\git\Macchiato`, then click "OK" on the three open windows to save your changes, which will take effect for any new PowerShell instance. If a variable called `PYTHONPATH` already exists, click "Edit..." instead, and append the directory of the Macchiato project folder to the of the "Variable value", separating it from the preexisting content with `;`.
+
+You may need to change the path `C:\Users\{YOUR_USERSNAME}\git\Macchiato` if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` in the profile file.
+
 ## Petri Net Integration Algorithm
 
 The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation.
@@ -99,6 +135,12 @@ Substituting the appropriate file paths into the following command will run a ba
 
 ```shell
 $ python /path/to/Macchiato.py /path/to/PetriNet.mpn N
+```
+
+If the instructions for [system integration](system-integration) have been followed, the command can shortened to:
+
+```shell
+$ Macchiato /path/to/PetriNet.mpn N
 ```
 
 Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `V` at the end of the above command, but be aware that this will impact performance. 
