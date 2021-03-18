@@ -17,7 +17,7 @@
 * [Dependencies](#dependencies)
 * [Installation](#installation)
     * [Download](#download)
-    * [System Integration](system-integration)
+    * [System Integration](#system-integration)
         * [Bash](#bash)
         * [PowerShell](#powershell)
 * [Usage](#usage)
@@ -137,7 +137,7 @@ Substituting the appropriate file paths into the following command will run a ba
 $ python /path/to/Macchiato.py /path/to/PetriNet.mpn N
 ```
 
-If the instructions for [system integration](system-integration) have been followed, the command can shortened to:
+If the instructions for [system integration](#system-integration) have been followed, the command can shortened to:
 
 ```shell
 $ Macchiato /path/to/PetriNet.mpn N
