@@ -1563,7 +1563,7 @@ class Place(object):
     def __init__(self, label, tokens=0, min=0, max=None, limits=None, group=None):
         self.label = str(label)
         if " " in self.label:
-            raise ValueError("\"%s\" is an invalid label, spaces are not permitted")
+            raise ValueError("\"%s\" is an invalid label, spaces are not permitted" % self.label)
         self.id, self.gID = genID(self.label)
         self.tokens = tokens
         self.resetTokens = tokens
@@ -1713,7 +1713,7 @@ class Trans(object):
     def __init__(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=[], vote=None, group=None):
         self.label = str(label)
         if " " in self.label:
-            raise ValueError("\"%s\" is an invalid label, spaces are not permitted")
+            raise ValueError("\"%s\" is an invalid label, spaces are not permitted" % self.label)
         self.id, self.gID = genID(self.label)
         self.rate = rate
         self.uniform = uniform
