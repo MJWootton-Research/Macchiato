@@ -200,7 +200,7 @@ The transitions section of the file begins following the line `Transitions`. A t
 - `lognorm:μ:σ` — A transition with log-normal distribution<sup>[[5]](#54)</sup> timing fires after time, *t*, where <img src="https://render.githubusercontent.com/render/math?math=t = \exp(\mu %2B \sigma X)">, with *X* being a standard normal variable, and `μ` and `σ` respectively being the mean and standard deviation of the natural logarithm of the firing delay.
 - `rate:r` — A transition of this type fires with a constant rate parameterised by `r`. Firing time, *t*, is exponentially distributed <sup>[[6]](#r6)</sup>, such that <img src="https://render.githubusercontent.com/render/math?math=t = -r^{-1}\ln(X)">, where *X* is a random uniform variable in the range 0 < *X* < 1.
 
-- `beta:p:q:k` — A transition with the Beta Distribution<sup>[[6]](#r6)</sup> produces a firing delay, *t*, in the interval 0 < *t* < 1, parameterised by `p` and `q`, which weight the probability density towards the extreme or central regions of the available outcome space. An optional parameter `k` can be added to scale the distribution, such that the range of possible values becomes 0 < *t* < `k`.
+- `beta:p:q:k` — A transition with the Beta Distribution<sup>[[7]](#r7)</sup> produces a firing delay, *t*, in the interval 0 < *t* < 1, parameterised by `p` and `q`, which weight the probability density towards the extreme or central regions of the available outcome space. An optional parameter `k` can be added to scale the distribution, such that the range of possible values becomes 0 < *t* < `k`.
 
 Note that a transition must be continuously enabled for the duration from firing time generation until it fires. If its enabled status is interrupted, its scheduled firing time will be discarded.
 
@@ -482,3 +482,5 @@ Thank-you to Dr Robert *"Larus"* Lee for developing the Microsoft Visio graphica
 <b id="r5">[5]</b> Brian Dennis and G. P. Patil. *Lognormal Distributions, Theory and Applications*. Marcel Dekker New York, 1987.
 
 <b id="r6">[6]</b> Eric W. Weisstein. *"Exponential Distribution." From* MathWorld--​*A Wolfram Web Resource.* https://mathworld.wolfram.com/ExponentialDistribution.html *Accessed October 2019*, Last edited: 2006.
+
+<b id="r7">[7]</b> Eric W. Weisstein. *"Beta Distribution." From* MathWorld--*A Wolfram Web Resource.* https://mathworld.wolfram.com/BetaDistribution.html *Accessed March 2021*, Last edited: 2003.
