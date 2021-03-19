@@ -12,14 +12,14 @@ def render(source, formats):
         subprocess.call('dot "%s" -T %s -O' % (source, format), shell=True)
         os.rename('%s.%s' % (source, format), '%s.%s' % (source[:-4], format))
 
-def main():
-    os.chdir(os.path.join(sys.argv[1]))
-    if len(sys.argv) > 2:
-        formats = sys.argv[2:]
-    else:
+def main(dir, formats):
+    os.chdir(dir)
+    print(os.getcwd())
+    if not len(formats):
         sys.exit("\nCannot produce images. No file formats specifed.\n")
-    for dFile in glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),"*.dot"):
+    for dFile in glob.glob1(os.getcwd(),"*.dot"):
+        print(dFile)
         render(dFile, formats)
 
 if __name__ == '__main__':
-    main()
+    main(os.path.join(sys.argv[1]), sys.argv[2:])
