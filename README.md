@@ -96,7 +96,7 @@ In environments using Bash, such as is default in many Linux distributions and M
 
 ```bash
 alias Macchiato="python $HOME/git/Macchiato/Macchiato.py" # Execute Macchiato simulations from any directory
-export PYTHONPATH=$HOME/.local/bin:$HOME/git/Macchiato:$PYTHONPATH # Make Macchiato availible to import from any directory
+export PYTHONPATH=$HOME/git/Macchiato:$PYTHONPATH # Make Macchiato availible to import from any directory
 ```
 
 The changes will take effect immediately in any new terminal instance. In an existing terminal, you can update via the command `source ~/.bashrc`.
