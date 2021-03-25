@@ -90,16 +90,16 @@ If not already installed, Python 3 can be obtained from www.python.org
 
 One can configure their system to allow Macchiato to be accessed conveniently from any working directory within a terminal or Python session, such that simulations can be initiated with command `Macchiato` from any location, and that a Python script using the module need only include the line `import Macchiato`, regardless of the file path.
 
-#### Bash
+#### Bash & ZSH
 
-In environments using Bash, such as is default in many Linux distributions and MacOS, add the following two lines to the file `.bashrc` found in the Home directory.
+In Bash or ZSH environments, such as is default in many Linux distributions and of MacOS, add the following two lines to the file found in the Home directory with the name `.bashrc` or `.zshrc` respectively.
 
 ```bash
 alias Macchiato="python $HOME/git/Macchiato/Macchiato.py" # Execute Macchiato simulations from any directory
 export PYTHONPATH=$HOME/git/Macchiato:$PYTHONPATH # Make Macchiato availible to import from any directory
 ```
 
-The changes will take effect immediately in any new terminal instance. In an existing terminal, you can update via the command `source ~/.bashrc`.
+The changes will take effect immediately in any new terminal instance. In an existing terminal, you can update via the command `source ~/.bashrc` or `source ~/.zshrc` as appropriate.
 
 You may need to change the path `$HOME/git/Macchiato` if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` on the first line.
 
