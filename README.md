@@ -61,7 +61,7 @@ $ git --version
 ```
 Be aware that the `$` symbol indicates a terminal command, and should not be copied with the rest of the line. If no Git installation is found, consult [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for further instructions. It is recommended to [create an SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to one’s GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to eliminate the need for password entry during pull requests.
 
-The following command will create a local instance of the repository in the current working directory:
+Create a folder named `git` in your home directory and enter it in the terminal. The following command will create a local instance of the repository in the current working directory:
 ```shell
 $ git clone git@github.com:MJWootton-Resilience-Projects/Macchiato.git
 ```
@@ -113,13 +113,13 @@ function Macchiato { # Execute Macchiato simulations from any directory
 }
 ```
 
-To make Macchiato available for import to any Python instance or script, open "Settings" from the Start Menu and search for "advanced system settings". You will see a result for "View advanced system settings". Clicking on this option will open a window title "System Properties". On the "Advanced" tab, there is a button labelled "Environmental Variables", which brings up a window with the same name. In the beneath the "System variables" selection, click on "New...". In the field "Variable name" enter `PYTHONPATH` and in "Variable value" enter:
+To make Macchiato available for import to any Python instance or script, open *"Settings"* from the *Start Menu* and search for *"advanced system settings"*. You will see a result for *"View advanced system settings"*. Clicking on this option will open a window title *"System Properties"*. On the *"Advanced"* tab, there is a button labelled *"Environmental Variables"*, which brings up a window with the same name. In the beneath the *"System variables"* selection, click on *"New..."*. In the field *"Variable name"* enter `PYTHONPATH` and in *"Variable value"* enter:
 
 ```
 C:\Users\{YOUR_USERSNAME}\git\Macchiato
 ```
 
-Click "OK" on the three open windows to save your changes, which will take effect for any new PowerShell instance. If a variable called `PYTHONPATH` already exists, click "Edit..." instead, and append the directory of the Macchiato project folder to the of the "Variable value", separating it from the preexisting content with `;`.
+Click *"OK"* on the three open windows to save your changes, which will take effect for any new PowerShell instance. If a variable called `PYTHONPATH` already exists, click *"Edit..."* instead, and append the directory of the Macchiato project folder to the of the *"Variable value"*, separating it from the preexisting content with `;`.
 
 You may need to change the above paths if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` in the profile file.
 
