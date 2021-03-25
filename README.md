@@ -18,7 +18,7 @@
 * [Installation](#installation)
     * [Download](#download)
     * [System Integration](#system-integration)
-        * [Bash](#bash)
+        * [Bash & ZSH](#bash--zsh)
         * [PowerShell](#powershell)
 * [Usage](#usage)
     * [Macchiato Petri Net Files (`*.mpn`)](#macchiato-petri-net-files-mpn)
