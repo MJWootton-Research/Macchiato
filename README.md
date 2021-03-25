@@ -18,7 +18,7 @@
 * [Installation](#installation)
     * [Download](#download)
     * [System Integration](#system-integration)
-        * [Bash & ZSH](#bash--zsh)
+        * [Bash & Z-Shell](#bash--z-shell)
         * [PowerShell](#powershell)
 * [Usage](#usage)
     * [Macchiato Petri Net Files (`*.mpn`)](#macchiato-petri-net-files-mpn)
@@ -90,9 +90,9 @@ If not already installed, Python 3 can be obtained from www.python.org
 
 One can configure their system to allow Macchiato to be accessed conveniently from any working directory within a terminal or Python session, such that simulations can be initiated with command `Macchiato` from any location, and that a Python script using the module need only include the line `import Macchiato`, regardless of the file path.
 
-#### Bash & ZSH
+#### Bash & Z Shell
 
-In Bash or ZSH environments, such as is default in many Linux distributions and of MacOS, add the following two lines to the file found in the Home directory with the name `.bashrc` or `.zshrc` respectively.
+In Bash or Z Shell environments, such as is default in many Linux distributions and of MacOS, add the following two lines to the file found in the Home directory with the name `.bashrc` or `.zshrc` respectively.
 
 ```bash
 alias Macchiato="python $HOME/git/Macchiato/Macchiato.py" # Execute Macchiato simulations from any directory
