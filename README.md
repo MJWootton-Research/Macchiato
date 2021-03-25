@@ -113,9 +113,15 @@ function Macchiato { # Execute Macchiato simulations from any directory
 }
 ```
 
-To make Macchiato available for import to any Python instance or script, open "Settings" from the Start Menu and search for "advanced system settings". You will see a result for "View advanced system settings". Clicking on this option will open a window title "System Properties". On the "Advanced" tab, there is a button labelled "Environmental Variables", which brings up a window with the same name. In the beneath the "System variables" selection, click on "New...". In the field "Variable name" enter `PYTHONPATH` and in "Variable value" enter `C:\Users\{YOUR_USERSNAME}\git\Macchiato`, then click "OK" on the three open windows to save your changes, which will take effect for any new PowerShell instance. If a variable called `PYTHONPATH` already exists, click "Edit..." instead, and append the directory of the Macchiato project folder to the of the "Variable value", separating it from the preexisting content with `;`.
+To make Macchiato available for import to any Python instance or script, open "Settings" from the Start Menu and search for "advanced system settings". You will see a result for "View advanced system settings". Clicking on this option will open a window title "System Properties". On the "Advanced" tab, there is a button labelled "Environmental Variables", which brings up a window with the same name. In the beneath the "System variables" selection, click on "New...". In the field "Variable name" enter `PYTHONPATH` and in "Variable value" enter:
 
-You may need to change the path `$home\git\Macchiato` if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` in the profile file.
+```
+C:\Users\{YOUR_USERSNAME}\git\Macchiato
+```
+
+Click "OK" on the three open windows to save your changes, which will take effect for any new PowerShell instance. If a variable called `PYTHONPATH` already exists, click "Edit..." instead, and append the directory of the Macchiato project folder to the of the "Variable value", separating it from the preexisting content with `;`.
+
+You may need to change the above paths if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` in the profile file.
 
 ## Petri Net Integration Algorithm
 
