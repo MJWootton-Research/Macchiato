@@ -2,7 +2,11 @@
 other/*
 MiscTools/*
 Thermofluidics/*
-Test.py
+Macchiato.png
+OtherTools/
+PNBG_Models/
+TestExportREADME/
+Visio
 *.xcf
 *.pyc
 *.pyo
