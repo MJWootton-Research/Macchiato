@@ -10,7 +10,7 @@ def main():
 
     """
     nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),'Macchiato_PetriNet_Places_*.csv'))
-    print('\nDiscovered %d files to inspect in \"%s\".\n' % (nFiles, sys.argv[1]))
+    print('\nDiscovered %d files to inspect in "%s".\n' % (nFiles, sys.argv[1]))
 
     pListLab = sys.argv[2].split(':')
     searchP = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_1.csv'))

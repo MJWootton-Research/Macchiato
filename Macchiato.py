@@ -93,7 +93,7 @@ def read(file):
 
     # Check file type
     if file[-4:] != '.mpn':
-        print('WARNING: Given file is not \".mpn\"')
+        print('WARNING: Given file is not ".mpn"')
         time.sleep(1)
     mpcFile = open(file, 'r')
     for line in mpcFile:
@@ -216,7 +216,7 @@ def read(file):
                     except:
                         raise KeyError('Error reading type from: %r\n[%s]' % (read, line[:-1]))
                     if type not in ['instant', 'rate', 'uniform', 'delay', 'weibull', 'beta', 'lognorm', 'cyclic']:
-                        raise KeyError('Unrecognised transition type \"%r\"' % type)
+                        raise KeyError('Unrecognised transition type "%r"' % type)
 
                     try:
                         if type == 'instant':
@@ -280,7 +280,7 @@ def read(file):
                         elif 'pcn' in info:
                             badArc = 'place conditional'
                         if badArc is not False:
-                            raise ValueError('Attempt to create %s arc from transition, \"%s\", to place, \"%s\". Outgoing arcs may only be of standard type, and %s arcs can only run from a place to a transtion.' % (badArc, label, read[0], badArc))
+                            raise ValueError('Attempt to create %s arc from transition, "%s", to place, "%s". Outgoing arcs may only be of standard type, and %s arcs can only run from a place to a transtion.' % (badArc, label, read[0], badArc))
                         weight = int(read[1])
                     pn.trans[label].addOutArc(read[0], weight=weight)
                 # Assign places to reset on fire
@@ -319,12 +319,12 @@ def write(pn, overwrite=False, rp=None, altName=None):
     if type(altName) is str:
         name = altName
     elif altName is not None:
-        raise TypeError('altName given \"%r\" is type \"%r\". String required (\"%r\").' % (altName, type(altName), str))
+        raise TypeError('altName given "%r" is type "%r". String required ("%r").' % (altName, type(altName), str))
 
     # Set-up file path
     path = os.path.join(os.getcwd(), '%s.mpn' % name)
     if os.path.isfile(path) and not overwrite:
-        raise IOError('File \"%s\" exists, but overwriting is disabled' % path)
+        raise IOError('File "%s" exists, but overwriting is disabled' % path)
 
     # Create file content
     wr = '# Petri Net Parameters\n'
@@ -360,7 +360,7 @@ def write(pn, overwrite=False, rp=None, altName=None):
         wr += '\tfileOutput %s\n' % True
         wr += '\tendOnly %s\n' % False
     else:
-        raise TypeError('rp given \"%r\" is type \"%r\". List required (\"%r\").' % (altName, type(altName), list))
+        raise TypeError('rp given "%r" is type "%r". List required ("%r").' % (altName, type(altName), list))
     wr += '\n'
     wr += '# Build Petri Net\n'
     wr += 'Places\n'

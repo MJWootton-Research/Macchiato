@@ -144,7 +144,7 @@ class pnbg(object):
         rpn.name = self.pn.name
         self.pn = rpn
         if self.pn.units not in ['seconds', 'sec', 's']:
-            print('-'*80+'\nWarning: FMU integration uses seconds. Petri Net units are set to \"%s\", but values will be treated as seconds!\n'%(self.pn.units)+'-'*80)
+            print('-'*80+'\nWarning: FMU integration uses seconds. Petri Net units are set to "%s", but values will be treated as seconds!\n'%(self.pn.units)+'-'*80)
             time.sleep(5)
 
     def processResults(self, lables):

@@ -18,13 +18,13 @@ Command line arguments taken in order:
 def main():
     # Measure number of files to inspect in directory given by command line arguments
     nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),'Macchiato_PetriNet_Trans_*.csv'))
-    print('\nDiscovered %d files to inspect in \"%s\".\n' % (nFiles, sys.argv[1]))
+    print('\nDiscovered %d files to inspect in "%s".\n' % (nFiles, sys.argv[1]))
 
     # # Get runmode from command line arguments
     # if len(sys.argv) > 2:
     #     errorAnalysis = (sys.argv[2] == 'E')
     #     if not errorAnalysis:
-    #         raise RuntimeError('Unknown command line option \"%s\"' % sys.argv[2])
+    #         raise RuntimeError('Unknown command line option "%s"' % sys.argv[2])
     #     else:
     #         try:
     #             import numpy as np

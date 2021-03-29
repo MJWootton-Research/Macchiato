@@ -21,7 +21,7 @@ def main():
     """
     # Measure number of files to inspect in directory given by command line arguments
     nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),'Macchiato_PetriNet_Places_*.csv'))
-    print('\nDiscovered %d files to inspect in \"%s\".\n' % (nFiles, sys.argv[1]))
+    print('\nDiscovered %d files to inspect in "%s".\n' % (nFiles, sys.argv[1]))
 
     TMax = float(sys.argv[2])
     deltaT = float(sys.argv[3])
@@ -37,7 +37,7 @@ def main():
         tSteps += 1
 
     for P in pList:
-        print('\nAnalysising place \"%s\"' % P)
+        print('\nAnalysising place "%s"' % P)
         B = []
         for i in range(tSteps+1):
             B.append([])
@@ -66,7 +66,7 @@ def main():
                     if len(sLine) == 1:
                         break
                     elif not columnFound:
-                        sys.exit('Error: Specifed place \"%s\" not found!' % P)
+                        sys.exit('Error: Specifed place "%s" not found!' % P)
                     # print(col, sLine[col])
                     A.append([float(sLine[1]), int(sLine[col])])
             # if l > 1:

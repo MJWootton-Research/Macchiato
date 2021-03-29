@@ -46,13 +46,13 @@ def eDataToFile(eData, pLen):
 def main():
     # Measure number of files to inspect in directory given by command line arguments
     nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),'Macchiato_PetriNet_Places_*.csv'))
-    print('\nDiscovered %d files to inspect in \"%s\".\n' % (nFiles, sys.argv[1]))
+    print('\nDiscovered %d files to inspect in "%s".\n' % (nFiles, sys.argv[1]))
 
     # # Get runmode from command line arguments
     # if len(sys.argv) > 3:
     #     errorAnalysis = (sys.argv[3] == 'E')
     #     if not errorAnalysis:
-    #         raise RuntimeError('Unknown command line option \"%s\"' % sys.argv[3])
+    #         raise RuntimeError('Unknown command line option "%s"' % sys.argv[3])
     #     else:
     #         try:
     #             import numpy as np
@@ -140,7 +140,7 @@ def main():
 
     outDir = sys.argv[1]
     while True:
-        if outDir[-1] in ['\\", '/']:
+        if outDir[-1] in ['\", '/']:
             outDir = outDir[:-1]
         else:
             break

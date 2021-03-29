@@ -51,11 +51,11 @@ def labelCheck(label, ref=None, error=False):
     """
     failed = ''
     if ' ' in label:
-        failed += '\"%s\" is an invalid %s, spaces are not permitted\n' % (label, ref)
+        failed += '"%s" is an invalid %s, spaces are not permitted\n' % (label, ref)
         error = True
     # if '_' in label:
     #     failed += 'Warning: (%s) Underscores are permitted in %ss but will interfere with conversion to LaTeX\n' % (label, ref)
-    # if '-' in label or '\\" in label:
+    # if '-' in label or '\" in label:
     #     failed += 'Warning: (%s) Hyphens and backslashes are permitted in %ss but will prevent rendering Graphviz files\n' % (label, ref)
 
     if len(failed):
@@ -146,7 +146,7 @@ class PetriNet(object):
             else:
                 self.name = 'MacchiatoPetriNet-%d' % self.time
         # elif ' ' in name:
-        #     raise ValueError('\"%s\" is an invalid name, spaces are not permitted' % name)
+        #     raise ValueError('"%s" is an invalid name, spaces are not permitted' % name)
         # if '_' in self.name:
         #     print('Warning: (%s) Underscores are permitted in names but will interfere with conversion to LaTeX' % name)
         #     time.sleep(1)
@@ -169,7 +169,7 @@ class PetriNet(object):
         self.runMode = runMode
         self.runModes = ['all', 'single', 'stochastic', 'schedule']
         if runMode not in self.runModes:
-            raise ValueError('\"%s\" does not refer to a valid run mode. Valid modes are: %r' % (runMode, self.runModes))
+            raise ValueError('"%s" does not refer to a valid run mode. Valid modes are: %r' % (runMode, self.runModes))
         self.savedot = dot
         self.visualise = visualise
         self.details = details
@@ -208,7 +208,7 @@ class PetriNet(object):
             elif os.path.exists(dotLoc):
                 self.dotLoc = dotLoc
             else:
-                print('Warning: Graphviz installation not found at specifed location.\n\"%s\"\nCheck simulation parameter file if visualisation is required.' % dotLoc)
+                print('Warning: Graphviz installation not found at specifed location.\n"%s"\nCheck simulation parameter file if visualisation is required.' % dotLoc)
                 time.sleep(5)
 
             if self.dotLoc is not None:
@@ -217,7 +217,7 @@ class PetriNet(object):
             if os.path.exists(dotLoc):
                 self.dotLoc = os.path.join(dotLoc, 'dot.exe')
             else:
-                print('Warning: Graphviz installation not found at specifed location.\n\"%s\"\nCheck simulation parameter file if visualisation is required.' % dotLoc)
+                print('Warning: Graphviz installation not found at specifed location.\n"%s"\nCheck simulation parameter file if visualisation is required.' % dotLoc)
                 time.sleep(5)
 
     def updateTime(self):
@@ -255,9 +255,9 @@ class PetriNet(object):
         if not label in self.places:
             self.places[label] = Place(label, tokens=tokens, min=min, max=max, limits=limits, group=group)
         else:
-            raise KeyError('Place with label, \"%s\", already exists' % label)
+            raise KeyError('Place with label, "%s", already exists' % label)
         # if ' ' in label:
-        #     raise ValueError('\"%s\" is an invalid place label, spaces are not permitted' % label)
+        #     raise ValueError('"%s" is an invalid place label, spaces are not permitted' % label)
         # if '_' in label:
         #     print('Warning: (%s) Underscores are permitted in place lables but will interfere with conversion to LaTeX' % label)
         #     time.sleep(1)
@@ -322,9 +322,9 @@ class PetriNet(object):
         if not label in self.trans:
             self.trans[label] = Trans(label, rate=rate, uniform=uniform, delay=delay, weibull=weibull, beta=beta, lognorm=lognorm, cyclic=cyclic, maxFire=maxFire, reset=reset, vote=vote, group=group)
         else:
-            raise KeyError('Transition with label, \"%s\", already exists' % label)
+            raise KeyError('Transition with label, "%s", already exists' % label)
         # if ' ' in label:
-        #     raise ValueError('\"%s\" is an invalid transition label, spaces are not permitted' % label)
+        #     raise ValueError('"%s" is an invalid transition label, spaces are not permitted' % label)
         # if '_' in label:
         #     print('Warning: (%s) Underscores are permitted in transition lables but will interfere with conversion to LaTeX' % label)
         #     time.sleep(1)
@@ -334,7 +334,7 @@ class PetriNet(object):
 
         labelCheck(label, ref='transition label')
         if rate is not None and delay is not None:
-            raise ValueError('Transition \"%s\" has both \"rate\" and \"delay\" specified -- Choose one or the other.' % label)
+            raise ValueError('Transition "%s" has both "rate" and "delay" specified -- Choose one or the other.' % label)
 
     def rmvTrans(self, label):
         """
@@ -355,7 +355,7 @@ class PetriNet(object):
         """
         for t in self.trans:
             trans = self.trans[t]
-            print('Transition \"%s\" fired %d times' % (t, trans.firedCount))
+            print('Transition "%s" fired %d times' % (t, trans.firedCount))
         print('Total transition firings: %d\n' % self.transFiredTotal)
 
     def placesSummary(self, mode, tOut=True, pfile=None):
@@ -378,7 +378,7 @@ class PetriNet(object):
         if tOut:
             for p in self.places:
                 place = self.places[p]
-                print('Place \"%s\": %d tokens in, %d tokens out. Net = %d. %d resets.' % (p, place.ins, place.outs, place.ins - place.outs, place.resetCount))
+                print('Place "%s": %d tokens in, %d tokens out. Net = %d. %d resets.' % (p, place.ins, place.outs, place.ins - place.outs, place.resetCount))
             print('')
 
         if pfile is not None:
@@ -647,8 +647,8 @@ class PetriNet(object):
 
         """
         trans = self.trans[label]
-        assert trans.ready, ('Cannot fire! -- transition, \"%s\" is not ready' % label)
-        print('Firing transition, \"%s\":' % label)
+        assert trans.ready, ('Cannot fire! -- transition, "%s" is not ready' % label)
+        print('Firing transition, "%s":' % label)
         # Update firedCount
         trans.firedCount += 1
         self.transFiredTotal += 1
@@ -662,7 +662,7 @@ class PetriNet(object):
             if trans.vote is not None:
                 if ii.weight > place.tokens:
                     continue
-            print('Place, \"%s\", loses %d tokens' % (ii.start, ii.weight))
+            print('Place, "%s", loses %d tokens' % (ii.start, ii.weight))
             place.tokenChange -= ii.weight
             place.outs += ii.weight
         # Outgoing arcs
@@ -681,7 +681,7 @@ class PetriNet(object):
                             break
                     if test:
                         continue
-            print('Place, \"%s\", receives %d tokens' % (oo.end, oo.weight))
+            print('Place, "%s", receives %d tokens' % (oo.end, oo.weight))
             if test:
                 sys.exit()
             place.tokenChange += oo.weight
@@ -695,7 +695,7 @@ class PetriNet(object):
         for p in self.places:
             pp = self.places[p]
             pp.tokens += pp.tokenChange
-            assert (pp.tokens >= pp.min and pp.tokens <= pp.max), 'Invalid token count, %d, on place, \"%s\". Change = %d. Min = %d. Max = %r.' % (pp.tokens, pp.label, pp.tokenChange, pp.min, pp.max)
+            assert (pp.tokens >= pp.min and pp.tokens <= pp.max), 'Invalid token count, %d, on place, "%s". Change = %d. Min = %d. Max = %r.' % (pp.tokens, pp.label, pp.tokenChange, pp.min, pp.max)
             pp.tokenChange = 0
 
     def clearReady(self):
@@ -712,7 +712,7 @@ class PetriNet(object):
         Constructs a matrix representing the connections between places and transitions
 
         """
-        raise NotImplementedError('Method, \"buildConnectivity\" has not yet been constructed')
+        raise NotImplementedError('Method, "buildConnectivity" has not yet been constructed')
 
     def selection(self, mode):
         """
@@ -762,7 +762,7 @@ class PetriNet(object):
                     if t.rate is None:
                         continue
                     elif t.rate <= 0:
-                        raise ValueError('Transition \"%s\" has invalid rate (%r)' % (t.label, t.rate))
+                        raise ValueError('Transition "%s" has invalid rate (%r)' % (t.label, t.rate))
                     table.append([total, t])
                     total += t.rate
                 if len(table):
@@ -1088,11 +1088,11 @@ class PetriNet(object):
         path = os.path.join(rPath, '%d.dot' % self.step)
         out = open(path, 'w')
         # Output preamble
-        out.write('digraph {\n\tnode [label=\"%s\", fillcolor=\"#FFFFFF\", fontcolor=\"#000000\", style=filled];' % self.id)
-        out.write('\n\t  edge [style=\"solid\"];')
+        out.write('digraph {\n\tnode [label="%s", fillcolor="#FFFFFF", fontcolor="#000000", style=filled];' % self.id)
+        out.write('\n\t  edge [style="solid"];')
         if self.orientation is not None:
-            out.write('\n\t  rankdir=\"%s\";' % self.orientation)
-        out.write('\n\t  graph [splines=\"true\", overlap=\"false\"];')
+            out.write('\n\t  rankdir="%s";' % self.orientation)
+        out.write('\n\t  graph [splines="true", overlap="false"];')
         # Step & time info
         if self.details:
             info = '%s\\nStep: %d' % (self.gID, self.step)
@@ -1100,10 +1100,10 @@ class PetriNet(object):
                 info += '\\nClock: %.3g %s' % (self.clock, self.units)
             out.write('\n\tInfo')
             out.write('\n\t\t[')
-            out.write('\n\t\t\tshape=\"rectangle\"')
-            out.write('\n\t\t\tid=\"%s\"' % self.id)
-            out.write('\n\t\t\ttooltip=\"%s status\"' % self.id)
-            out.write('\n\t\t\tlabel=\"%s\"' % info)
+            out.write('\n\t\t\tshape="rectangle"')
+            out.write('\n\t\t\tid="%s"' % self.id)
+            out.write('\n\t\t\ttooltip="%s status"' % self.id)
+            out.write('\n\t\t\tlabel="%s"' % info)
             out.write('\n\t\t];')
         if self.useGroup:
             # Create places
@@ -1156,14 +1156,14 @@ class PetriNet(object):
                 # out.write('\n\t%s -> %s' % (ii.start, t))
                 out.write('\n\t\t[')
                 if ii.type == 'pcn':
-                    out.write('\n\t\t\tarrowhead=\"odot\", style=\"dashed\", color=Blue')
-                    out.write('\n\t\t\tlabel=\"PC\\n[%d]\"' % ii.weight)
+                    out.write('\n\t\t\tarrowhead="odot", style="dashed", color=Blue')
+                    out.write('\n\t\t\tlabel="PC\\n[%d]"' % ii.weight)
                 elif ii.type == 'inh':
-                    out.write('\n\t\t\tarrowhead=\"dot\", style=\"dashed\", color=Red')
-                    out.write('\n\t\t\tlabel=\"Inhibit\\n[%d]\"' % ii.weight)
+                    out.write('\n\t\t\tarrowhead="dot", style="dashed", color=Red')
+                    out.write('\n\t\t\tlabel="Inhibit\\n[%d]"' % ii.weight)
                 else:
-                    out.write('\n\t\t\tarrowhead=\"normal\"')
-                    out.write('\n\t\t\tlabel=\"[%d]\"' % ii.weight)
+                    out.write('\n\t\t\tarrowhead="normal"')
+                    out.write('\n\t\t\tlabel="[%d]"' % ii.weight)
                 out.write('\n\t\t];')
             # Create outgoing arcs
             for o in self.trans[t].outArcs:
@@ -1172,8 +1172,8 @@ class PetriNet(object):
                 out.write('\n\t%s -> %s' % (self.trans[t].id, end))
                 # out.write('\n\t%s -> %s' % (t, oo.end))
                 out.write('\n\t\t[')
-                out.write('\n\t\t\tarrowhead=\"normal\"')
-                out.write('\n\t\t\tlabel=\"[%d]\"' % oo.weight)
+                out.write('\n\t\t\tarrowhead="normal"')
+                out.write('\n\t\t\tlabel="[%d]"' % oo.weight)
                 out.write('\n\t\t];')
         # End file
         out.write('\n}')
@@ -1187,7 +1187,7 @@ class PetriNet(object):
                 format = self.visualise
             oPath = os.path.join(rPath, '%d.%s' % (self.step, format))
             if self.dotLoc is not None:
-                subprocess.call('\"%s\" %s -T %s -o \"%s\"'  % (self.dotLoc, path, format, oPath), shell=True)
+                subprocess.call('"%s" %s -T %s -o "%s"'  % (self.dotLoc, path, format, oPath), shell=True)
 
         return path
 
@@ -1206,18 +1206,18 @@ class PetriNet(object):
         out.write('\n\t%s' % self.places[p].id)
         # out.write('\n\t%s' % p)
         out.write('\n\t\t[')
-        out.write('\n\t\t\tshape=\"ellipse\"')
-        out.write('\n\t\t\tid=\"%s\"' % self.places[p].id)
-        out.write('\n\t\t\ttooltip=\"%s\"' % self.places[p].id)
-        # out.write('\n\t\t\tid=\"%s\"' % p)
-        # out.write('\n\t\t\ttooltip=\"%s\"' % p)
+        out.write('\n\t\t\tshape="ellipse"')
+        out.write('\n\t\t\tid="%s"' % self.places[p].id)
+        out.write('\n\t\t\ttooltip="%s"' % self.places[p].id)
+        # out.write('\n\t\t\tid="%s"' % p)
+        # out.write('\n\t\t\ttooltip="%s"' % p)
         string = ''
         if self.places[p].max < float('Inf'):
             string += '\\n[Max %d]' % self.places[p].max
         if self.places[p].min > 0:
             string += '\\n[Min %d]' % self.places[p].min
-        out.write('\n\t\t\tlabel=\"%s\\n[%d]%s\"' % (self.places[p].gID, self.places[p].tokens, string))
-        # out.write('\n\t\t\tlabel=\"%s\\n[%d]%s\"' % (p, self.places[p].tokens, string))
+        out.write('\n\t\t\tlabel="%s\\n[%d]%s"' % (self.places[p].gID, self.places[p].tokens, string))
+        # out.write('\n\t\t\tlabel="%s\\n[%d]%s"' % (p, self.places[p].tokens, string))
         out.write('\n\t\t];')
 
     def dotTrans(self, t, out, mode):
@@ -1236,15 +1236,15 @@ class PetriNet(object):
         # out.write('\n\t%s' % t)
         out.write('\n\t\t[')
         if self.trans[t].vote is not None:
-            out.write('\n\t\t\tshape=\"box3d\"')
+            out.write('\n\t\t\tshape="box3d"')
         else:
-            out.write('\n\t\t\tshape=\"rectangle\"')
-        out.write('\n\t\t\tid=\"%s\"' % self.trans[t].id)
-        out.write('\n\t\t\ttooltip=\"%s\"' % self.trans[t].id)
-        # out.write('\n\t\t\tid=\"%s\"' % t)
-        # out.write('\n\t\t\ttooltip=\"%s\"' % t)
+            out.write('\n\t\t\tshape="rectangle"')
+        out.write('\n\t\t\tid="%s"' % self.trans[t].id)
+        out.write('\n\t\t\ttooltip="%s"' % self.trans[t].id)
+        # out.write('\n\t\t\tid="%s"' % t)
+        # out.write('\n\t\t\ttooltip="%s"' % t)
         if mode in ['stochastic', 'schedule']:
-            # out.write('\n\t\t\tlabel=\"%s\\nRate: %s/%s\"' % (t, self.trans[t].rate, self.units))
+            # out.write('\n\t\t\tlabel="%s\\nRate: %s/%s"' % (t, self.trans[t].rate, self.units))
             gID = self.trans[t].gID
             # if self.trans[t].vote is not None:
             #     gID += '\\nVOTE'
@@ -1252,25 +1252,25 @@ class PetriNet(object):
                 gID += '\\nRESET'
             if self.trans[t].rate is not None:
                 if len('%s' % self.trans[t].rate) > 3:
-                    out.write('\n\t\t\tlabel=\"%s\\n[Rate %.2e/%s]\"' % (gID, self.trans[t].rate, self.units))
-                    # out.write('\n\t\t\tlabel=\"%s\\n[Rate %.2e/%s]\"' % (t, self.trans[t].rate, self.units))
+                    out.write('\n\t\t\tlabel="%s\\n[Rate %.2e/%s]"' % (gID, self.trans[t].rate, self.units))
+                    # out.write('\n\t\t\tlabel="%s\\n[Rate %.2e/%s]"' % (t, self.trans[t].rate, self.units))
                 else:
-                    out.write('\n\t\t\tlabel=\"%s\\n[Rate %s/%s]\"' % (gID, self.trans[t].rate, self.units))
-                    # out.write('\n\t\t\tlabel=\"%s\\n[Rate %s/%s]\"' % (t, self.trans[t].rate, self.units))
+                    out.write('\n\t\t\tlabel="%s\\n[Rate %s/%s]"' % (gID, self.trans[t].rate, self.units))
+                    # out.write('\n\t\t\tlabel="%s\\n[Rate %s/%s]"' % (t, self.trans[t].rate, self.units))
             elif self.trans[t].uniform is not None:
                 if len('%s' % self.trans[t].uniform) > 3:
-                    out.write('\n\t\t\tlabel=\"%s\\n[Delay 0 to %.2e %s]\"' % (gID, self.trans[t].uniform, self.units))
-                    # out.write('\n\t\t\tlabel=\"%s\\n[Delay 0 to %.2e %s]\"' % (t, self.trans[t].uniform, self.units))
+                    out.write('\n\t\t\tlabel="%s\\n[Delay 0 to %.2e %s]"' % (gID, self.trans[t].uniform, self.units))
+                    # out.write('\n\t\t\tlabel="%s\\n[Delay 0 to %.2e %s]"' % (t, self.trans[t].uniform, self.units))
                 else:
-                    out.write('\n\t\t\tlabel=\"%s\\n[Delay 0 to %s %s]\"' % (gID, self.trans[t].uniform, self.units))
-                    # out.write('\n\t\t\tlabel=\"%s\\n[Delay 0 to %s %s]\"' % (t, self.trans[t].uniform, self.units))
+                    out.write('\n\t\t\tlabel="%s\\n[Delay 0 to %s %s]"' % (gID, self.trans[t].uniform, self.units))
+                    # out.write('\n\t\t\tlabel="%s\\n[Delay 0 to %s %s]"' % (t, self.trans[t].uniform, self.units))
             elif self.trans[t].delay is not None:
                 if len('%s' % self.trans[t].delay) > 3:
-                    out.write('\n\t\t\tlabel=\"%s\\n[Delay %.2e %s]\"' % (gID, self.trans[t].delay, self.units))
-                    # out.write('\n\t\t\tlabel=\"%s\\n[Delay %.2e %s]\"' % (t, self.trans[t].delay, self.units))
+                    out.write('\n\t\t\tlabel="%s\\n[Delay %.2e %s]"' % (gID, self.trans[t].delay, self.units))
+                    # out.write('\n\t\t\tlabel="%s\\n[Delay %.2e %s]"' % (t, self.trans[t].delay, self.units))
                 else:
-                    out.write('\n\t\t\tlabel=\"%s\\n[Delay %s %s]\"' % (gID, self.trans[t].delay, self.units))
-                    # out.write('\n\t\t\tlabel=\"%s\\n[Delay %s %s]\"' % (t, self.trans[t].delay, self.units))
+                    out.write('\n\t\t\tlabel="%s\\n[Delay %s %s]"' % (gID, self.trans[t].delay, self.units))
+                    # out.write('\n\t\t\tlabel="%s\\n[Delay %s %s]"' % (t, self.trans[t].delay, self.units))
             elif self.trans[t].weibull is not None:
                 mt = '%s' % self.trans[t].weibull[0]
                 beta = '%s' % self.trans[t].weibull[1]
@@ -1282,8 +1282,8 @@ class PetriNet(object):
                 if self.trans[t].weibull[2] > 0.0:
                     if len('%s' % self.trans[2].weibull[1]) > 3:
                         sigma = ', %.2e' % self.trans[t].weibull[1]
-                out.write('\n\t\t\tlabel=\"%s\\n[Weibull %s %s, %s%s]\"' % (gID, mt, self.units, beta, sigma))
-                # out.write('\n\t\t\tlabel=\"%s\\n[Weibull %s %s, %s]\"' % (t, eta, self.units, beta))
+                out.write('\n\t\t\tlabel="%s\\n[Weibull %s %s, %s%s]"' % (gID, mt, self.units, beta, sigma))
+                # out.write('\n\t\t\tlabel="%s\\n[Weibull %s %s, %s]"' % (t, eta, self.units, beta))
             elif self.trans[t].beta is not None:
                 alpha = '%s' % self.trans[t].beta[0]
                 beta = '%s' % self.trans[t].beta[1]
@@ -1294,7 +1294,7 @@ class PetriNet(object):
                     beta = '%.2e' % self.trans[t].beta[1]
                 if len('%s' % self.trans[t].beta[2]) > 3:
                     beta = '%.2e' % self.trans[t].beta[2]
-                out.write(u'\n\t\t\tlabel=\"%s\\n[Beta %s, %s, *%s]\"' % (gID, alpha, beta, scale))
+                out.write(u'\n\t\t\tlabel="%s\\n[Beta %s, %s, *%s]"' % (gID, alpha, beta, scale))
             elif self.trans[t].lognorm is not None:
                 mu = '%s' % self.trans[t].lognorm[0]
                 sigma = '%s' % self.trans[t].lognorm[1]
@@ -1302,8 +1302,8 @@ class PetriNet(object):
                     mu = '%.2e' % self.trans[t].lognorm[0]
                 if len('%s' % self.trans[t].lognorm[1]) > 3:
                     sigma = '%.2e' % self.trans[t].lognorm[1]
-                out.write('\n\t\t\tlabel=\"%s\\n[Lognorm %s %s, %s]\"' % (gID, mu, self.units, sigma))
-                # out.write('\n\t\t\tlabel=\"%s\\n[Lognorm %s %s, %s]\"' % (t, mu, self.units, sigma))
+                out.write('\n\t\t\tlabel="%s\\n[Lognorm %s %s, %s]"' % (gID, mu, self.units, sigma))
+                # out.write('\n\t\t\tlabel="%s\\n[Lognorm %s %s, %s]"' % (t, mu, self.units, sigma))
             elif self.trans[t].cyclic is not None:
                 frq = '%s' % self.trans[t].cyclic[0] # frequency
                 off = '%s' % self.trans[t].cyclic[1] # offset
@@ -1312,14 +1312,14 @@ class PetriNet(object):
                 if len('%s' % self.trans[t].cyclic[1]) > 3:
                     off = '%.2e' % self.trans[t].cyclic[1]
                 else:
-                    out.write('\n\t\t\tlabel=\"%s\\n[Cyclic %s, %s %s]\"' % (gID, frq, off, self.units))
-                    # out.write('\n\t\t\tlabel=\"%s\\n[Cyclic %s, %s %s]\"' % (t, frq, off, self.units))
+                    out.write('\n\t\t\tlabel="%s\\n[Cyclic %s, %s %s]"' % (gID, frq, off, self.units))
+                    # out.write('\n\t\t\tlabel="%s\\n[Cyclic %s, %s %s]"' % (t, frq, off, self.units))
             else:
-                out.write('\n\t\t\tlabel=\"%s\\n[Instant]\"' % (gID))
-                # out.write('\n\t\t\tlabel=\"%s\\n[Instant]\"' % (t))
+                out.write('\n\t\t\tlabel="%s\\n[Instant]"' % (gID))
+                # out.write('\n\t\t\tlabel="%s\\n[Instant]"' % (t))
         else:
-            out.write('\n\t\t\tlabel=\"%s\"' % gID)
-            out.write('\n\t\t\tlabel=\"%s\"' % t)
+            out.write('\n\t\t\tlabel="%s"' % gID)
+            out.write('\n\t\t\tlabel="%s"' % t)
         out.write('\n\t\t];')
 
     def disconnectedPlaces(self):
@@ -1374,11 +1374,11 @@ class PetriNet(object):
             for i in trans.inArcs:
                 ii = trans.inArcs[i]
                 if not ii.start in self.places:
-                    raise KeyError('Transition \"%s\" has ingoing arc to non-existant place \"%s\"' % (trans.label, ii.start))
+                    raise KeyError('Transition "%s" has ingoing arc to non-existant place "%s"' % (trans.label, ii.start))
             for o in trans.outArcs:
                 oo = trans.outArcs[o]
                 if not oo.end in self.places:
-                    raise KeyError('Transition \"%s\" has outgoing arc to non-existant place \"%s\"' % (trans.label, oo.end))
+                    raise KeyError('Transition "%s" has outgoing arc to non-existant place "%s"' % (trans.label, oo.end))
         self.arcsVerified = True
 
     def fire(self, fireList):
@@ -1460,7 +1460,7 @@ class PetriNet(object):
         if mode is None:
             mode = self.runMode
         if mode not in self.runModes:
-            raise ValueError('\"%s\" does not refer to a valid run mode. Valid modes are: %r' % (mode, self.runModes))
+            raise ValueError('"%s" does not refer to a valid run mode. Valid modes are: %r' % (mode, self.runModes))
 
         # Create file to record simulation
         if fileOutput:
@@ -1604,7 +1604,7 @@ class Place(object):
     def __init__(self, label, tokens=0, min=0, max=None, limits=None, group=None):
         self.label = str(label)
         if ' ' in self.label:
-            raise ValueError('\"%s\" is an invalid label, spaces are not permitted' % self.label)
+            raise ValueError('"%s" is an invalid label, spaces are not permitted' % self.label)
         self.id, self.gID = genID(self.label)
         self.tokens = tokens
         self.resetTokens = tokens
@@ -1614,16 +1614,16 @@ class Place(object):
         self.limits=limits
         if self.limits is None:
             self.limits = [None, None]
-        assert len(self.limits) == 2, 'Invalid token range for place, \"%s\"' % self.label
+        assert len(self.limits) == 2, 'Invalid token range for place, "%s"' % self.label
         if self.limits[0] is not None and self.limits[1] is not None:
-            assert self.limits[0] < self.limits[1], 'Place \"%s\" has invalid limits -- must be low to high'
+            assert self.limits[0] < self.limits[1], 'Place "%s" has invalid limits -- must be low to high'
 
         self.ins = 0
         self.outs = 0
 
         if group is not None:
             if group < 0:
-                raise TypeError('Group designation must be positive (place \"%s\")' % self.label)
+                raise TypeError('Group designation must be positive (place "%s")' % self.label)
         self.totalTokenTime = 0.0
         self.group=group
 
@@ -1644,11 +1644,11 @@ class Place(object):
         if self.limits[0] is not None:
             if self.tokens < self.limits[0]:
                 status = True
-                print('Place \"%s\" has fewer tokens than its required limits' % self.label)
+                print('Place "%s" has fewer tokens than its required limits' % self.label)
         if self.limits[1] is not None:
             if self.tokens > self.limits[1]:
                 status = True
-                print('Place \"%s\" has more tokens than its required limits' % self.label)
+                print('Place "%s" has more tokens than its required limits' % self.label)
         return status
 
     def resetPlace(self):
@@ -1656,7 +1656,7 @@ class Place(object):
         Resets the place's token count to 'resetTokens'
 
         """
-        print('Reseting place, \"%s\", from %d tokens to %d' % (self.label, self.tokens, self.resetTokens))
+        print('Reseting place, "%s", from %d tokens to %d' % (self.label, self.tokens, self.resetTokens))
         self.tokens = self.resetTokens
         self.resetCount += 1
         self.justReset = True
@@ -1693,9 +1693,9 @@ class Place(object):
                 self.outs += n
         self.tokens = new
         if not safeMode:
-            assert(self.tokens-1), 'Token count, %d, on place \"%s\" has become invalid' % (self.tokens, self.label)
+            assert(self.tokens-1), 'Token count, %d, on place "%s" has become invalid' % (self.tokens, self.label)
         if self.checkLimits():
-            print('Call to changeTokens on place \"%s\" with n=%d has resulted in token limit being reached' % (self.label, n))
+            print('Call to changeTokens on place "%s" with n=%d has resulted in token limit being reached' % (self.label, n))
             status = True
         return status
 
@@ -1754,7 +1754,7 @@ class Trans(object):
     def __init__(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=[], vote=None, group=None):
         self.label = str(label)
         if ' ' in self.label:
-            raise ValueError('\"%s\" is an invalid label, spaces are not permitted' % self.label)
+            raise ValueError('"%s" is an invalid label, spaces are not permitted' % self.label)
         self.id, self.gID = genID(self.label)
         self.rate = rate
         self.uniform = uniform
@@ -1773,17 +1773,17 @@ class Trans(object):
                 if len(self.beta) == 2:
                     self.beta.append(1.0)
                 else:
-                    raise ValueError('Beta distribution requires list of two parameters, plus optional scale parameter (transition \"%s\")' % self.label)
+                    raise ValueError('Beta distribution requires list of two parameters, plus optional scale parameter (transition "%s")' % self.label)
             if self.beta[0] <= 0.0 or self.beta[1] <= 0.0 or self.beta[2] <= 0.0:
-                raise ValueError('Beta distribution must be positive & non-zero (transition \"%s\")' % self.label)
+                raise ValueError('Beta distribution must be positive & non-zero (transition "%s")' % self.label)
         self.lognorm = lognorm
         if lognorm is not None:
             if len(self.lognorm) != 2:
-                raise ValueError('Lognormal distribution requires list of two parameters (transition \"%s\")' % self.label)
+                raise ValueError('Lognormal distribution requires list of two parameters (transition "%s")' % self.label)
         self.cyclic = cyclic
         if cyclic is not None:
             if len(self.cyclic) != 2:
-                raise ValueError('Cyclic distribution requires list of two parameters (transition \"%s\")' % self.label)
+                raise ValueError('Cyclic distribution requires list of two parameters (transition "%s")' % self.label)
         self.maxFire = maxFire
         self.waiting = None
         self.inArcs = collections.OrderedDict()
@@ -1796,15 +1796,15 @@ class Trans(object):
         self.reset = reset
         if vote is not None:
             if type(vote) is not int:
-                raise TypeError('Voting threshold (%r) must be positive integer (transition \"%s\")' % (vote, self.label))
+                raise TypeError('Voting threshold (%r) must be positive integer (transition "%s")' % (vote, self.label))
             if vote < 1:
-                raise ValueError('Voting threshold (%r) must be positive integer (transition \"%s\")' % (vote, self.label))
+                raise ValueError('Voting threshold (%r) must be positive integer (transition "%s")' % (vote, self.label))
         self.vote = vote
         if group is not None:
             if type(group) is not int:
-                raise TypeError('Group designation (%r) must be positive integer (transition \"%s\")' % (group, self.label))
+                raise TypeError('Group designation (%r) must be positive integer (transition "%s")' % (group, self.label))
             if group < 0:
-                raise TypeError('Group designation (%r) must be positive integer (transition \"%s\")' % (group, self.label))
+                raise TypeError('Group designation (%r) must be positive integer (transition "%s")' % (group, self.label))
         self.group = group
 
     def addInArc(self, place, weight=1, type='std'):
@@ -1827,16 +1827,16 @@ class Trans(object):
         # Check given type is valid
         valid = ['std', 'inh', 'pcn']
         if not type in valid:
-            raise ValueError('\"%s\" is not a valid in arc type.\nValid arc types: %r' % valid)
+            raise ValueError('"%s" is not a valid in arc type.\nValid arc types: %r' % valid)
         if not type == 'pcn' and weight < 1:
-            raise ValueError('Non-place conditional arc from place, \"%s\", to transition, \"%s\" cannot be assined weight less than 1.' % (place, self.label))
+            raise ValueError('Non-place conditional arc from place, "%s", to transition, "%s" cannot be assined weight less than 1.' % (place, self.label))
         # Check that this arc does not already exist
         if not place in self.inArcs:
             self.inArcs[place] = Arc(place, self.label, weight=weight, type=type)
             if type == 'pcn':
                 self.pcn = True
         else:
-            raise KeyError('Arc from place, \"%s\", already exists on transition, \"%s\"' % (
+            raise KeyError('Arc from place, "%s", already exists on transition, "%s"' % (
                 place, self.label))
 
     def rmInArc(self, place):
@@ -1878,7 +1878,7 @@ class Trans(object):
         if not place in self.outArcs:
             self.outArcs[place] = Arc(self.label, place, weight=weight)
         else:
-            raise KeyError('Arc to place, \"%s\", already exists on transition, \"%s\"' % (place, self.label))
+            raise KeyError('Arc to place, "%s", already exists on transition, "%s"' % (place, self.label))
 
     def rmOutArc(self, place):
         """
@@ -1903,7 +1903,7 @@ class Trans(object):
         """
         if self.maxFire is not None:
             if self.firedCount >= self.maxFire:
-                print('Transition \"%s\" has reached its maximum permitted fire count' % self.label)
+                print('Transition "%s" has reached its maximum permitted fire count' % self.label)
                 return True
         return False
 
