@@ -16,7 +16,7 @@ def main(dir, formats):
     os.chdir(dir)
     print(os.getcwd())
     if not len(formats):
-        sys.exit(''\nCannot produce images. No file formats specifed.\n')
+        sys.exit('\nCannot produce images. No file formats specifed.\n')
     for dFile in glob.glob1(os.getcwd(),'*.dot'):
         print(dFile)
         render(dFile, formats)
