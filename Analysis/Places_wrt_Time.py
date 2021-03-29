@@ -20,15 +20,15 @@ def main():
 
     """
     # Measure number of files to inspect in directory given by command line arguments
-    nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),"Macchiato_PetriNet_Places_*.csv"))
-    print("\nDiscovered %d files to inspect in \"%s\".\n" % (nFiles, sys.argv[1]))
+    nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),'Macchiato_PetriNet_Places_*.csv'))
+    print('\nDiscovered %d files to inspect in \"%s\".\n' % (nFiles, sys.argv[1]))
 
     TMax = float(sys.argv[2])
     deltaT = float(sys.argv[3])
-    pList = sys.argv[4].split(":")
+    pList = sys.argv[4].split(':')
     endStretch = False
     try:
-        endStretch = (sys.argv[5] == "True")
+        endStretch = (sys.argv[5] == 'True')
     except:
         pass
 
@@ -37,7 +37,7 @@ def main():
         tSteps += 1
 
     for P in pList:
-        print("\nAnalysising place \"%s\"" % P)
+        print('\nAnalysising place \"%s\"' % P)
         B = []
         for i in range(tSteps+1):
             B.append([])
@@ -46,12 +46,12 @@ def main():
         col = None
 
         for i in range(nFiles):
-            file = open(os.path.join(os.getcwd(), sys.argv[1], "Macchiato_PetriNet_Places_%d.csv" % (i+1)))
+            file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i+1)))
             l = -1
             A = []
             for line in file:
                 l += 1
-                sLine = line.split(",")
+                sLine = line.split(',')
                 if l == 0:
                     continue
                 if l == 1:
@@ -59,14 +59,14 @@ def main():
                         for sl in range(len(sLine)):
                             if sLine[sl] == P:
                                 col = sl
-                                print("\t>>Place found at column %d" % col)
+                                print('\t>>Place found at column %d' % col)
                                 columnFound = True
                                 break
                 else:
                     if len(sLine) == 1:
                         break
                     elif not columnFound:
-                        sys.exit("Error: Specifed place \"%s\" not found!" % P)
+                        sys.exit('Error: Specifed place \"%s\" not found!' % P)
                     # print(col, sLine[col])
                     A.append([float(sLine[1]), int(sLine[col])])
             # if l > 1:
@@ -121,8 +121,8 @@ def main():
 
         results = []
         t = 0.0
-        output = open(os.path.join(os.getcwd(), "%s_%s_averages.csv" % (os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1], P)), "w")
-        output.write("time,simulations running,mean,std error\n")
+        output = open(os.path.join(os.getcwd(), '%s_%s_averages.csv' % (os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1], P)), 'w')
+        output.write('time,simulations running,mean,std error\n')
         for b in range(len(B)):
             C = 0.0
             Ce = 0.0
@@ -135,8 +135,8 @@ def main():
             else:
                 C /= len(B[b])
                 Ce = np.std(B[b])/math.sqrt(len(B[b]))
-            print("%r\t| %.3f\t| %r\t\t| %r +/- %r |" % (b,t,len(B[b]),C,Ce))
-            output.write("%f,%d,%r,%r\n" % (t,len(B[b]),C,Ce))
+            print('%r\t| %.3f\t| %r\t\t| %r +/- %r |' % (b,t,len(B[b]),C,Ce))
+            output.write('%f,%d,%r,%r\n' % (t,len(B[b]),C,Ce))
             results.append([C,Ce,t])
             t+=deltaT
 
@@ -164,5 +164,5 @@ def main():
     plt.ylabel('Number of Simulations')
     plt.savefig('%s_simulations_running.png' % (os.path.split(os.path.dirname(os.path.join(os.getcwd(), sys.argv[1])))[1]))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

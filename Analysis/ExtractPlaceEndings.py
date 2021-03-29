@@ -9,8 +9,8 @@ def main():
     Extracts all final states of a given place in a direction sys.argv[1], indicated by its label given by sys.argv[2].
 
     """
-    nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),"Macchiato_PetriNet_Places_*.csv"))
-    print("\nDiscovered %d files to inspect in \"%s\".\n" % (nFiles, sys.argv[1]))
+    nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),'Macchiato_PetriNet_Places_*.csv'))
+    print('\nDiscovered %d files to inspect in \"%s\".\n' % (nFiles, sys.argv[1]))
 
     pListLab = sys.argv[2].split(':')
     searchP = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_1.csv'))
@@ -40,7 +40,7 @@ def main():
         place = pList[p]
         # placeN = int(place)
         for i in range(nFiles):
-            inFile = open(os.path.join(os.getcwd(), sys.argv[1], "Macchiato_PetriNet_Places_%d.csv" % (i+1)))
+            inFile = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i+1)))
             ends.append(None)
             for line in inFile:
                 if len(line) == 1:

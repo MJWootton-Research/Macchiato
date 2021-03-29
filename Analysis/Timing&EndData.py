@@ -10,13 +10,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-'''
+"""
 TimingData.py produces average simulation durations for simulations that end with specific token configurations, and the number of such simulations thereof, along with the overall average duration.
 Command line arguments taken in order:
 * Name of simulation results folder (run this script in the parent directory).
 * Labels of the terminal places to count, separated by colons (eg, 'P1:P2:P3').
 
-'''
+"""
 
 def eDataToFile(eData, pLen):
     print(eData)
@@ -46,13 +46,13 @@ def eDataToFile(eData, pLen):
 def main():
     # Measure number of files to inspect in directory given by command line arguments
     nFiles = len(glob.glob1(os.path.join(os.getcwd(), sys.argv[1]),'Macchiato_PetriNet_Places_*.csv'))
-    print('\nDiscovered %d files to inspect in \'%s\'.\n' % (nFiles, sys.argv[1]))
+    print('\nDiscovered %d files to inspect in \"%s\".\n' % (nFiles, sys.argv[1]))
 
     # # Get runmode from command line arguments
     # if len(sys.argv) > 3:
     #     errorAnalysis = (sys.argv[3] == 'E')
     #     if not errorAnalysis:
-    #         raise RuntimeError('Unknown command line option \'%s\'' % sys.argv[3])
+    #         raise RuntimeError('Unknown command line option \"%s\"' % sys.argv[3])
     #     else:
     #         try:
     #             import numpy as np
@@ -140,7 +140,7 @@ def main():
 
     outDir = sys.argv[1]
     while True:
-        if outDir[-1] in ['\\', '/']:
+        if outDir[-1] in ['\\", '/']:
             outDir = outDir[:-1]
         else:
             break
