@@ -2,6 +2,7 @@
 other/*
 MiscTools/*
 Thermofluidics/*
+Test.py
 *.xcf
 *.pyc
 *.pyo

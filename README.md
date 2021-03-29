@@ -5,7 +5,7 @@
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
 ## A Simple Petri Nets Implementation for Python 3
-### Version 1-4
+### Version 1-4-1
 
 © Dr. Mark James Wootton 2016-2021  
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
@@ -151,7 +151,7 @@ If the instructions for [system integration](#system-integration) have been foll
 $ Macchiato /path/to/PetriNet.mpn N
 ```
 
-Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `V` at the end of the above command, but be aware that this will impact performance. 
+Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `V` at the end of the above command, but be aware that this will impact performance.
 
 #### Structure
 
@@ -401,9 +401,9 @@ while True:
         # Conditions for terminating simulation
         # ...
         break
-        
+
 # Write final structure to *.mpn file
-MC.write(pn, altName='%s_end'%pn.name) 
+MC.write(pn, altName='%s_end'%pn.name)
 ```
 
 ### Analysis
@@ -462,7 +462,7 @@ This script will produce a single `*.dot` file (readable by Graphviz) depicting 
 $ python /path/to/mpn_to_dot.py /path/to/PetriNet.mpn format1 format2 format3
 ```
 
-If multiple image file formats are supplied a file of each of the given types will also be produced. Formats should be specified by their file extension only, e.g. `svg` or `eps`. 
+If multiple image file formats are supplied a file of each of the given types will also be produced. Formats should be specified by their file extension only, e.g. `svg` or `eps`.
 
 **Note:** For best results, it is highly recommended to use vector image supporting formats (e.g. `svg`, `eps`, `pdf`) instead of raster images (e.g. `png`, `jpg`, `gif`, `bmp`).
 

@@ -138,13 +138,13 @@ class pnbg(object):
         elif type(pn) is mpn.PetriNet:
             rpn = pn
         else:
-            raise TypeError("pn is of unknown type: %r" % type(pn))
+            raise TypeError('pn is of unknown type: %r' % type(pn))
         if type(rpn) is not mpn.PetriNet:
-            raise RuntimeError("Failed to properly set Petri Net")
+            raise RuntimeError('Failed to properly set Petri Net')
         rpn.name = self.pn.name
         self.pn = rpn
-        if self.pn.units not in ["seconds", "sec", "s"]:
-            print("-"*80+"\nWarning: FMU integration uses seconds. Petri Net units are set to \"%s\", but values will be treated as seconds!\n"%(self.pn.units)+"-"*80)
+        if self.pn.units not in ['seconds', 'sec', 's']:
+            print('-'*80+'\nWarning: FMU integration uses seconds. Petri Net units are set to \"%s\", but values will be treated as seconds!\n'%(self.pn.units)+'-'*80)
             time.sleep(5)
 
     def processResults(self, lables):
@@ -157,7 +157,7 @@ class pnbg(object):
             The labels of system varriables to be extracted from the model, specified in the form in which they appear in Modelica
 
         """
-        lables = ["time"] + lables
+        lables = ['time'] + lables
         pn = self.pn
         procRes = {}
         for name in lables:
@@ -165,16 +165,16 @@ class pnbg(object):
             for r in range(len(self.results)):
                 procRes[name] = np.append(procRes[name], self.results[r][name])
 
-        path = os.path.join(os.getcwd(), pn.name, "%s_FMU_%d.csv" % (pn.name, pn.time))
-        rfile = open(path, "w")
-        rfile.write("Time")
+        path = os.path.join(os.getcwd(), pn.name, '%s_FMU_%d.csv' % (pn.name, pn.time))
+        rfile = open(path, 'w')
+        rfile.write('Time')
         for n in range(1,len(lables)):
-            rfile.write(",%s" % lables[n])
-        rfile.write("\n")
+            rfile.write(',%s' % lables[n])
+        rfile.write('\n')
         for i in range(len(procRes[lables[0]])):
             for n in range(len(lables)):
-                rfile.write("%f," % procRes[lables[n]][i])
-            rfile.write("\n")
+                rfile.write('%f,' % procRes[lables[n]][i])
+            rfile.write('\n')
         rfile.close()
 
     def run(self):
@@ -204,7 +204,7 @@ class pnbg(object):
             while True:
                 long = False
                 if not first:
-                    opts["initialize"] = False
+                    opts['initialize'] = False
                 else:
                     first = False
                     long = True
@@ -241,10 +241,10 @@ class pnbg(object):
                 transExit = pnNew.transExit
                 placeExit = pnNew.placeExit
                 if len(self.results):
-                    if ts0 < 0.999999999*self.results[-1]["time"][-1] or ts0 > 1.000000001*self.results[-1]["time"][-1]:
-                        raise RuntimeError("Petri Net/FMU clock mismatch (%.f vs %.f)" % (ts0, self.results[-1]["time"][-1]))
+                    if ts0 < 0.999999999*self.results[-1]['time'][-1] or ts0 > 1.000000001*self.results[-1]['time'][-1]:
+                        raise RuntimeError('Petri Net/FMU clock mismatch (%.f vs %.f)' % (ts0, self.results[-1]['time'][-1]))
                 lt = time.localtime()[:6]
-                print("\nFMU simulation from %.3f to %.3f seconds (subsection of %.3f seconds from %.3f to %.3f seconds), commencing at %04d/%02d/%02d %02d:%02d:%02d." % (ts0, ts1, (t1-t0), t0, t1, lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]))
+                print('\nFMU simulation from %.3f to %.3f seconds (subsection of %.3f seconds from %.3f to %.3f seconds), commencing at %04d/%02d/%02d %02d:%02d:%02d.' % (ts0, ts1, (t1-t0), t0, t1, lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]))
                 self.results.append(self.model.simulate(start_time=ts0, final_time=ts1, input=self.inputObj, options=opts))
                 ts0 += tStep
                 ### Feb 2020
@@ -264,18 +264,18 @@ class pnbg(object):
                 # What was this for?
                 # big = False
                 # for imp in self.important:
-                #     if abs((self.results[-1][imp][-1]-self.results[-1][imp][-2])/(self.results[-1]["time"][-1]-self.results[-1]["time"][-2])) < 1:
+                #     if abs((self.results[-1][imp][-1]-self.results[-1][imp][-2])/(self.results[-1]['time'][-1]-self.results[-1]['time'][-2])) < 1:
                 #         big = True
                 #         break
 
             if transExit or placeExit:
-                print("Terminate conidition(s) activated in Petri Net")
+                print('Terminate conidition(s) activated in Petri Net')
                 if transExit:
-                    print("\t--Transition maximum fire count")
+                    print('\t--Transition maximum fire count')
                 if placeExit:
-                    print("\t--Place token limit")
+                    print('\t--Place token limit')
                 break
             # if placeExit:
-            #     print("")
+            #     print('')
             #     break
         self.endfiles()
