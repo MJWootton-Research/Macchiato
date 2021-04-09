@@ -5,7 +5,7 @@
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
 ## A Simple Petri Nets Implementation for Python 3
-### Version 1-4-1
+### Version 1-4-2
 
 © Dr. Mark James Wootton 2016-2021  
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
@@ -20,6 +20,10 @@
     * [System Integration](#system-integration)
         * [Bash & Z-Shell](#bash--z-shell)
         * [PowerShell](#powershell)
+    * [Graphviz](#graphviz)
+        * [Linux](#linux)
+        * [Windows](#windows)
+        * [MacOS](#macos)
 * [Usage](#usage)
     * [Macchiato Petri Net Files (`*.mpn`)](#macchiato-petri-net-files-mpn)
         * [Structure](#structure)
@@ -46,7 +50,7 @@
 
 ## Dependencies
 * [Python 3](https://www.python.org)
-* [Graphiz](http://graphviz.org) — only required by visualisation features
+* [Graphiz](http://graphviz.org) — only required by visualisation features ([see below](#graphviz))
 * [NumPy](https://numpy.org/) — only required by analysis scripts
 * [Matplotlib](https://matplotlib.org/) — only required by analysis scripts
 * [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for graphical Petri Net construction tool
@@ -123,6 +127,42 @@ Click *"OK"* on the three open windows to save your changes, which will take eff
 
 You may need to change the above paths if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` in the profile file.
 
+### Graphviz
+
+The recommended method for installing Graphviz is via a package manager, such that the rendering of `*.dot` files as images be made available at the command line via `$ dot {etc}`.
+
+#### Linux
+
+On Linux systems which use `apt` such as Debian-like distributions, run the command:
+
+```bash
+$ sudo apt install graphviz
+```
+
+Similarly, on systems using `yum`, such as Fedora, use:
+
+```bash
+$ sudo yum install graphviz
+```
+
+#### Windows
+
+Windows users will need to install an appropriate command line installer first, for example [Scoop](https://scoop.sh), from which Graphviz is installed by:
+
+````powershell
+> scoop install graphviz
+````
+
+It is also possible to download an installer from Graphviz's website. This continues to be available as a legacy option, in which case the directory containing the executable `dot.exe` must be manually specified as the value of the `docLoc` parameters. This method is not recommended.
+
+#### MacOS
+
+On MacOs install Graphviz via [Homebrew](https://brew.sh/), via:
+
+```bash
+$ brew install graphviz
+```
+
 ## Petri Net Integration Algorithm
 
 The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation.
@@ -164,22 +204,16 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 - `name` — The label given to the Petri Net and used in output directories
 - `units` — The units of time to be used by the Petri Net (Default is `hrs`)
 - `runMode` — The mode of integration to be used for simulation (Default is `schedule`). Don't play with this setting unless you know what you are doing.
-
 - `dot` — Toggle creation of snapshots of the Petri Net during simulation in `*.dot` format (Default is `False`).
 - `visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `svg` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect).
 - `details` — Toggles label with Petri Net name, step, and clock in visualisations (Default is `True`)
-
 - `useGroup`: Toggles use of place and transition groups in visualisation (Default is `True`)
-
 - `orientationOption` — Orientation of Petri Net in visualisations.  Options are `LR`, `RL`, `TB`, and `BT`.
-
 - `debug` — Default is `False`.
-
 - `maxClock` — Greatest clock duration permitted in any one simulation (Default is 10<sup>6</sup> `units` of time)
-
 - `maxSteps` — Greatest number of steps permitted in any one simulation (Default is 10<sup>12</sup>)
-
 - `simsFactor` — Parameterises the total number of simulations performed (Default is 1.5×10<sup>3</sup>).  Repetition of simulations ends once the total simulated time surpasses the product of `maxClock` and `simsFactor`.  If a set number of simulations is specified at the command line, `simsFactor` is overruled.
+- `dotLoc` — (Default is `None`) Directory containing `dot.exe` for legacy mode visualisations (not recommended).
 
 **Important Note:** It is not recommended to use the `visualise` option beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the tools provided by [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py) and [`dot_to_image.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/dot_to_image.py) after the simulations are complete. If one is not intending to use `dot_to_image.py`, then it is also recommended to set `dot` to `False`.
 
@@ -295,7 +329,7 @@ To create a `PetriNet` object from scratch, import the module [`PetriNet.py`](Pe
 # Import module
 import PetriNet as PN
 
-# Create instance of PetriNet object
+# Create instance of PetriNet object (with default values shown - these may be ommitted)
 pn = PN.PetriNet(name=None, units='hrs', runMode='schedule', dot=False,
                  visualise=None, details=True, useGroup=True, orientation=None,
                  debug=False, dotLoc=None)
@@ -453,6 +487,8 @@ where `max_time` is the greatest time up to which the script will sample, `inter
 ### Visualisation
 
 Two scripts are available to visualise Petri Nets described in `*.mpn` files. These depend on Graphviz if image files are required, and are best suited for inspection and verification. Due to the limitations of Graphviz, they are not recommended as tools to produce images for reports etc. For this purpose, a dedicated graphical tool such as Microsoft Visio is better suited, see *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. By default, Graphviz will attempt to enforce a hierarchical structure on the Petri Net visualisation, but this is unsuitable in many cases, particularly with systems with multiple looping sequences. To compensate for this, one can add a place or transition to a grouping, which will force objects to appear next to those of the same assignment. This is achieved through the addition of the label `GROUP` to the end of the line on which the object is specified followed by a space and an integer, which serves as its group reference. Note that places and transitions have separate groupings, i.e. the places and transitions in `P1 GROUP 1`, `P2 GROUP 1`, `T1:instant IN P1 OUT P2 GROUP 1`, and `T2:instant IN P2 OUT P1 GROUP 1` will be organised as two independent groups.
+
+If image files are required, it is necessary that the Graphviz comand line tool `dot` be installed and available, [see above](#graphviz).
 
 #### [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py)
 

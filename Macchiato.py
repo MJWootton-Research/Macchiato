@@ -14,7 +14,7 @@
 Welcome to Macchiato - a simple Petri Nets implementation for Python 3
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-1
+Version 1-4-2
 ================================================================================
 
 This modules read and writes Petri Net structures to .mpn file, and when called
@@ -146,6 +146,8 @@ def read(file):
                 if len(spln) > 2:
                     for i in spln[2:]:
                         dotLoc += ' %s' % i
+                elif spln[1] == 'None':
+                    dotLoc = None
 
             # Run Parameters
             elif spln[0] == 'maxClock':
@@ -174,7 +176,7 @@ def read(file):
             # Slightly odd code here for legacy reasons.
             if len(spln) > 1:
                 if 'GROUP' in spln[-2]:
-                    print(spln)
+                    # print(spln)
                     group = int(spln[-1])
                     if len(spln) > 3:
                         tokens = int(spln[1])

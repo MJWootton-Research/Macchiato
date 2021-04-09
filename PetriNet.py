@@ -14,7 +14,7 @@
 Welcome to Macchiato - a simple Petri Nets implementation for Python 3
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-1
+Version 1-4-2
 ================================================================================
 
 This module contains all object definitions pertaining to Macchiato Petri Net
@@ -33,6 +33,8 @@ import random
 import subprocess
 import collections
 # from datetime import datetime
+
+import dot_to_image as di
 
 def labelCheck(label, ref=None, error=False):
     """
@@ -193,23 +195,30 @@ class PetriNet(object):
         # Requried for visualisation only
         self.dotLoc = None
         if visualise is not None:
-            if dotLoc is None:
-                if os.path.exists(os.path.join('C:/', 'Program Files (x86)', 'Graphviz2.38', 'bin')):
-                    self.dotLoc = os.path.join('C:/', 'Program Files (x86)', 'Graphviz2.38', 'bin')
-                elif os.path.exists(os.path.join('C:/', 'Program Files (x86)', 'Graphviz', 'bin')):
-                    self.dotLoc = os.path.join('C:/', 'Program Files (x86)', 'Graphviz', 'bin')
-                elif os.path.exists(os.path.join('C:/', 'Program Files', 'Graphviz2.38', 'bin')):
-                    self.dotLoc = os.path.join('C:/', 'Program Files', 'Graphviz2.38', 'bin')
-                elif os.path.exists(os.path.join('C:/', 'Program Files', 'Graphviz', 'bin')):
-                    self.dotLoc = os.path.join('C:/', 'Program Files', 'Graphviz', 'bin')
+            # if dotLoc is None:
+            #     if os.path.exists(os.path.join('C:/', 'Program Files (x86)', 'Graphviz2.38', 'bin')):
+            #         self.dotLoc = os.path.join('C:/', 'Program Files (x86)', 'Graphviz2.38', 'bin')
+            #     elif os.path.exists(os.path.join('C:/', 'Program Files (x86)', 'Graphviz', 'bin')):
+            #         self.dotLoc = os.path.join('C:/', 'Program Files (x86)', 'Graphviz', 'bin')
+            #     elif os.path.exists(os.path.join('C:/', 'Program Files', 'Graphviz2.38', 'bin')):
+            #         self.dotLoc = os.path.join('C:/', 'Program Files', 'Graphviz2.38', 'bin')
+            #     elif os.path.exists(os.path.join('C:/', 'Program Files', 'Graphviz', 'bin')):
+            #         self.dotLoc = os.path.join('C:/', 'Program Files', 'Graphviz', 'bin')
+            #     else:
+            #         print('Warning: Attempted to autmoatically discover Graphviz installation, but was unsuccessful.\nManual specification of self.dotLoc necessary if visualisation is required.')
+            #         time.sleep(5)
+            # elif os.path.exists(dotLoc):
+            #     self.dotLoc = dotLoc
+            # else:
+            #     print('Warning: Graphviz installation not found at specifed location.\n"%s"\nCheck simulation parameter file if visualisation is required.' % dotLoc)
+            #     time.sleep(5)
+
+            if self.dotLoc is not None:
+                if os.path.exists(dotLoc):
+                    self.dotLoc = dotLoc
                 else:
-                    print('Warning: Attempted to autmoatically discover Graphviz installation, but was unsuccessful.\nManual specification of self.dotLoc necessary if visualisation is required.')
+                    print('Warning: Graphviz installation not found at specifed location.\n"%s"\nCheck simulation parameter file if visualisation is required.' % dotLoc)
                     time.sleep(5)
-            elif os.path.exists(dotLoc):
-                self.dotLoc = dotLoc
-            else:
-                print('Warning: Graphviz installation not found at specifed location.\n"%s"\nCheck simulation parameter file if visualisation is required.' % dotLoc)
-                time.sleep(5)
 
             if self.dotLoc is not None:
                 self.dotLoc = os.path.join(self.dotLoc, 'dot.exe')
@@ -1186,8 +1195,11 @@ class PetriNet(object):
             else:
                 format = self.visualise
             oPath = os.path.join(rPath, '%d.%s' % (self.step, format))
+            # Render dot file as image
             if self.dotLoc is not None:
                 subprocess.call('"%s" %s -T %s -o "%s"'  % (self.dotLoc, path, format, oPath), shell=True)
+            else:
+                di.render(path, [format])
 
         return path
 
