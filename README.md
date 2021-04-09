@@ -153,6 +153,8 @@ Windows users will need to install an appropriate command line installer first, 
 > scoop install graphviz
 ````
 
+It may also be necessary to run the command `dot -c` with administrative privileges to complete the process.
+
 It is also possible to download an installer from Graphviz's website. This continues to be available as a legacy option, in which case the directory containing the executable `dot.exe` must be manually specified as the value of the `docLoc` parameters. This method is not recommended.
 
 #### MacOS
