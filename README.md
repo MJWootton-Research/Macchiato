@@ -18,7 +18,7 @@
 * [Installation](#installation)
     * [Download](#download)
     * [System Integration](#system-integration)
-        * [Bash & Z-Shell](#bash--z-shell)
+        * [Bash & Z Shell](#bash--z-shell)
         * [PowerShell](#powershell)
     * [Graphviz](#graphviz)
         * [Linux](#linux)
