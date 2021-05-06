@@ -96,7 +96,7 @@ One can configure their system to allow Macchiato to be accessed conveniently fr
 
 #### Bash & Z Shell
 
-In Bash or Z Shell environments, such as is default in many Linux distributions and of MacOS, add the following two lines to the file found in the Home directory with the name `.bashrc` or `.zshrc` respectively.
+In a Bash or Z Shell environment, such as is default in many Linux distributions and of MacOS, add the following two lines to the file found in the Home directory with the name `.bashrc` or `.zshrc` respectively.
 
 ```bash
 alias Macchiato="python $HOME/git/Macchiato/Macchiato.py" # Execute Macchiato simulations from any directory
