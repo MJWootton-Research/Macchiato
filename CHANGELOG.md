@@ -1,15 +1,23 @@
 # Macchiato Changelog
 
-## Version 1-4-2
+## Version 1
 
-* Rewrote in-simulation visualisation to use Graphviz command line tools
+* Earlier versions of Macchiato were distributed through a private GDrive folder
 
-## Version 1-4-1
+### Version 1-4
+
+* Created private GitHub repository to manage access to Macchiato
+
+#### Version 1-4-1
 
 * Added new methods to PetriNet object to reveal objects with no connecting arcs
   * disconnectedPlaces 
   * disconnectedTrans
 
-## Version 1-4
+#### Version 1-4-2
 
-* Created private GitHub repository to manage access to Macchiato
+* Rewrote in-simulation visualisation to use Graphviz command line tools
+
+#### Version 1-4-3
+
+* Fixed bug where the macro in the MS Visio Petri Net drawing tools gave incorrect output for reset transitions

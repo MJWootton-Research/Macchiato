@@ -14,7 +14,7 @@
 Welcome to Macchiato - a simple Petri Nets implementation for Python 3
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-2
+Version 1-4-3
 ================================================================================
 
 This modules read and writes Petri Net structures to .mpn file, and when called
