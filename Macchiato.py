@@ -14,7 +14,7 @@
 Welcome to Macchiato - a simple Petri Nets implementation for Python 3
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-3
+Version 1-4-4
 ================================================================================
 
 This modules read and writes Petri Net structures to .mpn file, and when called
@@ -124,23 +124,23 @@ def read(file):
             elif spln[0] == 'runMode':
                 runMode = spln[1]
             elif spln[0] == 'dot':
-                dot = (spln[1] == 'True')
+                dot = (spln[1].upper() == 'TRUE')
             elif spln[0] == 'visualise':
                 if spln[1] == 'None':
                     visualise = None
                 else:
                     visualise = spln[1]
             elif spln[0] == 'details':
-                details = (spln[1] == 'True')
+                details = (spln[1].upper() == 'TRUE')
             elif spln[0] == 'useGroup':
-                useGroup = (spln[1] == 'True')
+                useGroup = (spln[1].upper() == 'TRUE')
             elif spln[0] == 'orientation':
                 if spln[1] == 'None':
                     orientation = None
                 else:
                     orientation = spln[1]
             elif spln[0] == 'debug':
-                debug = (spln[1] == 'True')
+                debug = (spln[1].upper() == 'TRUE')
             elif spln[0] == 'dotLoc':
                 dotLoc = spln[1]
                 if len(spln) > 2:
@@ -157,13 +157,13 @@ def read(file):
             elif spln[0] == 'simsFactor':
                 simsFactor = float(spln[1])
             elif spln[0] == 'history':
-                history = (spln[1] == 'True')
+                history = (spln[1].upper() == 'TRUE')
             elif spln[0] == 'analysisStep':
                 analysisStep = float(spln[1])
             elif spln[0] == 'fileOutput':
-                fileOutput = (spln[1] == 'True')
+                fileOutput = (spln[1].upper() == 'TRUE')
             elif spln[0] == 'endOnly':
-                endOnly = (spln[1] == 'True')
+                endOnly = (spln[1].upper() == 'TRUE')
 
             else:
                 raise KeyError('Unknown parameter')
