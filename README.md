@@ -63,7 +63,7 @@ Cloning the repository via [Git](https://git-scm.com) is the recommended method 
 ```shell
 $ git --version
 ```
-Be aware that the `$` symbol indicates a terminal command, and should not be copied with the rest of the line. If no Git installation is found, consult [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for further instructions. It is recommended to [create an SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to one’s GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to eliminate the need for password entry during pull requests.
+Be aware that the symbol `$` (alternatively, `>` or `%`, depending on shell type) indicates a terminal command, and should not be copied with the rest of the line. If no Git installation is found, consult [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for further instructions. It is recommended to [create an SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to one’s GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to eliminate the need for password entry during pull requests.
 
 Create a folder named `git` in your home directory and enter it in the terminal. The following command will create a local instance of the repository in the current working directory:
 ```shell
@@ -161,8 +161,8 @@ It is also possible to download an installer from Graphviz's website. This conti
 
 On MacOs install Graphviz via [Homebrew](https://brew.sh/), via:
 
-```bash
-$ brew install graphviz
+```shell
+% brew install graphviz
 ```
 
 ## Petri Net Integration Algorithm
