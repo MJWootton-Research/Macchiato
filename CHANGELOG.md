@@ -21,3 +21,7 @@
 #### Version 1-4-3
 
 * Fixed bug where the macro in the MS Visio Petri Net drawing tools gave incorrect output for reset transitions
+
+#### Version 1-4-4
+
+*          Removed case sensitivity of Boolean options in *.mpn files
