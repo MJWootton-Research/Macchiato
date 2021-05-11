@@ -140,7 +140,7 @@ def main():
 
     outDir = sys.argv[1]
     while True:
-        if outDir[-1] in ['\", '/']:
+        if outDir[-1] in ['\\', '/']:
             outDir = outDir[:-1]
         else:
             break
