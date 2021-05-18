@@ -220,7 +220,7 @@ def main():
 
 # New
     # for d in data:
-    dsF = open(os.path.join(os.getcwd(), 'ds_%s.csv' % outDir), 'w')
+    dsF = open(os.path.join(os.getcwd(), 'ds_%s.csv' % os.path.split(outDir)[1]), 'w')
     for p in range(len(pList)):
         if len(eData[p][0:data[p][1]]):
             ds = '%s,|' % pListLab[p]
