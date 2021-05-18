@@ -67,7 +67,13 @@ def main():
     file.close()
 
     # Write results
-    out = open(os.path.join(os.getcwd(), '%s_TransFireAverage.csv' % sys.argv[1]), 'w')
+    outDir = sys.argv[1]
+    while True:
+        if outDir[-1] in ['\\', '/']:
+            outDir = outDir[:-1]
+        else:
+            break
+    out = open(os.path.join(os.getcwd(), '%s_TransFireAverage.csv' % os.path.split(outDir)[1]), 'w')
     head = 'Transition,Times_fired,Fires_Per_Simulation'
     if errorAnalysis:
         head += ',Error'
