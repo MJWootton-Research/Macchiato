@@ -19,13 +19,15 @@ from pyfmi import load_fmu
 import PetriNet as mpn
 import Macchiato
 
-class pnbg(object):
+class pnfmu(object):
     def __init__(self, name, pn, fmuPath, inputs, wd=None, tMax=100.0, tStep=10.0):
         """
         Skeleton object to manage the relationship between the Petri Net
-        decribed by Macchiato, and the Bond Graph (or other physical model) in
-        FMU form. Import this module and use inheritance to specify the desired
+        decribed by Macchiato, and the physical model (e.g. Bond Graph) in FMU
+        form. Import this module and use inheritance to specify the desired
         interactions.
+
+        NB: FMU = Functional Mock-up Unit
 
         Parameters
         ----------
@@ -35,7 +37,7 @@ class pnbg(object):
         * If given string, attempts to read as path to an .mpn file
         * If given mpn.PetriNet, sets self.pn to given object
         fmuPath : string
-            Path to Bond Graph FMU file
+            Path to FMU file
         inputs : list of strings
             The variable names expected as inputs by the FMU
         wd : string
@@ -57,7 +59,7 @@ class pnbg(object):
         if wd is not None:
             os.chdir(wd)
 
-        # Bond Graph
+        # FMU
         self.model = load_fmu(fmuPath)
         self.inputObj=(inputs, self.inputFunction)
 
@@ -70,7 +72,7 @@ class pnbg(object):
 
     def inputFunction(self, t):
         """
-        Control of Bond Graph by Petri Net status and time
+        Control of FMU by Petri Net status and time
 
         Returns
         ----------
@@ -82,7 +84,7 @@ class pnbg(object):
 
     def netUpdate(self, t):
         """
-        Effects changes to Petri Net based on status of the Bond Graph
+        Effects changes to Petri Net based on status of the FMU
 
         Parameters
         ----------
@@ -123,7 +125,7 @@ class pnbg(object):
 
     def setPN(self, pn):
         """
-        Sets up Petri Net object to interface with Bond Graph/FMU
+        Sets up Petri Net object to interface with FMU
 
         Parameters
         ----------
