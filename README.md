@@ -51,9 +51,9 @@
 ## Dependencies
 * [Python 3](https://www.python.org)
 * [Graphiz](http://graphviz.org) — only required by visualisation features ([see below](#graphviz))
-* [NumPy](https://numpy.org/) — only required by analysis scripts
-* [Matplotlib](https://matplotlib.org/) — only required by analysis scripts
-* [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for graphical Petri Net construction tool
+* [NumPy](https://numpy.org/) — only required by [analysis scripts](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/Analysis)
+* [Matplotlib](https://matplotlib.org/) — only required by [analysis scripts](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/Analysis)
+* [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for [graphical Petri Net construction tool](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/PetriNetDrawingTools)
 
 ## Installation
 ### Download
