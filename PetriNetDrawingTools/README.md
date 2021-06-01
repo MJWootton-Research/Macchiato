@@ -52,4 +52,4 @@ The model is exported to an `*.mpn` file when the key combination *"ctrl*+*e"* i
 
 ## Acknowledgements
 
-Thank-you to Dr Robert *"Larus"* Lee for developing the original Macchiato stencil and macro for Microsoft Visio.
+With thanks to Dr Robert *"Larus"* Lee for developing the original Macchiato stencil and macro for Microsoft Visio.
