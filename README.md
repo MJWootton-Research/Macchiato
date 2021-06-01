@@ -291,7 +291,9 @@ Transitions
 
 As an alternative to transcribing a Petri Net structure by hand, it is possible to graphically construct a model in Microsoft Visio and export as an `*.mpn`. This is general considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.
 
-In the directory [`PetriNetDrawingTools`](PetriNetDrawingTools), one will find a Microsoft Visio drawing and a stencil file. Create a copy of these files to produce Petri Nets graphically — both must be found in the same directory. To use the tool, make sure that stencils and shape data are set to be visible and that macros are enabled. The shortcut *Ctrl+e* will export the Petri Net to an `*.mpn` file with the properties specified in the *Parameters* object. It is recommended to export models frequently to avoid being caught out by Microsoft Visio's occasional idiosyncrasies.
+In the directory [`PetriNetDrawingTools`](PetriNetDrawingTools), one will find a Microsoft Visio drawing and a stencil file. Create a copy of these files to produce Petri Nets graphically — both must be found in the same directory. To use the tool, make sure that stencils and shape data are set to be visible and that macros are enabled. The shortcut *"Ctrl*+*e"* will export the Petri Net to an `*.mpn` file with the properties specified in the *Parameters* object. It is recommended to export models frequently to avoid being caught out by the occasional idiosyncrasies of Microsoft Visio.
+
+[Full documentation found here](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/README.md).
 
 ### Scripting Tools
 
@@ -513,7 +515,7 @@ $ python /path/to/dot_to_image.py /path/to/target format1 format2 format 3
 ```
 
 ## Acknowledgements
-Thank-you to Dr Robert *"Larus"* Lee for developing the Microsoft Visio graphical construction tools.
+Thank-you to Dr Robert *"Larus"* Lee for developing the original Macchiato stencil and macro for Microsoft Visio.
 
 ## References
 
