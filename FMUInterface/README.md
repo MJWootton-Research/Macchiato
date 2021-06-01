@@ -134,7 +134,7 @@ Separate from the `atr` object, the `run` function manages initial set of the hy
 To facilitate the interaction between the PN and FMU, a number of transitions and places are added to the base PN ([see here](https://github.com/MJWootton-Resilience-Projects/Macchiato#scripting-tools) for more details of Macchiato's PN scripting tools).
 
 ```python
-	pn.trans['TUnsafe'].maxFire = None
+    pn.trans['TUnsafe'].maxFire = None
     pn.addTrans('TUnsafeCounter', delay=25.0, maxFire=1)
     pn.trans['TUnsafeCounter'].addInArc('PUnsafe')
     pn.trans['TUnsafeCounter'].addOutArc('PUnsafe')
@@ -187,7 +187,7 @@ A `list` object, `inputs`, must be supplied which contains the input variable na
 Next a `list` of the names of variables from the FMU that the user wishes to monitor must be given as a `list` called `interest`.  Any variable that is required to be visible to `netUpdate` must be included. Only variables given in `interest` will be recorded in the simulation output files. In this example, the variables of interest are the thermal energy entering the system from the fuel (`fuelThIn`), the coolant mass flow rate (`coolTR`), the coolant temperature on entry to the rod `coolTin` and the temperatures of each of the 24 points along the rod at which the coolant, cladding, and fuel, are modelled (`Coolant1.e`, `Cladding1.e`, `Fuel1.e`, etc.).
 
 ```python
-	interest = ['fuelThIn', 'coolTR', 'coolTin']
+    interest = ['fuelThIn', 'coolTR', 'coolTin']
     for i in ['Coolant', 'Cladding', 'Fuel']:
         for j in range(1,25):
             interest.append('%s%d.e' % (i,j))
