@@ -36,7 +36,7 @@ New objects are added, either by dragging shapes from the stencil, or by copying
 Connections must be made using the arc objects and not the default Visio connectors. The arcs are connected by dragging their end points onto the places and transitions, either linked to the centre or to an attachment point.
 
 | ![](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/Glue.png) | ![](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/Point.png) |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
 
 Additional points can be added from the *"Home"* tab. However, be certain that the correct object is selected as Visio will allow the user to attach a connection point associated with the currently selected object to any shape in the file, potentially causing failed or erroneous `*.mpn` export.
 
