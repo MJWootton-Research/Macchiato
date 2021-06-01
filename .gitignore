@@ -1,12 +1,8 @@
 # Added by me
-other/*
-MiscTools/*
+ignore/*
 Thermofluidics/*
-Macchiato.png
 OtherTools/
-PNBG_Models/
-TestExportREADME/
-Visio
+PNBG_Models/*
 *.xcf
 *.pyc
 *.pyo
