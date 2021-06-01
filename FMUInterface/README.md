@@ -84,7 +84,7 @@ For instruction relating to the creation of the PN component of the hybrid model
 
 ### Example
 
-An example system is presented, taken from {*Wootton et al. 202X*}. A PN describing the failure modes of a nuclear reactor is coupled with a representation of heat flow through its fuel rods in BG form. A schematic of the system is shown in figure 1 and the corresponding PN is shown in figure 2.
+An example system is presented, taken from {*pending*}. A PN describing the failure modes of a nuclear reactor is coupled with a representation of heat flow through its fuel rods in BG form. A schematic of the system is shown in figure 1 and the corresponding PN is shown in figure 2.
 
 | <img src="src/Overview.png" width="550" />                   | <img src="src/PN.png" width="400" />                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
@@ -96,11 +96,11 @@ For the sake of the model, each fuel rod is treated as identical, so only one ne
 | ----------------------------------------------------- | :----------------------------------------------------------- |
 | Figure 3: *Diagram of heat transfer along a fuel rod* | Figure 4: *BG modelling heat transfer in a fuel rod. There are twelve repeating sections in series* |
 
-The files for this model are available in the folder [`PNFMU_Hybrid_Example`]() and its subdirectories. In `ATR_Model`, the files required to run the example are found, with `ATR_PetriNet.mpn` and `ATR_Bond_Graph_{X}.fmu` being the inputs for the PN and BG parts of the model respectively, where `{X}` is the operating system in use (a 64 bit version of Linux, macOS, or Windows 10 is required). These are read by  `ATR_Hybrid.py` to achieve the hybridisation, discussed in detail [below](#atr_hybridpy).
+The files for this model are available in the folder [`PNFMU_Hybrid_Example`](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/FMUInterface/Example) and its subdirectories. In `ATR_Model`, the files required to run the example are found, with `ATR_PetriNet.mpn` and `ATR_Bond_Graph_{X}.fmu` being the inputs for the PN and BG parts of the model respectively, where `{X}` is the operating system in use (a 64 bit version of Linux, macOS, or Windows 10 is required). These are read by  `ATR_Hybrid.py` to achieve the hybridisation, discussed in detail [below](#atr_hybridpy).
 
-The folder `Petri_Net_Construction` contains `ATR_PetrNet_Base.vsdm` with provides convenient graphical editing of the former via MS Visio ([see here](https://github.com/MJWootton-Resilience-Projects/Macchiato#graphical-petri-net-construction-with-microsoft-visio) for details of the usage of the macro). Note that as the reactor has forty shutdown rods, the function and failure of each of which is modelled individually, this part of the PN is not generated from `ATR_PetrNet_Base.vsdm`, but instead via the script `Rods.py`.  The script will write an `*.mpn` file with the desired number of rods which can be copied into the output of `ATR_PetrNet_Base.vsdm`.
+The folder `Petri_Net_Construction` contains `ATR_PetrNet_Base.vsdm` with provides convenient graphical editing of the former via MS Visio ([see here](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/README.md) for details of the usage of the macro). Note that as the reactor has forty shutdown rods, the function and failure of each of which is modelled individually, this part of the PN is not generated from `ATR_PetrNet_Base.vsdm`, but instead via the script `Rods.py`.  The script will write an `*.mpn` file with the desired number of rods which can be copied into the output of `ATR_PetrNet_Base.vsdm`.
 
-The folder `Reactor_Bond_Graph` contains the Modelica package required to build the FMU, which can be viewed and edited from the aforementioned Modelica environments. A version of the model for FMU export is found as `ATR_BondGraph_FMU.mo`, as well as a stand-alone version as `ATR_Bond_Graph.mo`. When loading the Modelica codes, import BondLib first ([available here](https://github.com/modelica-3rdparty/BondLib)), followed by `Reactor_Bond_Graph`. In both cases, this is done by loading the file named `package.mo` in their respectively top directories.
+The folder `Reactor_Bond_Graph` contains the Modelica package required to build the FMU, which can be viewed and edited from the aforementioned Modelica environments. A version of the model for FMU export is found as `ATR_BondGraph_FMU.mo`, as well as a stand-alone version as `ATR_Bond_Graph.mo`. When loading the Modelica codes, import BondLib first ([available here](https://github.com/modelica-3rdparty/BondLib) or [here](https://github.com/MJWootton-Resilience-Projects/BondLib)), followed by `Reactor_Bond_Graph`. In both cases, this is done by loading the file named `package.mo` in their respectively top directories.
 
 ####  `ATR_Hybrid.py`
 
@@ -207,3 +207,12 @@ The function then loops for the required number of simulations, at each iteratio
         model.processResults(interest)
 ```
 
+#### Execution
+
+To run the the above example with a simulation batch size of 1000, one would enter the following:
+
+```bash
+$ python Example/ATR_Model/ATR_Hybrid.py Example/ATR_Model/ATR_PetriNet.mpn ample/ATR_Model/ATR_BondGraph_{OS}.fmu 1000
+```
+
+where `{OS}` is replaced by the appropriate system.
