@@ -11,43 +11,43 @@ To begin, make a copy of the the [example file](https://github.com/MJWootton-Res
 
 When the example file is opened, a small banner will appear, asking the user  whether macros should be enabled. Click *"Enable Content"* as otherwise it will not be possible to export the Petri Net.
 
-<p align="center"><img src="https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/Macro.png" width='600' /></p>
+<p align="center"><img src="src/Macro.png" width='600' /></p>
 
 If the Macchiato stencil is not already visible in the *"Shapes"* panel, import `MacchiatoStencil.vssx` via *"More Shapes"* → *"Open Stencil"*.
 
 <p align="center">
-  <img src='https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/Shapes.png' width='350'>
+  <img src='src/Shapes.png' width='350'>
 </p>
 
 Make sure that *"Shape Data Window"* is enabled in the *"Data"* tab.
 
 <p align="center">
-  <img src='https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/Data.png'>
+  <img src='src/Data.png'>
 </p>
 
 The *"Shape Data"* panel is used to set the parameters for each object in the model, including the system parameters block.
 
 <p align="center">
-  <img src='https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/EditShapeData.png'>
+  <img src='src/EditShapeData.png'>
 </p>
 
 New objects are added, either by dragging shapes from the stencil, or by copying existing ones. Particularly in the latter case, make sure that every place and transition has a unique name.
 
 Connections must be made using the arc objects and not the default Visio connectors. The arcs are connected by dragging their end points onto the places and transitions, either linked to the centre or to an attachment point.
 
-| ![](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/Glue.png) | ![](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/Point.png) |
+| ![](src/Glue.png) | ![](src/Point.png) |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
 
 Additional points can be added from the *"Home"* tab. However, be certain that the correct object is selected as Visio will allow the user to attach a connection point associated with the currently selected object to any shape in the file, potentially causing failed or erroneous `*.mpn` export.
 
 <p align="center">
-  <img src='https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/AddPoint.png'>
+  <img src='src/AddPoint.png'>
 </p>
 
 The model is exported to an `*.mpn` file when the key combination *"ctrl*+*e"* is pressed. The output is saved in the same directory as the source file with the name specified in the system parameters object. Existing files will be overwritten, with no warning issued, so be careful not to unintentionally destroy work.
 
 <p align="center">
-  <img src='https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/src/Parameters.png' width='500'>
+  <img src='src/Parameters.png' width='500'>
 </p>
 
 ## Acknowledgements
