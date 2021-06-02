@@ -38,21 +38,15 @@
         * [Reading & Writing `*.mpn` Files](#reading--writing-mpn-files)
         * [Manipulating Petri Nets](#manipulating-petri-nets)
     * [Analysis](#analysis)
-        * [`OutcomesData.py`](#outcomesdatapy)
-        * [`TransFireFrequency.py`](#transfirefrequencypy)
-        * [`ExtractPlaceEndings.py`](#extractplaceendingspy)
-        * [`Places_wrt_Time.py`](#placeswrttimepy)
     * [Visualisation](#visualisation)
-        * [`mpn_to_dot.py`](#mpn_to_dotpy)
-        * [`dot_to_image.py`](#dot_to_imagepy)
 * [Acknowledgements](#acknowledgements)
 * [References](#references)
 
 ## Dependencies
 * [Python 3](https://www.python.org)
+  * [NumPy](https://numpy.org/) — only required by [analysis scripts](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/Analysis)
+  * [Matplotlib](https://matplotlib.org/) — only required by [analysis scripts](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/Analysis)
 * [Graphiz](http://graphviz.org) — only required by [visualisation features](https://github.com/MJWootton-Resilience-Projects/Macchiato#graphviz)
-* [NumPy](https://numpy.org/) — only required by [analysis scripts](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/Analysis)
-* [Matplotlib](https://matplotlib.org/) — only required by [analysis scripts](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/Analysis)
 * [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for [graphical Petri Net construction tool](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/PetriNetDrawingTools)
 
 ## Installation
@@ -133,16 +127,24 @@ The recommended method for installing Graphviz is via a package manager, such th
 
 #### Linux
 
-On Linux systems which use `apt` such as Debian-like distributions, run the command:
+Graphviz is available through the package managers of most Linux distributions
+
+##### `apt` (Debian, Ubuntu, Linux Mint, Pop!_OS, elementary OS, etc.):
 
 ```bash
 $ sudo apt install graphviz
 ```
 
-Similarly, on systems using `yum`, such as Fedora, use:
+##### `yum` (Fedora, CentOS, RHEL, Scientific Linux, Yellow Dog Linux, Oracle Linux, etc.)
 
 ```bash
 $ sudo yum install graphviz
+```
+
+#####  `pacman`  (Arch, Manjaro, etc.)
+
+```bash
+$ sudo pacman -Syy graphviz
 ```
 
 #### Windows
@@ -446,73 +448,19 @@ MC.write(pn, altName='%s_end'%pn.name)
 
 ### Analysis
 
-Some Python scripts are currently available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved in `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
+Four Python scripts are available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved in `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
 
-#### [`OutcomesData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/OutcomesData.py)
-
-This script will provide information on the proportion of simulations ending in particular outcomes and the average durations of those sets, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given, as well as a separate file containing the 10<sup>th</sup> and 90<sup>th</sup> percentiles. This is achieved by inspection of the final states of a given list of places, with with labels delimited by `:`, e.g. `P1:P2:P3`. The script will also produce a set of image files containing histograms to represent the results, with the axis labelled *"Duration"* taking the same units as those specified in the simulated Petri Net.
-
-Example:
-```shell
-$ python /path/to/OutcomesData.py /path/to/Results_Folder P1:P2:P3
-```
-
-#### [`TransFireFrequency.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TransFireFrequency.py)
-
-This script produces statistics for transition firings, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. Simply provide the directory containing the results for inspection and a plain text file will be produced in the current working directory.
-
-Example:
-```shell
-$ python /path/to/TransFireFrequency.py /path/to/Results_Folder
-```
-
-#### [`ExtractPlaceEndings.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/ExtractPlaceEndings.py)
-
-This script will extract the final state of every instance of a given set of places (delimited by `:`) within a directory and write them to file.
-
-Example:
-
-```shell
-$ python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder P1:P2:P3
-```
-
-#### [`Places_wrt_Time.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/Places_wrt_Time.py)
-
-This script will give the average number of tokens in each of a given set of places, plus standard error, sampling the simulation results at a user specified time interval. The total number of simulations continuing to run up to that point is also given. Image files containing graphs to illustrate these results are produced.
-
-Example:
-
-```sh
-$ python /path/to/Places_wrt_Time.py /path/to/Results_Folder max_time interval P1:P2:P3
-```
-
-where `max_time` is the greatest time up to which the script will sample, `interval` is the gap between samplings, and `:` delimits the list of places to sample given at the end.
+Documentation for the usage of the analysis scripts is found [here](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/README.md).
 
 ### Visualisation
 
-Two scripts are available to visualise Petri Nets described in `*.mpn` files. These depend on Graphviz if image files are required, and are best suited for inspection and verification. Due to the limitations of Graphviz, they are not recommended as tools to produce images for reports etc. For this purpose, a dedicated graphical tool such as Microsoft Visio is better suited, see [Macchiato Petri Net Graphical Construction](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/README.md). By default, Graphviz will attempt to enforce a hierarchical structure on the Petri Net visualisation, but this is unsuitable in many cases, particularly with systems with multiple looping sequences. To compensate for this, one can add a place or transition to a grouping, which will force objects to appear next to those of the same assignment. This is achieved through the addition of the label `GROUP` to the end of the line on which the object is specified followed by a space and an integer, which serves as its group reference. Note that places and transitions have separate groupings, i.e. the places and transitions in `P1 GROUP 1`, `P2 GROUP 1`, `T1:instant IN P1 OUT P2 GROUP 1`, and `T2:instant IN P2 OUT P1 GROUP 1` will be organised as two independent groups.
+In the [`Visualisation`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Visualisation) directory, two scripts are available to produce images of Petri Nets from `*.mpn` files or Macchiato simulation output. These depend on Graphviz and are best suited for inspection and verification rather instead of creating report quality images, for which the [Visio tools](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/README.md) are recommended.
 
-If image files are required, it is necessary that the Graphviz comand line tool `dot` be installed and available, [see above](#graphviz).
+Documentation for the usage of the visualisation scripts is found [here](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Visualisation/README.md).
 
-#### [`mpn_to_dot.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/mpn_to_dot.py)
+### FMU Interface
 
-This script will produce a single `*.dot` file (readable by Graphviz) depicting a Petri Net in its initial state, as described in an `*.mpn` file. Replacing `PetriNet.mpn` with the path of the target `*.mpn` , it is invoked with the following command:
-
-```shell
-$ python /path/to/mpn_to_dot.py /path/to/PetriNet.mpn format1 format2 format3
-```
-
-If multiple image file formats are supplied a file of each of the given types will also be produced. Formats should be specified by their file extension only, e.g. `svg` or `eps`.
-
-**Note:** For best results, it is highly recommended to use vector image supporting formats (e.g. `svg`, `eps`, `pdf`) instead of raster images (e.g. `png`, `jpg`, `gif`, `bmp`).
-
-#### [`dot_to_image.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/dot_to_image.py)
-
-This script will read a `.dot` file, or a directory of `*.dot` files, and produce image files of types from the given list of formats. Substituting `/path/to/target` for the directory or file to be read, the script is executed with the following command, with the desired image formats listed at the end.
-
-```shell
-$ python /path/to/dot_to_image.py /path/to/target format1 format2 format 3
-```
+Macchiato Petri Nets can also be used in conjunction with a physical model provided in [FMU format](https://en.wikipedia.org/wiki/Functional_Mock-up_Interface), the tools for which are provided in the [`FMUInterface`](https://github.com/MJWootton-Resilience-Projects/Macchiato/tree/master/FMUInterface) directory.
 
 ## Acknowledgements
 With thanks to Dr Robert *"Larus"* Lee for developing the original Macchiato stencil and macro for Microsoft Visio.
