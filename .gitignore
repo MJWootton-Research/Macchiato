@@ -1,8 +1,8 @@
 # Added by me
-ignore/*
-Thermofluidics/*
+.ignore/
+Thermofluidics/
 OtherTools/
-PNBG_Models/*
+PNBG_Models/
 *.xcf
 *.pyc
 *.pyo

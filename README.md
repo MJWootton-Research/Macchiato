@@ -1,5 +1,5 @@
 <p align="center">
-  <img src='src/MacchiatoBanner_Thin.png' width='1200' title='Macchiato'>
+  <img src='.src/MacchiatoBanner_Thin.png' width='1200' title='Macchiato'>
 </p>
 
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
@@ -172,7 +172,7 @@ On MacOs install Graphviz via [Homebrew](https://brew.sh/), via:
 The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation.
 
 <p align="center">
-  <img src='src/Algorithm.png' width='750' title='Macchiato&#39s Petri Net Integration Algorithm'>
+  <img src='.src/Algorithm.png' width='750' title='Macchiato&#39s Petri Net Integration Algorithm'>
 </p>
 
 ## Usage

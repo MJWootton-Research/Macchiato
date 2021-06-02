@@ -86,13 +86,13 @@ For instruction relating to the creation of the PN component of the hybrid model
 
 An example system is presented, taken from {*pending*}. A PN describing the failure modes of a nuclear reactor is coupled with a representation of heat flow through its fuel rods in BG form. A schematic of the system is shown in figure 1 and the corresponding PN is shown in figure 2.
 
-| <img src="src/Overview.png" width="550" />                   | <img src="src/PN.png" width="400" />                         |
+| <img src=".src/Overview.png" width="550" />                   | <img src=".src/PN.png" width="400" />                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | Figure 1: *Schematic of reactor primary coolant, shutdown condensation, and emergency shutdown system.* | Figure 2: *PN structure representing the failure modes and maintenance of the reactor system. Subsystems are highlighted by colour:<br />blue – primary coolant<br />green – shutdown condensation<br />yellow – emergency coolant injections<br />red – reactor shutdown systems<br />black – terminal states.* |
 
 For the sake of the model, each fuel rod is treated as identical, so only one need be simulated. The rod is comprised of twelve clusters of uranium dioxide fuel pins in series, coated in zircaloy-2 cladding, and surrounded by light water coolant flowing down its length as a steam/liquid mix. Each cluster of pins is modelled in two parts, with heat transfer along its length, between each material, and in accordance with the mass flow of coolant. Figure 3 shows a schematic of the rod and figure 4 shows the BG model.
 
-| <img src="src/Fuel.png" width=500 />                  | <img src="src/BG.png" width="500" />                         |
+| <img src=".src/Fuel.png" width=500 />                  | <img src=".src/BG.png" width="500" />                         |
 | ----------------------------------------------------- | :----------------------------------------------------------- |
 | Figure 3: *Diagram of heat transfer along a fuel rod* | Figure 4: *BG modelling heat transfer in a fuel rod. There are twelve repeating sections in series* |
 
