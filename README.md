@@ -39,6 +39,7 @@
         * [Manipulating Petri Nets](#manipulating-petri-nets)
     * [Analysis](#analysis)
     * [Visualisation](#visualisation)
+    * [FMU Interface](#fmu-interface)
 * [Acknowledgements](#acknowledgements)
 * [References](#references)
 
