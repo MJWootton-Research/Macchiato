@@ -1,5 +1,7 @@
 # Macchiato Petri Net Graphical Construction
 
+*Graphic user interface for the construction of Petri Net input files for Macchiato*
+
 ## Dependencies
 
 * [Macchiato](https://github.com/MJWootton-Resilience-Projects/Macchiato)
@@ -31,7 +33,7 @@ The *"Shape Data"* panel is used to set the parameters for each object in the mo
   <img src='src/EditShapeData.png'>
 </p>
 
-New objects are added, either by dragging shapes from the stencil, or by copying existing ones. Particularly in the latter case, make sure that every place and transition has a unique name.
+New objects are added, either by dragging shapes from the stencil, or by copying existing ones. Particularly in the latter case, make sure that every place and transition has a unique name. The formatting of the objects can be changed freely. Likewise, the text of their labels can be edited as required or desired, but be aware that if the content pertaining to its properties is altered, the field in question will no longer auto-update with respect to later changes.
 
 Connections must be made using the arc objects and not the default Visio connectors. The arcs are connected by dragging their end points onto the places and transitions, either linked to the centre or to an attachment point.
 
