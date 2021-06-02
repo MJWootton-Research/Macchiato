@@ -129,19 +129,19 @@ The recommended method for installing Graphviz is via a package manager, such th
 
 Graphviz is available through the package managers of most Linux distributions
 
-##### `apt` (Debian, Ubuntu, Linux Mint, Pop!_OS, elementary OS, etc.):
+**`apt` (Debian, Ubuntu, Linux Mint, Pop!_OS, elementary OS, etc.):**
 
 ```bash
 $ sudo apt install graphviz
 ```
 
-##### `yum` (Fedora, CentOS, RHEL, Scientific Linux, Yellow Dog Linux, Oracle Linux, etc.)
+**`yum` (Fedora, CentOS, RHEL, Scientific Linux, Yellow Dog Linux, Oracle Linux, etc.)**
 
 ```bash
 $ sudo yum install graphviz
 ```
 
-#####  `pacman`  (Arch, Manjaro, etc.)
+**`pacman`  (Arch, Manjaro, etc.)**
 
 ```bash
 $ sudo pacman -Syy graphviz
