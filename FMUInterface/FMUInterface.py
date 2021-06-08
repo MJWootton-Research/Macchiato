@@ -249,10 +249,10 @@ class pnfmu(object):
                 print('\nFMU simulation from %.3f to %.3f seconds (subsection of %.3f seconds from %.3f to %.3f seconds), commencing at %04d/%02d/%02d %02d:%02d:%02d.' % (ts0, ts1, (t1-t0), t0, t1, lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]))
                 self.results.append(self.model.simulate(start_time=ts0, final_time=ts1, input=self.inputObj, options=opts))
                 ts0 += tStep
-                ### Feb 2020
+
                 if long:
                     ts0 = t1
-                ###
+                
                 pnChange = self.netUpdate(ts1)
                 if pnChange:
                     self.pn.step += 1
@@ -262,13 +262,6 @@ class pnfmu(object):
                 elif stop or long:
                     self.newPN(pnNew)
                     break
-
-                # What was this for?
-                # big = False
-                # for imp in self.important:
-                #     if abs((self.results[-1][imp][-1]-self.results[-1][imp][-2])/(self.results[-1]['time'][-1]-self.results[-1]['time'][-2])) < 1:
-                #         big = True
-                #         break
 
             if transExit or placeExit:
                 print('Terminate conidition(s) activated in Petri Net')
