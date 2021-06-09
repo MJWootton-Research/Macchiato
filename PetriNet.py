@@ -34,7 +34,7 @@ import subprocess
 import collections
 # from datetime import datetime
 
-import dot_to_image as di
+from Visualisation import dot_to_image as di
 
 def labelCheck(label, ref=None, error=False):
     """
