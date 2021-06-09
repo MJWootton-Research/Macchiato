@@ -7,7 +7,7 @@ import os
 import sys
 
 import Macchiato
-import dot_to_image
+from Visualisation import dot_to_image as di
 
 def main(pn=None, formats=None):
     if pn is None:
@@ -28,7 +28,7 @@ def main(pn=None, formats=None):
     source = pn.dot(mode=pn.runMode, visualise=None)
 
     if formats is not None:
-        dot_to_image.render(source, formats)
+        di.render(source, formats)
 
 
 if __name__ == '__main__':
