@@ -427,6 +427,7 @@ def write(pn, overwrite=False, rp=None, altName=None):
     mpn.close()
 
 def main():
+    # TODO: Use argparse instead of sys.argv
     if not len(sys.argv) > 1:
         sys.exit('Error: No Macchiato Petri Net (.mpn) file given')
     # Read .mpn file

@@ -1084,6 +1084,8 @@ class PetriNet(object):
         path : string
             Path to *.dot file
 
+        # TODO: Rewrite with Graphviz API.
+
         """
         # File and directory operations
         if not os.path.exists(os.path.join(os.getcwd(), self.name)):

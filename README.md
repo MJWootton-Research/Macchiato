@@ -212,8 +212,8 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 - `dot` — Toggle creation of snapshots of the Petri Net during simulation in `*.dot` format (Default is `False`).
 - `visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `svg` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect).
 - `details` — Toggles label with Petri Net name, step, and clock in visualisations (Default is `True`)
-- `useGroup`: Toggles use of place and transition groups in visualisation (Default is `True`)
-- `orientationOption` — Orientation of Petri Net in visualisations.  Options are `LR`, `RL`, `TB`, and `BT`.
+- `useGroup` — Toggles use of place and transition groups in visualisation (Default is `True`)
+- `orientation` — Orientation of Petri Net in visualisations.  Options are `LR`, `RL`, `TB`, and `BT` (Default is `None` — produces default behaviour of Graphviz algorithm).
 - `debug` — Default is `False`.
 - `maxClock` — Greatest clock duration permitted in any one simulation (Default is 10<sup>6</sup> `units` of time)
 - `maxSteps` — Greatest number of steps permitted in any one simulation (Default is 10<sup>12</sup>)
