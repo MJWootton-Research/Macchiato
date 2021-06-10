@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width initial-scale=1">
+
+<link href="README_files/css.css" rel="stylesheet" type="text/css"><style type="text/css">html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-fences-math .MathJax_SVG_Display, .md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: visible; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; zoom: 90%; }
+#math-inline-preview-content { zoom: 1.1; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-require-zoom-fix foreignobject { font-size: var(--mermaid-font-zoom); }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-math .MathJax_SVG_Display { margin-top: 8px; cursor: default; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc {
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0));
+}
+
+
+
+</style><title>README</title>
+</head>
+<body class="typora-export"><div class="typora-export-content">
+<div id="write" class=""><p align="center">
+  <img src="README_files/MacchiatoBanner_Thin.png" title="Macchiato" width="1200">
+</p><p><span>[</span><a href="https://www.howtopronounce.com/italian/macchiato/8648604"><span>makˈkjaːto</span></a><span>], </span><em><span>from the Italian, meaning "spotted", "marked", or  "stained", in reference to a </span><a href="https://i.insider.com/568a8b92e6183e591e8b6575"><span>latte macchiato</span></a><span>, which resembles a </span><a href="https://en.wikipedia.org/wiki/Petri_net"><span>Petri Net</span></a><span> place with a token.</span></em></p><h2 id="a-simple-petri-nets-implementation-for-python-3"><span>A Simple Petri Nets Implementation for Python 3</span></h2><h3 id="version-1-4-4"><a href="CHANGELOG.html"><span>Version 1-4-4</span></a></h3><p><span>© Dr. Mark James Wootton 2016-2021</span><br><a href="mailto:mark.wootton@nottingham.ac.uk"><code>mark.wootton@nottingham.ac.uk</code></a></p><p>&nbsp;</p><h2 id="contents"><span>Contents</span></h2><ul><li><p><a href="#dependencies"><span>Dependencies</span></a></p></li><li><p><a href="#installation"><span>Installation</span></a></p><ul><li><p><a href="#download"><span>Download</span></a></p></li><li><p><a href="#system-integration"><span>System Integration</span></a></p><ul><li><a href="#bash--z-shell"><span>Bash &amp; Z Shell</span></a></li><li><a href="#powershell"><span>PowerShell</span></a></li></ul></li><li><p><a href="#graphviz"><span>Graphviz</span></a></p><ul><li><a href="#linux"><span>Linux</span></a></li><li><a href="#windows"><span>Windows</span></a></li><li><a href="#macos"><span>MacOS</span></a></li></ul></li></ul></li><li><p><a href="#usage"><span>Usage</span></a></p><ul><li><p><a href="#macchiato-petri-net-files-mpn"><span>Macchiato Petri Net Files (</span><code>*.mpn</code><span>)</span></a></p><ul><li><a href="#structure"><span>Structure</span></a></li><li><a href="#simulation-parameters"><span>Simulation Parameters</span></a></li><li><a href="#places"><span>Places</span></a></li><li><a href="#transitions"><span>Transitions</span></a></li><li><a href="#arc-properties"><span>Arc Properties</span></a></li><li><a href="#additional-transition-features"><span>Additional Transition Features</span></a></li><li><a href="#example"><span>Example</span></a></li></ul></li><li><p><a href="#graphical-petri-net-construction-with-microsoft-visio"><span>Graphical Petri Net Construction with Microsoft Visio</span></a></p></li><li><p><a href="#scripting-tools"><span>Scripting Tools</span></a></p><ul><li><a href="#reading--writing-mpn-files"><span>Reading &amp; Writing </span><code>*.mpn</code><span> Files</span></a></li><li><a href="#manipulating-petri-nets"><span>Manipulating Petri Nets</span></a></li></ul></li><li><p><a href="#analysis"><span>Analysis</span></a></p></li><li><p><a href="#visualisation"><span>Visualisation</span></a></p></li><li><p><a href="#fmu-interface"><span>FMU Interface</span></a></p></li></ul></li><li><p><a href="#acknowledgements"><span>Acknowledgements</span></a></p></li><li><p><a href="#references"><span>References</span></a></p></li></ul><h2 id="dependencies"><span>Dependencies</span></h2><ul><li><p><a href="https://www.python.org/"><span>Python 3</span></a></p><ul><li><a href="https://numpy.org/"><span>NumPy</span></a><span> — only required by </span><a href="Analysis/README.html"><span>analysis scripts</span></a></li><li><a href="https://matplotlib.org/"><span>Matplotlib</span></a><span> — only required by </span><a href="Analysis/README.html"><span>analysis scripts</span></a></li></ul></li><li><p><a href="http://graphviz.org/"><span>Graphiz</span></a><span> — only required by </span><a href="#graphviz"><span>visualisation features</span></a></p></li><li><p><a href="https://www.microsoft.com/en/microsoft-365/visio/flowchart-software"><span>Microsoft Visio</span></a><span> — only required for </span><a href="PetriNetDrawingTools/README.html"><span>graphical Petri Net construction tool</span></a></p></li></ul><h2 id="installation"><span>Installation</span></h2><h3 id="download"><span>Download</span></h3><p><span>Cloning the repository via </span><a href="https://git-scm.com/"><span>Git</span></a><span> is the recommended method for installing Macchiato. To see whether you have Git installed and the current version, open a command-line terminal and run:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ git</span> <span class="cm-attribute">--version</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>Be aware that the symbol </span><code>$</code><span> (alternatively, </span><code>&gt;</code><span> or </span><code>%</code><span>, depending on shell type) indicates a terminal command, and should not be copied with the rest of the line. If no Git installation is found, consult </span><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"><span>this page</span></a><span> for further instructions. It is recommended to </span><a href="https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"><span>create an SSH key</span></a><span> and </span><a href="https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account"><span>add it to one’s GitHub account</span></a><span> to eliminate the need for password entry during pull requests.</span></p><p><span>Create a folder named </span><code>git</code><span> in your home directory and enter it in the terminal. The following command will create a local instance of the repository in the current working directory:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ git</span> clone <span class="cm-builtin">git</span>@github.com:MJWootton-Resilience-Projects/Macchiato.git</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>or if SSH key authentication has not been set up, the repository can instead be accessed via username and password through the command:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ git</span> clone https://github.com/MJWootton-Resilience-Projects/Macchiato.git</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>To update the repository, execute the following command in its directory:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ git</span> pull</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>In the following sections, it is assumed that Python 3 is invoked by </span><code>python</code><span>. Depending on system step up, one may need to substitute this command with </span><code>python3</code><span>. The default version of Python can be found via:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ python</span> <span class="cm-attribute">--version</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>If not already installed, Python 3 can be obtained from </span><a href="http://www.python.org/" target="_blank" class="url">www.python.org</a></p><h3 id="system-integration"><span>System Integration</span></h3><p><span>One can configure their system to allow Macchiato to be accessed conveniently from any working directory within a terminal or Python session, such that simulations can be initiated with command </span><code>Macchiato</code><span> from any location, and that a Python script using the module need only include the line </span><code>import Macchiato</code><span>, regardless of the file path.</span></p><h4 id="bash--z-shell"><span>Bash &amp; Z Shell</span></h4><p><span>In a Bash or Z Shell environment, such as is default in many Linux distributions and of MacOS, add the following two lines to the file found in the Home directory with the name </span><code>.bashrc</code><span> or </span><code>.zshrc</code><span> respectively.</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.25px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">alias <span class="cm-def">Macchiato</span><span class="cm-operator">=</span><span class="cm-string">"python </span><span class="cm-def">$HOME</span><span class="cm-string">/git/Macchiato/Macchiato.py"</span> <span class="cm-comment"># Execute Macchiato simulations from any directory</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">export</span> <span class="cm-def">PYTHONPATH</span><span class="cm-operator">=</span><span class="cm-def">$HOME</span>/git/Macchiato:<span class="cm-def">$PYTHONPATH</span> <span class="cm-comment"># Make Macchiato availible to import from any directory</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 92px;"></div><div class="CodeMirror-gutters" style="display: none; height: 92px;"></div></div></div></pre><p><span>The changes will take effect immediately in any new terminal instance. In an existing terminal, you can update via the command </span><code>source ~/.bashrc</code><span> or </span><code>source ~/.zshrc</code><span> as appropriate.</span></p><p><span>You may need to change the path </span><code>$HOME/git/Macchiato</code><span> if Macchiato was installed at a different location. Likewise, you may need to substitute </span><code>python3</code><span> for </span><code>python</code><span> on the first line.</span></p><h4 id="powershell"><span>PowerShell</span></h4><p><span>For users of PowerShell on Windows 10, the integration must be done in two steps. To allow easy execution of Macchiato simulations from any directory, create a folder in </span><code>Documents</code><span> called </span><code>WindowsPowerShell</code><span>. In this new folder, add a plain text file with the name </span><code>Microsoft.PowerShell_profile.ps1</code><span> containing the lines:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="powershell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="powershell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">function</span> <span class="cm-identifier">Macchiato</span> <span class="cm-punctuation">{</span> <span class="cm-comment"># Execute Macchiato simulations from any directory</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-identifier">python</span> <span class="cm-builtin">$home</span><span class="cm-error">\</span><span class="cm-identifier">git</span><span class="cm-error">\</span><span class="cm-identifier">Macchiato</span><span class="cm-error">\</span><span class="cm-identifier">Macchiato</span><span class="cm-punctuation">.</span><span class="cm-identifier">py</span> <span class="cm-builtin">$args</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-punctuation">}</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 69px;"></div><div class="CodeMirror-gutters" style="display: none; height: 69px;"></div></div></div></pre><p><span>To make Macchiato available for import to any Python instance or script, open </span><em><span>"Settings"</span></em><span> from the </span><em><span>Start Menu</span></em><span> and search for </span><em><span>"advanced system settings"</span></em><span>. You will see a result for </span><em><span>"View advanced system settings"</span></em><span>. Clicking on this option will open a window title </span><em><span>"System Properties"</span></em><span>. On the </span><em><span>"Advanced"</span></em><span> tab, there is a button labelled </span><em><span>"Environmental Variables"</span></em><span>, which brings up a window with the same name. In the beneath the </span><em><span>"System variables"</span></em><span> selection, click on </span><em><span>"New..."</span></em><span>. In the field </span><em><span>"Variable name"</span></em><span> enter </span><code>PYTHONPATH</code><span> and in </span><em><span>"Variable value"</span></em><span> enter:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">C:\Users\{YOUR_USERSNAME}\git\Macchiato</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>Click </span><em><span>"OK"</span></em><span> on the three open windows to save your changes, which will take effect for any new PowerShell instance. If a variable called </span><code>PYTHONPATH</code><span> already exists, click </span><em><span>"Edit..."</span></em><span> instead, and append the directory of the Macchiato project folder to the of the </span><em><span>"Variable value"</span></em><span>, separating it from the preexisting content with </span><code>;</code><span>.</span></p><p><span>You may need to change the above paths if Macchiato was installed at a different location. Likewise, you may need to substitute </span><code>python3</code><span> for </span><code>python</code><span> in the profile file.</span></p><h3 id="graphviz"><span>Graphviz</span></h3><p><span>The recommended method for installing Graphviz is via a package manager, such that the rendering of </span><code>*.dot</code><span> files as images be made available at the command line via </span><code>$ dot {etc}</code><span>.</span></p><h4 id="linux"><span>Linux</span></h4><p><span>Graphviz is available through the package managers of most Linux distributions</span></p><p><strong><code>apt</code><span> (Debian, Ubuntu, Linux Mint, Pop!_OS, elementary OS, etc.):</span></strong></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ sudo</span> apt install graphviz</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><strong><code>yum</code><span> (Fedora, CentOS, RHEL, Scientific Linux, Yellow Dog Linux, Oracle Linux, etc.)</span></strong></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ sudo</span> yum install graphviz</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><strong><code>pacman</code><span>  (Arch, Manjaro, etc.)</span></strong></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ sudo</span> pacman <span class="cm-attribute">-Syy</span> graphviz</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><h4 id="windows"><span>Windows</span></h4><p><span>Windows users will need to install an appropriate command line installer first, for example </span><a href="https://scoop.sh/"><span>Scoop</span></a><span>, from which Graphviz is installed by:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="powershell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="powershell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&gt;</span> <span class="cm-identifier">scoop</span> <span class="cm-identifier">install</span> <span class="cm-identifier">graphviz</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>It may also be necessary to run the command </span><code>dot -c</code><span> with administrative privileges to complete the process.</span></p><p><span>It is also possible to download an installer from Graphviz's website. This continues to be available as a legacy option, in which case the directory containing the executable </span><code>dot.exe</code><span> must be manually specified as the value of the </span><code>docLoc</code><span> parameters. This method is not recommended.</span></p><h4 id="macos"><span>MacOS</span></h4><p><span>On MacOs install Graphviz via </span><a href="https://brew.sh/"><span>Homebrew</span></a><span>, via:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">% brew install graphviz</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><h2 id="petri-net-integration-algorithm"><span>Petri Net Integration Algorithm</span></h2><p><span>The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation.</span></p><p align="center">
+  <img src="README_files/Algorithm.png" title="Macchiato's Petri Net Integration Algorithm" width="750">
+</p><h2 id="usage"><span>Usage</span></h2><p><span>Note: It is assumed that the reader is already familiar with the basics of standard Petri Net modelling</span><sup><a href="#r1"><span>[1]</span></a></sup><span>.</span></p><h3 id="macchiato-petri-net-files-mpn"><span>Macchiato Petri Net Files (</span><code>*.mpn</code><span>)</span></h3><p><span>Macchiato Petri Net structures are stored in </span><code>*.mpn</code><span> files. One may also create and manipulate Petri Net structures in a Python script using the tools provided in the module </span><code>PetriNet.py</code><span>, see </span><a href="#scripting-tools"><em><span>Scripting Tools</span></em></a><span>.</span></p><p><span>Substituting the appropriate file paths into the following command will run a batch of </span><code>N</code><span> simulations.</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ python</span> /path/to/Macchiato.py /path/to/PetriNet.mpn N</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>If the instructions for </span><a href="#system-integration"><span>system integration</span></a><span> have been followed, the command can shortened to:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ Macchiato</span> /path/to/PetriNet.mpn N</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If </span><code>N</code><span> is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of </span><code>maxClock</code><span> and </span><code>simsFactor</code><span>, see </span><a href="#simulation-parameters"><em><span>Simulation Parameters</span></em></a><span>. Additional terminal output can be activated by placing </span><code>V</code><span> at the end of the above command, but be aware that this will impact performance.</span></p><h4 id="structure"><span>Structure</span></h4><p><span>An </span><code>*.mpn</code><span> should be comprised of three sections — the simulation parameters, the places list, and the transitions list. To mark the beginning of of the latter two, the lines </span><code>Places</code><span> and </span><code>Transitions</code><span> must respectively appear in the file. Lines beginning with </span><code>#</code><span> are treated as comments. Comments must be on a separate line to structural lines. An example file is seen in </span><code>Example.mpn</code><span>.</span></p><h4 id="simulation-parameters"><span>Simulation Parameters</span></h4><p><span>If a parameter is not specified in the </span><code>*.mpn</code><span> file, it takes its default value. To set a parameter, add a line with its name, followed directly by a single space and the desired value.</span></p><ul><li><code>name</code><span> — The label given to the Petri Net and used in output directories</span></li><li><code>units</code><span> — The units of time to be used by the Petri Net (Default is </span><code>hrs</code><span>)</span></li><li><code>runMode</code><span> — The mode of integration to be used for simulation (Default is </span><code>schedule</code><span>). Don't play with this setting unless you know what you are doing.</span></li><li><code>dot</code><span> — Toggle creation of snapshots of the Petri Net during simulation in </span><code>*.dot</code><span> format (Default is </span><code>False</code><span>).</span></li><li><code>visualise</code><span> — The file format for images produced from snapshots. Supported formats include, but are not limited to, </span><code>svg</code><span> (recommended),  </span><code>pdf</code><span>, and </span><code>png</code><span> (Default is </span><code>None</code><span>, which produces no images. Note that </span><code>dot</code><span> must also be set to </span><code>True</code><span>, otherwise </span><code>visualise</code><span> will have no effect).</span></li><li><code>details</code><span> — Toggles label with Petri Net name, step, and clock in visualisations (Default is </span><code>True</code><span>)</span></li><li><code>useGroup</code><span> — Toggles use of place and transition groups in visualisation (Default is </span><code>True</code><span>)</span></li><li><code>orientation</code><span> — Orientation of Petri Net in visualisations.  Options are </span><code>LR</code><span>, </span><code>RL</code><span>, </span><code>TB</code><span>, and </span><code>BT</code><span> (Default is </span><code>None</code><span> — produces default behaviour of Graphviz algorithm).</span></li><li><code>debug</code><span> — Default is </span><code>False</code><span>.</span></li><li><code>maxClock</code><span> — Greatest clock duration permitted in any one simulation (Default is 10</span><sup><span>6</span></sup><span> </span><code>units</code><span> of time)</span></li><li><code>maxSteps</code><span> — Greatest number of steps permitted in any one simulation (Default is 10</span><sup><span>12</span></sup><span>)</span></li><li><code>simsFactor</code><span> — Parameterises the total number of simulations performed (Default is 1.5×10</span><sup><span>3</span></sup><span>).  Repetition of simulations ends once the total simulated time surpasses the product of </span><code>maxClock</code><span> and </span><code>simsFactor</code><span>.  If a set number of simulations is specified at the command line, </span><code>simsFactor</code><span> is overruled.</span></li><li><code>dotLoc</code><span> — (Default is </span><code>None</code><span>) Directory containing </span><code>dot.exe</code><span> for legacy mode visualisations (not recommended).</span></li></ul><p><strong><span>Important Note:</span></strong><span> It is not recommended to use the </span><code>visualise</code><span> option beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the tools provided by </span><code>mpn_to_dot.py</code><span> and </span><code>dot_to_image.py</code><span> after the simulations are complete. If one is not intending to use </span><code>dot_to_image.py</code><span>, then it is also recommended to set </span><code>dot</code><span> to </span><code>False</code><span>.</span></p><h4 id="places"><span>Places</span></h4><p><span>The places section of the file begins following the line </span><code>Places</code><span>.  To add a place, simple add a new line with the desired name (spaces are not permitted). By default, a place's initial token count is zero, but a value may be specified after a space on the same line, e.g. </span><code>P1 2</code><span> will add a place of name </span><em><span>P1</span></em><span> with two tokens at the start of each simulation.</span></p><h4 id="transitions"><span>Transitions</span></h4><p><span>The transitions section of the file begins following the line </span><code>Transitions</code><span>. A transition and its properties are specified with a line with the following format (do not include brackets):</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">{Name}:{Timing}:{Parameters} IN {places} OUT {places} VOTE {threshold} RESET {places}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><code>Timing</code><span> specifies the duration from the enabling of a transition to its firing, which may be instantaneous, of a fixed length, or generated from a stochastic distribution. Most options require one or multiple parameters, subsequently delimited by </span><code>:</code><span> and expressed in terms of the parameter </span><code>units</code><span> where relevant. The following timing options are available:</span></p><ul><li><code>instant</code><span> — A instant transition will fire on the next simulation step with zero advancement of the system clock. If multiple instant transitions are simultaneously enabled, one will be chosen at random with uniform weight.</span></li><li><code>delay:a</code><span> — A transition with a fixed delay fired after a set duration </span><code>a</code><span> once enabled.</span></li><li><code>uniform:u</code><span> — A transition with a uniform distribution will fire at some time, </span><em><span>t</span></em><span>, in the interval 0 &lt; </span><em><span>t</span></em><span> &lt; </span><code>u</code><span>.</span></li><li><code>cyclic:c:ω</code><span> — A cyclic transition fires at the next instance at with the simulation clock is a non-zero integer multiple of </span><code>c</code><span>. The second parameter </span><code>ω</code><span> allows one to apply an offset. For instance, if two transitions with the parameters </span><code>cyclic:1:0</code><span> and </span><code>cyclic:1:0.5</code><span> are persistently enabled, they will respectively fire at the system times, 1, 2, 3 </span><code>units</code><span> etc, and 1.5, 2.5, 3.5 </span><code>units</code><span> etc.</span></li><li><code>weibull:&lt;t&gt;:β:σ</code><span> — A transition with this option will be characterised by a Weibull distribution</span><sup><a href="#r2"><span>[2]</span></a></sup><span> with mean </span><code>&lt;t&gt;</code><span> and shape parameter </span><code>β</code><span>. Its firing time, </span><em><span>t</span></em><span>, is given by </span><img src="README_files/math_009.svg"><span>, where </span><em><span>η</span></em><span> is the scale parameter, such that </span><img src="README_files/math_005.svg"><span>, and </span><em><span>X</span></em><span> is a random variable uniformly distributed in the range 0 &lt; </span><em><span>X</span></em><span> &lt; 1, with </span><em><span>Γ</span></em><span>  being the Gamma Function</span><sup><a href="#r3"><span>[3]</span></a></sup><span>. The parameter </span><code>σ</code><span> is optional and is used when the mean time has an associated uncertainty, such that the scale parameter used for each firing delay calculated is produced from a normal distribution</span><sup><a href="#r4"><span>[4]</span></a></sup><span> with mean equal to the default </span><em><span>η</span></em><span> and a standard deviation of </span><code>σ</code><span>.</span></li><li><code>lognorm:μ:σ</code><span> — A transition with log-normal distribution</span><sup><a href="#54"><span>[5]</span></a></sup><span> timing fires after time, </span><em><span>t</span></em><span>, where </span><img src="README_files/math_004.svg"><span>, with </span><em><span>X</span></em><span> being a standard normal variable, and </span><code>μ</code><span> and </span><code>σ</code><span> respectively being the mean and standard deviation of the natural logarithm of the firing delay.</span></li><li><code>rate:r</code><span> — A transition of this type fires with a constant rate parameterised by </span><code>r</code><span>. Firing time, </span><em><span>t</span></em><span>, is exponentially distributed </span><sup><a href="#r6"><span>[6]</span></a></sup><span>, such that </span><img src="README_files/math_002.svg"><span>, where </span><em><span>X</span></em><span> is a random uniform variable in the range 0 &lt; </span><em><span>X</span></em><span> &lt; 1.</span></li><li><code>beta:p:q:k</code><span> — A transition with the Beta Distribution</span><sup><a href="#r7"><span>[7]</span></a></sup><span> produces a firing delay, </span><em><span>t</span></em><span>, in the interval 0 &lt; </span><em><span>t</span></em><span> &lt; 1, parameterised by </span><code>p</code><span> and </span><code>q</code><span>, which weight the probability density towards the extreme or central regions of the available outcome space. An optional parameter </span><code>k</code><span> can be added to scale the distribution, such that the range of possible values becomes 0 &lt; </span><em><span>t</span></em><span> &lt; </span><code>k</code><span>.</span></li></ul><p><span>Note that a transition must be continuously enabled for the duration from firing time generation until it fires. If its enabled status is interrupted, its scheduled firing time will be discarded.</span></p><h4 id="arc-properties"><span>Arc Properties</span></h4><p><span>Any places listed after </span><code>IN</code><span> and </span><code>OUT</code><span> will be connected to the transition by incoming and outgoing arcs respectively and places listed should be separated by a single space. The weight of an arc is 1 by default and can be given some other value by appending it, separated by </span><code>:</code><span>, to the name of the relevant place in the list. for example, </span><code>IN P1 P2:3 P3 OUT P4 P5:2</code><span> specifies three incoming arcs, the second of which has a weight of 3, and two outgoing arcs, the latter of which has a weight of 2.</span></p><p><span>An incoming arc may be designated as a place conditional or inhibit arc with the code </span><code>:pnc</code><span> or </span><code>:inh</code><span> respectively, placed after the arc weight. The action of an inhibit arc is simple to disable its target transition when its weight is met, regardless of the status of the other arcs. A place conditional arc does not enable or disable its target transition but instead modifies its firing time parameters. The modification factor for a transition with </span><em><span>C</span></em><span> place conditional arcs is a function of the arc weights (which can be non-integer for place conditionals) and the number of tokens on the connected places, such that, </span><img src="README_files/math_006.svg"><span>. The alterations to parameters are then, </span><img src="README_files/math_008.svg"><span>, </span><img src="README_files/math.svg"><span>, </span><img src="README_files/math_012.svg"><span>, </span><img src="README_files/math_008.svg"><span>, </span><img src="README_files/math_010.svg"><span>, </span><img src="README_files/math_003.svg"><span>, </span><img src="README_files/math_011.svg"><span>, and </span><img src="README_files/math_007.svg"><span>.</span></p><h4 id="additional-transition-features"><span>Additional Transition Features</span></h4><p><span>Transitions may also be given the properties </span><code>VOTE</code><span> and </span><code>RESET</code><span>. A voting transition does not require all of its incoming arc weights to be met to become enabled. Instead, only a given threshold need be met, placed after </span><code>VOTE</code><span>, separated by a single space. For example, a transition, </span><code>T1</code><span> with the place relationship given by </span><code>T1:instant IN P1 P2 P3 OUT P4 VOTE 2</code><span> would only require two of </span><code>P1</code><span>, </span><code>P2</code><span>, and </span><code>P3</code><span> to hold a token in order to fire. Note that </span><em><span>all</span></em><span> incoming arcs whose weight is satisfied are treated normally for the purposes of removing tokens when the transition fires. A reset transition has an associated list of places, delimited by </span><code>:</code><span> and following </span><code>RESET</code><span>, separated by a single space, e.g. </span><code>RESET P1:P2:P3</code><span>. When the transition fires, the places marked for reset are restored to the token count held at the beginning of the simulation.</span></p><h4 id="example"><span>Example</span></h4><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" style="break-inside: unset;" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"># Petri Net Parameters</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>name Test</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>units hrs</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>runMode schedule</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>visualise None</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>dot False</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"># Run Parameters</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>maxClock 1E3</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>maxSteps 100</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>simsFactor 1</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"># Build Petri Net</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Places</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>P0 2</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>P1</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>P2</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>P3</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Transitions</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>T0:lognorm:1:1 IN P0 OUT P1 P3</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>T1:weibull:1:0.5 IN P1 OUT P2:2</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>T2:delay:2 IN P2:2 P3:inh OUT P1</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>T3:rate:15 IN P3:5:pcn P1 OUT P2</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>R:cyclic:7:1 IN P2 RESET P0:P1:P3</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>V:beta:1:2:0.25 IN P0 P1 P3 OUT P2 VOTE 2</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 598px;"></div><div class="CodeMirror-gutters" style="display: none; height: 598px;"></div></div></div></pre><h4 id="graphical-petri-net-construction-with-microsoft-visio"><span>Graphical Petri Net Construction with Microsoft Visio</span></h4><p><span>As an alternative to transcribing a Petri Net structure by hand, it is possible to graphically construct a model in Microsoft Visio and export as an </span><code>*.mpn</code><span>. This is general considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.</span></p><p><span>In the directory </span><a href="PetriNetDrawingTools/README.html"><code>PetriNetDrawingTools</code></a><span>, one will find a Microsoft Visio drawing and a stencil file. Create a copy of these files to produce Petri Nets graphically — both must be found in the same directory. To use the tool, make sure that stencils and shape data are set to be visible and that macros are enabled. The shortcut </span><em><span>Ctrl+e</span></em><span> will export the Petri Net to an </span><code>*.mpn</code><span> file with the properties specified in the </span><em><span>Parameters</span></em><span> object. It is recommended to export models frequently to avoid being caught out by the occasional idiosyncrasies of Microsoft Visio.</span></p><p><a href="PetriNetDrawingTools/README.html"><span>Full documentation for the tool is available here</span></a><span>.</span></p><h3 id="scripting-tools"><span>Scripting Tools</span></h3><p><span>The Python modules provided by </span><code>Macchiato.py</code><span> and </span><code>PetriNet.py</code><span> can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from </span><code>*.mpn</code><span> files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function. A few examples are found below.</span></p><h4 id="reading--writing-mpn-files"><span>Reading &amp; Writing </span><code>*.mpn</code><span> Files</span></h4><p><span>Importing  </span><code>Macchiato.py</code><span>  gives access to the </span><code>read</code><span> and </span><code>write</code><span> functions, which allow the handling of </span><code>*.mpn</code><span> files. The function </span><code>read</code><span> takes a file path and returns a </span><code>PetriNet</code><span> object (as defined in </span><code>PetriNet.py</code><span>) and </span><code>list</code><span> object containing the simulation parameters in the file.</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Import module</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">Macchiato</span> <span class="cm-keyword">as</span> <span class="cm-variable">MC</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Read *.mpn file</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>, <span class="cm-variable">simParams</span> = <span class="cm-variable">MC</span>.<span class="cm-property">read</span>(<span class="cm-string">'/path/to/PetriNet.mpn'</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 115px;"></div><div class="CodeMirror-gutters" style="display: none; height: 115px;"></div></div></div></pre><p><span>Conversely, </span><code>write</code><span> takes a </span><code>PetriNet</code><span> object and writes it to an </span><code>*.mpn</code><span> file</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Import module</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">Macchiato</span> <span class="cm-keyword">as</span> <span class="cm-variable">MC</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Creat a Petri Net</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span> = <span class="cm-variable">fooPetriNet</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Write Petri Net to *.mpn file</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">MC</span>.<span class="cm-property">write</span>(<span class="cm-variable">pn</span>, <span class="cm-variable">overwrite</span>=<span class="cm-keyword">False</span>, <span class="cm-variable">rp</span>=<span class="cm-keyword">None</span>, <span class="cm-variable">altName</span>=<span class="cm-keyword">None</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 161px;"></div><div class="CodeMirror-gutters" style="display: none; height: 161px;"></div></div></div></pre><p><span>Note the parameters </span><code>overwrite</code><span>, </span><code>rp</code><span>, and </span><code>altName</code><span> are optional, and respectively control whether existing files can be overwritten (default value is </span><code>False</code><span>), a </span><code>list</code><span> object containing the simulation parameters written to the file (default value is </span><code>None</code><span>, resulting in the default parameters being used, see </span><a href="#simulation-parameters"><span>Simulation Parameters</span></a><span>), and the name given to the Petri Net in the file produced (default value is </span><code>None</code><span>, which results in no change in name).</span></p><h4 id="manipulating-petri-nets"><span>Manipulating Petri Nets</span></h4><p><span>To create a </span><code>PetriNet</code><span> object from scratch, import the module </span><code>PetriNet.py</code><span> and initialise an instance of the class, with any parameter not provided by the user defaulting to the value shown in the following example (a value should ideally always be given for </span><code>name</code><span>).</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Import module</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">PetriNet</span> <span class="cm-keyword">as</span> <span class="cm-variable">PN</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Create instance of PetriNet object (with default values shown - these may be ommitted)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span> = <span class="cm-variable">PN</span>.<span class="cm-property">PetriNet</span>(<span class="cm-variable">name</span>=<span class="cm-keyword">None</span>, <span class="cm-variable">units</span>=<span class="cm-string">'hrs'</span>, <span class="cm-variable">runMode</span>=<span class="cm-string">'schedule'</span>, <span class="cm-variable">dot</span>=<span class="cm-keyword">False</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-variable">visualise</span>=<span class="cm-keyword">None</span>, <span class="cm-variable">details</span>=<span class="cm-keyword">True</span>, <span class="cm-variable">useGroup</span>=<span class="cm-keyword">True</span>, <span class="cm-variable">orientation</span>=<span class="cm-keyword">None</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-variable">debug</span>=<span class="cm-keyword">False</span>, <span class="cm-variable">dotLoc</span>=<span class="cm-keyword">None</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 161px;"></div><div class="CodeMirror-gutters" style="display: none; height: 161px;"></div></div></div></pre><p><span>The structure of a </span><code>PetriNet</code><span> object created by either of methods discussed may be constructed or edited by the methods, </span><code>addPlace</code><span>, </span><code>rmvPlace</code><span>, </span><code>addTrans</code><span>, and </span><code>rmvTrans</code><span>. The </span><code>PetriNet</code><span> object has the attributes </span><code>places</code><span> and </span><code>trans</code><span> (both of type </span><code>list</code><span>) which store objects of the class </span><code>Place</code><span> and </span><code>Trans</code><span> respectively. The </span><code>Trans</code><span> object has the methods </span><code>addInArc</code><span>, </span><code>rmInARc</code><span>, </span><code>addOutArc</code><span>, and </span><code>rmOutARc</code><span>, to link and unlink it from </span><code>Place</code><span> objects via </span><code>Arc</code><span> objects. In the following example, a simple loop is created from two places and two transitions.</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" style="break-inside: unset;" lang="python"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Import module</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">PetriNet</span> <span class="cm-keyword">as</span> <span class="cm-variable">PN</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Create instance of PetriNet object</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span> = <span class="cm-variable">PN</span>.<span class="cm-property">PetriNet</span>(<span class="cm-variable">name</span>=<span class="cm-string">'Example'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Add places</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">addPlace</span>(<span class="cm-string">'P1'</span>, <span class="cm-variable">tokens</span>=<span class="cm-number">2</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">addPlace</span>(<span class="cm-string">'P2'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Add transition T1 and its arcs</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">addTrans</span>(<span class="cm-string">'T1'</span>, <span class="cm-variable">weibull</span>=[<span class="cm-number">100000</span>, <span class="cm-number">1.2</span>])</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">trans</span>[<span class="cm-string">'T1'</span>].<span class="cm-property">addInArc</span>(<span class="cm-string">'P1'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">trans</span>[<span class="cm-string">'T1'</span>].<span class="cm-property">addOutArc</span>(<span class="cm-string">'P2'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Add transition T2 and its arcs</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">addTrans</span>(<span class="cm-string">'T2'</span>, <span class="cm-variable">delay</span>=<span class="cm-number">48</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">trans</span>[<span class="cm-string">'T2'</span>].<span class="cm-property">addInArc</span>(<span class="cm-string">'P2'</span>, <span class="cm-variable">weight</span>=<span class="cm-number">2</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">trans</span>[<span class="cm-string">'T2'</span>].<span class="cm-property">addOutArc</span>(<span class="cm-string">'P1'</span>, <span class="cm-variable">weight</span>=<span class="cm-number">2</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 368px;"></div><div class="CodeMirror-gutters" style="display: none; height: 368px;"></div></div></div></pre><p><span>The optional parameters for </span><code>addPlace</code><span> are:</span></p><ul><li><code>tokens</code><span> — Type: </span><code>integer</code><span>. The initial number of tokens held (Default is 0)</span></li><li><code>min</code><span> — Type: </span><code>integer</code><span>. Minimum limit for tokens held by the place (Default is </span><code>None</code><span>, i.e. no lower limit)</span></li><li><code>max</code><span> — Type: </span><code>integer</code><span>. Maximum limit for tokens held by the place (Default is </span><code>None</code><span>, i.e. no upper limit)</span></li><li><code>limits</code><span> — Type: </span><code>list</code><span> of length two, containing </span><code>integer</code><span> types. If the number of tokens held by the place is found to be less than the first entry or greater than the second, a simulation of the Petri Net is terminated.</span></li><li><span>group — Type: </span><code>integer</code><span>. Grouping label for Graphviz</span></li></ul><p><span>The optional parameters for </span><code>addTrans</code><span> are:</span></p><ul><li><p><span>A timing parameter, pick one of the following or omit it to produce an instant transition:</span></p><ul><li><code>rate</code><span> — Type: </span><code>float</code><span>. Mean rate of fire per unit time</span></li><li><code>uniform</code><span> — Type: </span><code>float</code><span>. Uniformly distribution in 0 to </span><code>uniform</code></li><li><code>delay</code><span> — Type: </span><code>float</code><span>. Value of fixed delay</span></li><li><code>weibull</code><span> — Type: </span><code>list</code><span> of </span><code>float</code><span> types. Two or three of parameters for a Weibull distribution (</span><code>&lt;t&gt;</code><span> and </span><code>β</code><span>, and optional uncertainty parameter </span><code>σ</code><span>).</span></li><li><code>beta</code><span> — Type: </span><code>list</code><span> of </span><code>float</code><span> types. Two parameters for Beta distribution (</span><code>p</code><span> and </span><code>q</code><span>) and optional scale parameter (</span><code>k</code><span>).</span></li><li><code>lognorm</code><span> — Type: </span><code>list</code><span> of </span><code>float</code><span> types. Two parameters for log-normal distribution (</span><code>μ</code><span> and </span><code>σ</code><span>).</span></li><li><code>cyclic</code><span> — Type: </span><code>list</code><span> of </span><code>float</code><span> types. Two parameters for cyclic distribution (</span><code>c</code><span> and </span><code>ω</code><span>).</span></li></ul></li><li><p><code>maxFire</code><span> — Type: </span><code>integer</code><span>: Maximum number of times the transition can fire before the simulation terminates</span></p></li><li><p><code>reset</code><span> — Type: </span><code>list</code><span> of </span><code>string</code><span> types: The labels of places which are reset when the transition fires.</span></p></li><li><p><code>vote</code><span> — Type: </span><code>integer</code><span>. Voting threshold for the transition (Default is </span><code>None</code><span>, which results in no voting behaviour)</span></p></li><li><p><code>group</code><span> — Type: </span><code>integer</code><span>. Grouping label for Graphviz</span></p></li></ul><p><span>The optional parameters for </span><code>addInArc</code><span> are:</span></p><ul><li><p><code>weight</code><span> — Type: </span><code>integer</code><span>. The weight of the arc</span></p></li><li><p><code>type</code><span> — Type: </span><code>string</code><span>. The type of the arc. The available options are:</span></p><ul><li><code>'std'</code><span> — a normal arc and the default value</span></li><li><code>'inh'</code><span> — an inhibit arc</span></li><li><code>'pcn'</code><span> — a place conditional arc</span></li></ul></li></ul><p><span>There is one optional parameter for </span><code>addOutArc</code><span>:</span></p><ul><li><code>weight</code><span> — Type: </span><code>integer</code><span>. The weight of the arc.</span></li></ul><p><span>The methods </span><code>rmvPlace</code><span>, </span><code>rmvTrans</code><span>, </span><code>rmInArc</code><span>, and </span><code>rmOutArc</code><span> all remove objects of the corresponding type from the parent object (a </span><code>PetriNet</code><span> for </span><code>Place</code><span> and </span><code>Trans</code><span>, a </span><code>Trans</code><span> for </span><code>Arc</code><span>). They all only take only one argument, i.e. a </span><code>string</code><span> containing the relevant object label, which is the label of the object itself for </span><code>Place</code><span> and </span><code>Trans</code><span>, but is the label of the connecting </span><code>Place</code><span> object for </span><code>Arc</code><span> objects. Removing a place or transition from the Petri Net also removes all of its  associated arcs.</span></p><p><span>The </span><code>PetriNet</code><span> object has the method </span><code>run</code><span> which will simulate the Petri Net specified up to a given maximum number of steps (</span><code>integer</code><span>), and optionally, a maximum simulated time (</span><code>float</code><span>). In the example below, a </span><code>PetriNet</code><span> object, </span><code>pn</code><span>, is to be run for maximum of 100 steps or a maximum simulated time of 5×10</span><sup><span>5</span></sup><span> units.</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">run</span>(<span class="cm-number">100</span>, <span class="cm-variable">maxClock</span>=<span class="cm-number">500000</span>)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>This makes it possible to run any arbitrary code between steps for highly customisable simulation scripts. For example:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" style="break-inside: unset;" lang="python"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Import modules</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">Macciato</span> <span class="cm-keyword">as</span> <span class="cm-variable">MC</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">PetriNet</span> <span class="cm-keyword">as</span> <span class="cm-variable">PN</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Create instance of PetriNet object</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span> = <span class="cm-variable">PN</span>.<span class="cm-property">PetriNet</span>(<span class="cm-variable">name</span>=<span class="cm-string">'Example'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Add places</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">addPlace</span>(<span class="cm-string">'P1'</span>, <span class="cm-variable">tokens</span>=<span class="cm-number">2</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">addPlace</span>(<span class="cm-string">'P2'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Add transition T1 and its arcs</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">addTrans</span>(<span class="cm-string">'T1'</span>, <span class="cm-variable">weibull</span>=[<span class="cm-number">100000</span>, <span class="cm-number">1.2</span>])</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">trans</span>[<span class="cm-string">'T1'</span>].<span class="cm-property">addInArc</span>(<span class="cm-string">'P1'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">trans</span>[<span class="cm-string">'T1'</span>].<span class="cm-property">addOutArc</span>(<span class="cm-string">'P2'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Add transition T2 and its arcs</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">addTrans</span>(<span class="cm-string">'T2'</span>, <span class="cm-variable">delay</span>=<span class="cm-number">48</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">trans</span>[<span class="cm-string">'T2'</span>].<span class="cm-property">addInArc</span>(<span class="cm-string">'P2'</span>, <span class="cm-variable">weight</span>=<span class="cm-number">2</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pn</span>.<span class="cm-property">trans</span>[<span class="cm-string">'T2'</span>].<span class="cm-property">addOutArc</span>(<span class="cm-string">'P1'</span>, <span class="cm-variable">weight</span>=<span class="cm-number">2</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Write initial structure to *.mpn file</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">MC</span>.<span class="cm-property">write</span>(<span class="cm-variable">pn</span>, <span class="cm-variable">altName</span>=<span class="cm-string">'%s_start'</span><span class="cm-operator">%</span><span class="cm-variable">pn</span>.<span class="cm-property">name</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Begin simulation process</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">while</span> <span class="cm-keyword">True</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">pn</span>.<span class="cm-property">run</span>(<span class="cm-number">1</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable">fooCondition</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># Modify the Petri Net or run some other code</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># ...</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">fooProcess</span>(<span class="cm-variable">pn</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># ...</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># Conditions for terminating simulation</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># ...</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">break</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Write final structure to *.mpn file</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">MC</span>.<span class="cm-property">write</span>(<span class="cm-variable">pn</span>, <span class="cm-variable">altName</span>=<span class="cm-string">'%s_end'</span><span class="cm-operator">%</span><span class="cm-variable">pn</span>.<span class="cm-property">name</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 828px;"></div><div class="CodeMirror-gutters" style="display: none; height: 828px;"></div></div></div></pre><h3 id="analysis"><span>Analysis</span></h3><p><span>Four Python scripts are available in the </span><a href="Analysis/README.html"><code>Analysis</code></a><span> directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved in </span><code>*.csv</code><span> format, it is fairly simple to produce new analysis tools and users are encouraged to do so.</span></p><p><span>Documentation for the usage of the analysis scripts is found </span><a href="Analysis/README.html"><span>here</span></a><span>.</span></p><h3 id="visualisation"><span>Visualisation</span></h3><p><span>In the </span><a href="Visualisation/README.html"><code>Visualisation</code></a><span> directory, two scripts are available to produce images of Petri Nets from </span><code>*.mpn</code><span> files or Macchiato simulation output. These depend on Graphviz and are best suited for inspection and verification rather instead of creating report quality images, for which the </span><a href="PetriNetDrawingTools/README.html"><span>Visio tools</span></a><span> are recommended.</span></p><p><span>Documentation for the usage of the visualisation scripts is found </span><a href="Visualisation/README.html"><span>here</span></a><span>.</span></p><h3 id="fmu-interface"><span>FMU Interface</span></h3><p><span>Macchiato Petri Nets can also be used in conjunction with a physical model provided in </span><a href="https://en.wikipedia.org/wiki/Functional_Mock-up_Interface"><span>FMU format</span></a><span>, the tools for which are provided in the </span><a href="FMUInterface/README.html"><code>FMUInterface</code></a><span> directory.</span></p><h2 id="acknowledgements"><span>Acknowledgements</span></h2><p><span>With thanks to Dr Robert </span><em><span>"Larus"</span></em><span> Lee for developing the original Macchiato stencil and macro for Microsoft Visio.</span></p><h2 id="references"><span>References</span></h2><p><b id="r1"><span>[1]</span></b><span> Carl Adam Petri. </span><em><span>Kommunikation  mit  Automaten</span></em><span> (In  German). PhD thesis, Technical University Darmstadt, 1962.</span></p><p><b id="r2"><span>[2]</span></b><span> Athanasios Papoulis and S. Unnikrishna Pillai. Probability, </span><em><span>Random Variables and Stochastic Processes</span></em><span>.  McGraw Hill, 4</span><sup><span>th</span></sup><span> edition, 2002</span></p><p><b id="r3"><span>[3]</span></b><span> Eric W. Weisstein. </span><em><span>"Gamma Function." From</span></em><span> MathWorld--​</span><em><span>A Wolfram Web Resource</span></em><span>. </span><a href="http://www.mathworld.wolfram.com/GammaFunction.html" target="_blank" class="url">www.mathworld.wolfram.com/GammaFunction.html</a><span> </span><em><span>Accessed October 2020</span></em><span>, Last edited: 2005.</span></p><p><b id="r4"><span>[4]</span></b><span> Eric W. Weisstein. </span><em><span>"Normal  Distribution." From</span></em><span> MathWorld--​</span><em><span>A Wolfram Web Resource</span></em><span>. </span><a href="http://www.mathworld.wolfram.com/NormalDistribution.html" target="_blank" class="url">www.mathworld.wolfram.com/NormalDistribution.html</a><span> </span><em><span>Accessed October 2019</span></em><span>, Last edited: 2019.</span></p><p><b id="r5"><span>[5]</span></b><span> Brian Dennis and G. P. Patil. </span><em><span>Lognormal Distributions, Theory and Applications</span></em><span>. Marcel Dekker New York, 1987.</span></p><p><b id="r6"><span>[6]</span></b><span> Eric W. Weisstein. </span><em><span>"Exponential Distribution." From</span></em><span> MathWorld--​</span><em><span>A Wolfram Web Resource.</span></em><span> </span><a href="https://mathworld.wolfram.com/ExponentialDistribution.html" target="_blank" class="url">https://mathworld.wolfram.com/ExponentialDistribution.html</a><span> </span><em><span>Accessed October 2019</span></em><span>, Last edited: 2006.</span></p><p><b id="r7"><span>[7]</span></b><span> Eric W. Weisstein. </span><em><span>"Beta Distribution." From</span></em><span> MathWorld--</span><em><span>A Wolfram Web Resource.</span></em><span> </span><a href="https://mathworld.wolfram.com/BetaDistribution.html" target="_blank" class="url">https://mathworld.wolfram.com/BetaDistribution.html</a><span> </span><em><span>Accessed March 2021</span></em><span>, Last edited: 2003.</span></p></div></div>
+
+</body></html>
