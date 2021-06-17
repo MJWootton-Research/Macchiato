@@ -14,7 +14,7 @@
 Welcome to Macchiato - a simple Petri Nets implementation for Python 3
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-4
+Version 1-4-5
 ================================================================================
 
 This modules read and writes Petri Net structures to .mpn file, and when called
@@ -301,7 +301,7 @@ def read(file):
     # Return complete PetriNet and simulation run options
     return pn, [maxClock, maxSteps, simsFactor, history, analysisStep, fileOutput, endOnly]
 
-def write(pn, overwrite=False, rp=None, altName=None):
+def write(pn, overwrite=False, rp=None, altName=None, path=None):
     """
     Takes Petri Net structure and writes it out to .mpn file
 
@@ -315,6 +315,8 @@ def write(pn, overwrite=False, rp=None, altName=None):
         Run parameters, uses default values if None (Default: None)
     altName : string (Default: None)
         Provides alternative directory for file output (do not include '.mpn')
+    path : string (Default: None)
+        Path to save file. Uses current working directory+name if None
 
     """
     name = pn.name
@@ -324,7 +326,8 @@ def write(pn, overwrite=False, rp=None, altName=None):
         raise TypeError('altName given "%r" is type "%r". String required ("%r").' % (altName, type(altName), str))
 
     # Set-up file path
-    path = os.path.join(os.getcwd(), '%s.mpn' % name)
+    if path is None:
+        path = os.path.join(os.getcwd(), '%s.mpn' % name)
     if os.path.isfile(path) and not overwrite:
         raise IOError('File "%s" exists, but overwriting is disabled' % path)
 
