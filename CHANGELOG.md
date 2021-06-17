@@ -24,8 +24,8 @@
 
 #### Version 1-4-4
 
-*          Removed case sensitivity of Boolean options in *.mpn files
+* Removed case sensitivity of Boolean options in *.mpn files
 
 #### Version 1-4-5
 
-*          Added optional path selection in write function in Macchiato module
+* Added optional path selection in write function in Macchiato module
