@@ -178,25 +178,27 @@ The below flowchart depicts the process followed by Macchiato to execute an indi
 
 ## Usage
 
-Note: It is assumed that the reader is already familiar with the basics of standard Petri Net modelling<sup>[[1]](#r1)</sup>.
+Macchiato Petri Net structures are stored in `*.mpn` files, the creation of which is discussed [below](#macchiato-petri-net-files-mpn).
+
+Assuming the instructions for [system integration](#system-integration) have been followed, the following command will run a batch of simulations, where `nSims` should be replaced with the desired number of iterations:
+
+```shell
+$ Macchiato /path/to/PetriNet.mpn nSims
+```
+
+Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `nSims` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-V` or `--versbose` at the end of the above command, but be aware that this will impact performance.
+
+The help text is displayed by:
+
+```bash
+$ Macchiato --help
+```
 
 ### Macchiato Petri Net Files (`*.mpn`)
 
-Macchiato Petri Net structures are stored in `*.mpn` files. One may also create and manipulate Petri Net structures in a Python script using the tools provided in the module `PetriNet.py`, see [*Scripting Tools*](#scripting-tools).
+A Petri Net description in `*mpn` format may be created textually, as outlined in the following subsections, or via the tools seen in *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. One may also create and manipulate Petri Net structures in a Python script using the tools provided in the module `PetriNet.py` as documented in [*Scripting Tools*](#scripting-tools).
 
-Substituting the appropriate file paths into the following command will run a batch of `N` simulations.
-
-```shell
-$ python /path/to/Macchiato.py /path/to/PetriNet.mpn N
-```
-
-If the instructions for [system integration](#system-integration) have been followed, the command can shortened to:
-
-```shell
-$ Macchiato /path/to/PetriNet.mpn N
-```
-
-Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `N` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `V` at the end of the above command, but be aware that this will impact performance.
+It is assumed that the reader is already familiar with the basics of standard Petri Net modelling<sup>[[1]](#r1)</sup>.
 
 #### Structure
 

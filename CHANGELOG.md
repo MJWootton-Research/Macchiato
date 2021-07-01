@@ -32,5 +32,5 @@
 
 #### Version 1-4-6
 
-* Added support for comments at the end of line in an `*.mpn`
+* Added support for comments at the end of line in an `*.mpn` file
 * Tidied up parsing of command-line arguments added help text
