@@ -11,10 +11,10 @@
 
 --------------------------------------------------------------------------------
 
-Welcome to Macchiato - a simple Petri Nets implementation for Python 3
+Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-5
+Version 1-4-6
 ================================================================================
 
 This module contains all object definitions pertaining to Macchiato Petri Net
@@ -1084,7 +1084,7 @@ class PetriNet(object):
         path : string
             Path to *.dot file
 
-        # TODO: Rewrite with Graphviz API.
+        # TODO: Rewrite with Graphviz Python interface.
 
         """
         # File and directory operations

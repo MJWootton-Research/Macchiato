@@ -11,10 +11,10 @@
 
 --------------------------------------------------------------------------------
 
-Welcome to Macchiato - a simple Petri Nets implementation for Python 3
+Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-5
+Version 1-4-6
 ================================================================================
 
 This modules read and writes Petri Net structures to .mpn file, and when called
@@ -22,29 +22,18 @@ from the command line, integrates them.
 
 """
 
-# TO DO: Implement read/write equivalent for thermofluidic systems
-
 # Python Modules
 import os
 import sys
 import math
 import time
+import argparse
 
-# Note to user: Remember to add the directory in which the Macchiato files are stored your Python Path
+# Note to user: Remember to add the directory of Macchiato to your Python Path
 import PetriNet as PN
 
 # Disable
 def blockPrint():
-    try:
-        if sys.argv[2] == 'V':
-            return
-    except IndexError:
-        pass
-    try:
-        if sys.argv[3] == 'V':
-            return
-    except IndexError:
-        pass
     sys.stdout = open(os.devnull, 'w')
 
 # Restore
@@ -92,19 +81,24 @@ def read(file):
     mode = None
 
     # Check file type
-    if file[-4:] != '.mpn':
+    if not file.endswith('.mpn'):
         print('WARNING: Given file is not ".mpn"')
         time.sleep(1)
-    mpcFile = open(file, 'r')
-    for line in mpcFile:
-        spln = line.split()
+    for line in open(file, 'r'):
         # Skip blank lines
-        if not len(spln):
+        if not len(line.lstrip()):
             continue
+        # Skip comment lines
+        if line.lstrip()[0] == '#':
+            continue
+        # Ignore line-end comments
+        line = line.split('#')[0]
 
-        # Skip comment line
-        if line[len(line) - len(line.lstrip())] in ['#']:
-            continue
+        # Split line for analysis
+        spln = line.split()
+
+        # Cut white space characters from line for easy inclusion in error messages
+        line = line.strip()
 
         if spln[0] in ['Places', 'Transitions']:
             # Create PetriNet object
@@ -216,9 +210,9 @@ def read(file):
                     try:
                         type = read[1]
                     except:
-                        raise KeyError('Error reading type from: %r\n[%s]' % (read, line[:-1]))
+                        raise KeyError('Error reading transition type from: %r\n[%s]' % (read, line))
                     if type not in ['instant', 'rate', 'uniform', 'delay', 'weibull', 'beta', 'lognorm', 'cyclic']:
-                        raise KeyError('Unrecognised transition type "%r"' % type)
+                        raise KeyError('Unrecognised type "%r" for transition "%s"' % (type, label))
 
                     try:
                         if type == 'instant':
@@ -250,11 +244,11 @@ def read(file):
                         elif type == 'cyclic':
                             pn.addTrans(label, cyclic=[float(read[2]), float(read[3])])
                     except ValueError:
-                        sys.exit('ValueError creating transition with input: %r\n[%s]' % (read, line[:-1]))
+                        sys.exit('ValueError creating transition "%s" with input: %r\n[%s]' % (label, read, line))
                     except KeyError:
-                        sys.exit('KeyError creating transition with input: %r\n[%s] (posible duplicated name)' % (read, line[:-1]))
+                        sys.exit('KeyError creating transition "%s" with input: %r\n[%s] (posible duplicated name)' % (label, read, line))
                     except:
-                        sys.exit('Miscellaneous error creating transition with input: %r\n[%s]' % (read, line[:-1]))
+                        sys.exit('Miscellaneous error creating transition "%s" with input: %r\n[%s]' % (label, read, line))
 
                 # Add incoming arcs to transition
                 elif tMode == 'IN':
@@ -430,24 +424,25 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
     mpn.close()
 
 def main():
-    # TODO: Use argparse instead of sys.argv
-    if not len(sys.argv) > 1:
-        sys.exit('Error: No Macchiato Petri Net (.mpn) file given')
-    # Read .mpn file
-    pn, rp = read(sys.argv[1])
-    fixedNumber = None
-    try:
-        fixedNumber = int(sys.argv[2])
-    except IndexError:
-        pass
+    # Command line arguments and help text
+    parser = argparse.ArgumentParser(prog='Macchiato', description='Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation', epilog=None)
+    parser.add_argument('file', nargs=1, metavar='input file', type=argparse.FileType('r'), help='*.mpn file containing a Petri Net')
+    parser.add_argument('nSims', nargs='?', default=None, type=int, help='Set fixed number of simulations to run [optional]')
+    parser.add_argument('-V', '--verbose', dest='verbose', action='store_true', help='Enable verbose mode (slow)')
+    args = parser.parse_args()
+
+    # Get Petri Net and simulation parameters
+    pn, rp = read(args.file[0].name)
 
     # Run specified simulation
     lt = time.localtime()[:6]
     print('='*80 + '\nBeginning simulations (%04d/%02d/%02d %02d:%02d:%02d)\n' % (lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) + '='*80)
-    blockPrint()
+    if not args.verbose:
+        blockPrint()
     wall = time.time()
-    PN.repeat(pn, rp[0], maxSteps=rp[1], simsFactor=rp[2], fixedNumber=fixedNumber, history=rp[3], analysisStep=rp[4], fileOutput=rp[5], endOnly=rp[6])
-    enablePrint()
+    PN.repeat(pn, rp[0], maxSteps=rp[1], simsFactor=rp[2], fixedNumber=args.nSims, history=rp[3], analysisStep=rp[4], fileOutput=rp[5], endOnly=rp[6])
+    if not args.verbose:
+        enablePrint()
     lt = time.localtime()[:6]
     print('='*80 + '\nSimulations complete after %.2g hrs (%04d/%02d/%02d %02d:%02d:%02d)\n' % (float(time.time()-wall)/float(3600), lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) + '='*80)
     print(os.getcwd())
