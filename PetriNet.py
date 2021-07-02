@@ -1564,10 +1564,7 @@ class PetriNet(object):
         if steps:
             if verbose:
                 self.transSummary()
-            if fileOutput:
-                self.placesSummary(mode, tOut=verbose, pfile=pfile)
-            else:
-                self.placesSummary(mode, tOut=verbose, pfile=None)
+            self.placesSummary(mode, tOut=verbose, pfile=pfile if fileOutput else None)
             fin = '\nStep: %d' % self.step
             if self.clock is not None:
                 fin += ' Clock: %.2e %s' % (self.clock, self.units)
@@ -1577,8 +1574,6 @@ class PetriNet(object):
             pfile.close()
             tfile.close()
             tlist.close()
-        # # Ensure that next call to 'run' does not overwrite files
-        # self.step += 1
 
 class Place(object):
     """

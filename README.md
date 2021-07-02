@@ -180,13 +180,13 @@ The below flowchart depicts the process followed by Macchiato to execute an indi
 
 Macchiato Petri Net structures are stored in `*.mpn` files, the creation of which is discussed [below](#macchiato-petri-net-files-mpn).
 
-Assuming the instructions for [system integration](#system-integration) have been followed, the following command will run a batch of simulations, where `nSims` should be replaced with the desired number of iterations:
+Assuming the instructions for [system integration](#system-integration) have been followed, the following command will run a batch of simulations, where `{nSims}` should be replaced with the desired number of iterations:
 
 ```shell
-$ Macchiato /path/to/PetriNet.mpn nSims
+$ Macchiato /path/to/PetriNet.mpn {nSims}
 ```
 
-Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `nSims` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-V` or `--versbose` at the end of the above command, but be aware that this will impact performance.
+Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `{nSims}` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-V` or `--verbose` at the end of the above command, but be aware that this will negatively impact performance.
 
 The help text is displayed by:
 
@@ -196,7 +196,7 @@ $ Macchiato --help
 
 ### Macchiato Petri Net Files (`*.mpn`)
 
-A Petri Net description in `*mpn` format may be created textually, as outlined in the following subsections, or via the tools seen in *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. One may also create and manipulate Petri Net structures in a Python script using the tools provided in the module `PetriNet.py` as documented in [*Scripting Tools*](#scripting-tools).
+A Petri Net description in `*.mpn` format may be created textually, as outlined in the following subsections, or via the tools seen in *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. One may also create and manipulate Petri Net structures in a Python script using the tools provided in the module `PetriNet.py` as documented in [*Scripting Tools*](#scripting-tools).
 
 It is assumed that the reader is already familiar with the basics of standard Petri Net modelling<sup>[[1]](#r1)</sup>.
 
@@ -432,18 +432,33 @@ pn.trans['T2'].addOutArc('P1', weight=2)
 # Write initial structure to *.mpn file
 MC.write(pn, altName='%s_start'%pn.name)
 
+# Write initial Petri Net marking to file
+pfile, tfile, tlist = pn.writeNetStart(pn.runMode)
+
 # Begin simulation process
 while True:
-    pn.run(1)
+    pn.run(1, verbose=False, fileOutput=False)
+    pn.writeNet(pfile, tfile, tlist, pn.runMode)
     if fooCondition:
         # Modify the Petri Net or run some other code
         # ...
         fooProcess(pn)
         # ...
+        if MarkingAltered: # Record changes to the marking of the Petri Net
+            pn.step += 1
+            pn.clock = newTime # if relevant
+            pn.writeNet(pfile, tfile, tlist,
+        	            pn.runMode)
     else:
         # Conditions for terminating simulation
         # ...
         break
+        
+# Finalise output files
+pn.placesSummary(pn.runMode, tOut=True, pfile=pfile)
+pfile.close()
+tfile.close()
+tlist.close()
 
 # Write final structure to *.mpn file
 MC.write(pn, altName='%s_end'%pn.name)
