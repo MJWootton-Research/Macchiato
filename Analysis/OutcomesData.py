@@ -21,7 +21,7 @@ Command line arguments taken in order:
 def eDataToFile(eData, pLen):
     print(eData)
     # eFile = open(os.path.join(os.getcwd(), 'allTimes.csv'), 'w')
-    pFile = open(os.path.join(os.getcwd(), 'percentiles.txt'), 'w')
+    pFile = open(os.path.join(os.getcwd(), '%s_percentiles.txt' % sys.argv[1]), 'w')
     pFile.write('10th  90th\n')
     all = np.array([])
     for p in range(pLen):

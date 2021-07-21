@@ -12,9 +12,9 @@
 --------------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
+Version 1-4-6
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-6
 ================================================================================
 
 This modules read and writes Petri Net structures to .mpn file, and when called
@@ -28,6 +28,7 @@ import sys
 import math
 import time
 import argparse
+import textwrap
 
 # Note to user: Remember to add the directory of Macchiato to your Python Path
 import PetriNet as PN
@@ -423,10 +424,20 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
     # Close .mpn file
     mpn.close()
 
+class RawFormatter(argparse.HelpFormatter):
+    def _fill_text(self, text, width, indent):
+        return "\n".join([textwrap.fill(line, width) for line in textwrap.indent(textwrap.dedent(text), indent).splitlines()])
+
 def main():
+    intro=f'''
+    Macchiato – A Simple and Scriptable Petri Nets Implementation
+    Version 1-4-6
+    (c) Dr. Mark James Wootton 2016-2021
+    mark.wootton@nottingham.ac.uk
+    '''
     # Command line arguments and help text
-    parser = argparse.ArgumentParser(prog='Macchiato', description='Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation', epilog=None)
-    parser.add_argument('file', nargs=1, metavar='input file', type=argparse.FileType('r'), help='*.mpn file containing a Petri Net')
+    parser = argparse.ArgumentParser(prog='Macchiato', description=intro, formatter_class=RawFormatter,epilog=None)
+    parser.add_argument('file', nargs=1, metavar='input_file', type=argparse.FileType('r'), help='*.mpn file containing a Petri Net')
     parser.add_argument('nSims', nargs='?', default=None, type=int, help='Set fixed number of simulations to run [optional]')
     parser.add_argument('-V', '--verbose', dest='verbose', action='store_true', help='Enable verbose mode (slow)')
     args = parser.parse_args()

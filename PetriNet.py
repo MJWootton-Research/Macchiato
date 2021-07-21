@@ -12,9 +12,9 @@
 --------------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
+Version 1-4-6
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-Version 1-4-6
 ================================================================================
 
 This module contains all object definitions pertaining to Macchiato Petri Net

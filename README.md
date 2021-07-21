@@ -94,8 +94,10 @@ One can configure their system to allow Macchiato to be accessed conveniently fr
 In a Bash or Z Shell environment, such as is default in many Linux distributions and of MacOS, add the following two lines to the file found in the Home directory with the name `.bashrc` or `.zshrc` respectively.
 
 ```bash
-alias Macchiato="python $HOME/git/Macchiato/Macchiato.py" # Execute Macchiato simulations from any directory
-export PYTHONPATH=$HOME/git/Macchiato:$PYTHONPATH # Make Macchiato availible to import from any directory
+# Execute Macchiato simulations from any directory
+Macchiato(){ python3 $HOME/git/Macchiato/Macchiato.py $* ; }
+# Make Macchiato availible for Python to import from any directory
+export PYTHONPATH=$HOME/git/Macchiato:$PYTHONPATH
 ```
 
 The changes will take effect immediately in any new terminal instance. In an existing terminal, you can update via the command `source ~/.bashrc` or `source ~/.zshrc` as appropriate.
@@ -107,7 +109,8 @@ You may need to change the path `$HOME/git/Macchiato` if Macchiato was installed
 For users of PowerShell on Windows 10, the integration must be done in two steps. To allow easy execution of Macchiato simulations from any directory, create a folder in `Documents` called `WindowsPowerShell`. In this new folder, add a plain text file with the name `Microsoft.PowerShell_profile.ps1` containing the lines:
 
 ```powershell
-function Macchiato { # Execute Macchiato simulations from any directory
+# Execute Macchiato simulations from any directory
+function Macchiato {
     python $home\git\Macchiato\Macchiato.py $args
 }
 ```
