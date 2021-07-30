@@ -212,7 +212,7 @@ The function then loops for the required number of simulations, at each iteratio
 To run the the above example with a simulation batch size of 1000, one would enter the following:
 
 ```bash
-$ python Example/ATR_Model/ATR_Hybrid.py Example/ATR_Model/ATR_PetriNet.mpn ample/ATR_Model/ATR_BondGraph_{OS}.fmu 1000
+$ python Example/ATR_Model/ATR_Hybrid.py Example/ATR_Model/ATR_PetriNet.mpn Example/ATR_Model/ATR_BondGraph_{OS}.fmu 1000
 ```
 
 where `{OS}` is replaced by the appropriate system.
