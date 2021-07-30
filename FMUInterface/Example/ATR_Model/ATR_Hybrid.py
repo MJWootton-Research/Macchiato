@@ -13,7 +13,7 @@ from pyfmi import load_fmu
 # Macchiato modules
 import Macchiato
 import PetriNet
-import FMUInterface as fmui
+import FMUInterface.FMUInterface as fmui
 
 class atr(fmui.pnfmu):
     def __init__(self, name, pn, fmuPath, inputs, wd=None, tMax=3600.0, tStep=10.0):
