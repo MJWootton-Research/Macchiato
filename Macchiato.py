@@ -350,7 +350,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
             wr += '\tfileOutput %s\n' % rp[5]
             wr += '\tendOnly %s\n' % rp[6]
         else:
-            raise IndexError('rp be of length, 5.')
+            raise IndexError('rp should be of length, 5.')
     elif rp is None:
         wr += '\tmaxClock %g\n' % 1E6
         wr += '\tmaxSteps %g\n' % 1E12
