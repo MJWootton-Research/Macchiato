@@ -341,7 +341,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
     wr += '\n'
     wr += '# Run Parameters\n'
     if type(rp) is list:
-        if len(rp) == 5:
+        if len(rp) == 7:
             wr += '\tmaxClock %g\n' % rp[0]
             wr += '\tmaxSteps %d\n' % rp[1]
             wr += '\tsimsFactor %g\n' % rp[2]
@@ -350,7 +350,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
             wr += '\tfileOutput %s\n' % rp[5]
             wr += '\tendOnly %s\n' % rp[6]
         else:
-            raise IndexError('rp should be of length, 5, received(%d)' % len(rp))
+            raise IndexError('rp should be of length, 7, received(%d)' % len(rp))
     elif rp is None:
         wr += '\tmaxClock %g\n' % 1E6
         wr += '\tmaxSteps %g\n' % 1E12
