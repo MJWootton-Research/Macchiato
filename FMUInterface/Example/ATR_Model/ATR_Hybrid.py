@@ -8,7 +8,7 @@ import time
 import random
 # Third party libraries
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from pyfmi import load_fmu
 # Macchiato modules
 import Macchiato

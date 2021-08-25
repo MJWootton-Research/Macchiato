@@ -252,7 +252,7 @@ class pnfmu(object):
 
                 if long:
                     ts0 = t1
-                
+
                 pnChange = self.netUpdate(ts1)
                 if pnChange:
                     self.pn.step += 1
