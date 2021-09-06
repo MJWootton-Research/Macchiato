@@ -1,24 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 """
-================================================================================
- _________   ______   ______  ______  _    _  _____  ______  _______  ______
-| | | | | \ | |  | | | |     | |     | |  | |  | |  | |  | |   | |   / |  | \
-| | | | | | | |__| | | |     | |     | |--| |  | |  | |__| |   | |   | |  | |
-|_| |_| |_| |_|  |_| |_|____ |_|____ |_|  |_| _|_|_ |_|  |_|   |_|   \_|__|_/
+============================================================================
+███╗   ███╗ █████╗  ██████╗ ██████╗██╗  ██╗ ██╗  █████╗ ████████╗ ██████╗
+████╗ ████║██╔══██╗██╔════╝██╔════╝██║  ██║ ██║ ██╔══██╗╚══██╔══╝██╔═══██╗
+██╔████╔██║███████║██║     ██║     ███████║ ██║ ███████║   ██║   ██║   ██║
+██║╚██╔╝██║██╔══██║██║     ██║     ██╔══██║ ██║ ██╔══██║   ██║   ██║   ██║
+██║ ╚═╝ ██║██║  ██║╚██████╗╚██████╗██║  ██║ ██║ ██║  ██║   ██║   ╚██████╔╝
+╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝
 
     Programmer ~ Noun: One who converts coffee into code.
 
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
 Version 1-4-6
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-================================================================================
+============================================================================
 
-This modules read and writes Petri Net structures to .mpn file, and when called
-from the command line, integrates them.
+This modules read and writes Petri Net structures to .mpn file, and when
+called from the command line, integrates them.
 
 """
 
@@ -341,7 +343,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
     wr += '\n'
     wr += '# Run Parameters\n'
     if type(rp) is list:
-        if len(rp) == 7:
+        if len(rp) == 5:
             wr += '\tmaxClock %g\n' % rp[0]
             wr += '\tmaxSteps %d\n' % rp[1]
             wr += '\tsimsFactor %g\n' % rp[2]
@@ -350,7 +352,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
             wr += '\tfileOutput %s\n' % rp[5]
             wr += '\tendOnly %s\n' % rp[6]
         else:
-            raise IndexError('rp should be of length, 7, received(%d)' % len(rp))
+            raise IndexError('rp should be of length, 5, received(%d)' % len)
     elif rp is None:
         wr += '\tmaxClock %g\n' % 1E6
         wr += '\tmaxSteps %g\n' % 1E12

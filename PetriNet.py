@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 """
-================================================================================
- _________   ______   ______  ______  _    _  _____  ______  _______  ______
-| | | | | \ | |  | | | |     | |     | |  | |  | |  | |  | |   | |   / |  | \
-| | | | | | | |__| | | |     | |     | |--| |  | |  | |__| |   | |   | |  | |
-|_| |_| |_| |_|  |_| |_|____ |_|____ |_|  |_| _|_|_ |_|  |_|   |_|   \_|__|_/
+============================================================================
+███╗   ███╗ █████╗  ██████╗ ██████╗██╗  ██╗ ██╗  █████╗ ████████╗ ██████╗
+████╗ ████║██╔══██╗██╔════╝██╔════╝██║  ██║ ██║ ██╔══██╗╚══██╔══╝██╔═══██╗
+██╔████╔██║███████║██║     ██║     ███████║ ██║ ███████║   ██║   ██║   ██║
+██║╚██╔╝██║██╔══██║██║     ██║     ██╔══██║ ██║ ██╔══██║   ██║   ██║   ██║
+██║ ╚═╝ ██║██║  ██║╚██████╗╚██████╗██║  ██║ ██║ ██║  ██║   ██║   ╚██████╔╝
+╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝
 
-    Programmer ~ Noun: One who converts coffee into code.
+    A programmer is one who converts coffee into code.
 
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
 Version 1-4-6
 (c) Dr. Mark James Wootton 2016-2021
 mark.wootton@nottingham.ac.uk
-================================================================================
+============================================================================
 
-This module contains all object definitions pertaining to Macchiato Petri Net
-structures and the methods for the execution and analysis of simulations.
+This module contains all object definitions pertaining to Macchiato Petri
+Net structures and the methods for the execution and analysis of
+simulations.
 
 """
 
