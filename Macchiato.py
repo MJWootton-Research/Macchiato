@@ -37,7 +37,6 @@ import PetriNet as PN
 
 from platform import system
 if system == 'Windows':
-    iconType = 'ico'
     # Windows doesn't let us have nice things in our docstrings
     __doc__ = __doc__.replace('█', '#')
     __doc__ = __doc__.replace('–', '--')
