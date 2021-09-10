@@ -39,6 +39,14 @@ import collections
 
 from Visualisation import dot_to_image as di
 
+from platform import system
+if system() == 'Windows':
+    # Windows doesn't let us have nice things in our docstrings
+    __doc__ = __doc__.replace('█', '#')
+    __doc__ = __doc__.replace('–', '--')
+    for r in '╗╔═║╝╚':
+        __doc__ = __doc__.replace(r, ' ')
+
 def labelCheck(label, ref=None, error=False):
     """
     Function to test object labels for problematic characters and print an
