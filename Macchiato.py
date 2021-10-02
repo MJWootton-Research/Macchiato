@@ -456,7 +456,7 @@ def main():
 
     # Run specified simulation
     lt = time.localtime()[:6]
-    print('='*80 + '\nBeginning simulations (%04d/%02d/%02d %02d:%02d:%02d)\n' % (lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) + '='*80)
+    print('='*80 + '\nBeginning simulations (%04d-%02d-%02d %02d:%02d:%02d)\n' % (lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) + '='*80)
     if not args.verbose:
         blockPrint()
     wall = time.time()
@@ -464,7 +464,7 @@ def main():
     if not args.verbose:
         enablePrint()
     lt = time.localtime()[:6]
-    print('='*80 + '\nSimulations complete after %.2g hrs (%04d/%02d/%02d %02d:%02d:%02d)\n' % (float(time.time()-wall)/float(3600), lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) + '='*80)
+    print('='*80 + '\nSimulations complete after %.2g hrs (%04d-%02d-%02d %02d:%02d:%02d)\n' % (float(time.time()-wall)/float(3600), lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) + '='*80)
     print(os.getcwd())
 
 if __name__ == '__main__':
