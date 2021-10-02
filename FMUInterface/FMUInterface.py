@@ -258,6 +258,8 @@ class pnfmu(object):
                     self.pn.step += 1
                     self.pn.clock = ts1
                     self.pn.writeNet(self.pfile, self.tfile, self.tlist, self.pn.runMode)
+                    transExit = self.pn.transExit
+                    placeExit = self.pn.placeExit
                     break
                 elif stop or long:
                     self.newPN(pnNew)
