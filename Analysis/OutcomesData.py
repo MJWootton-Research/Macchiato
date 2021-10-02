@@ -120,8 +120,6 @@ def main():
                     if int(sLine[pp]) == 1:
                         if errorAnalysis:
                             eData[p][data[p][1]] = float(sLine[1])
-                            if eData[p][data[p][1]] > 27500: # TEMP
-                                print(i)
                         data[p][0] += float(sLine[1])
                         data[p][1] += 1
                         done = True
