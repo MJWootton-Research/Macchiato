@@ -103,11 +103,6 @@ def main():
     ii = 0 if os.path.isfile(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_0.csv')) else 1
     for j in range(nFiles):
         i = j+ii
-        # try:
-        #     if sys.argv[3] == '-0':
-        #         i -= 1
-        # except:
-        #     pass
         file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i)))
         l = 0
         # Skip over title lines
