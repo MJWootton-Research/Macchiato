@@ -35,11 +35,13 @@ def main():
 
     # places = sys.argv[2].split(':')
     # pList = places
+    ii = 0 if os.path.isfile(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_0.csv')) else 1
     for p in range(len(pList)):
         ends = []
         place = pList[p]
         # placeN = int(place)
-        for i in range(nFiles):
+        for j in range(nFiles):
+            i = j+ii
             inFile = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i+1)))
             ends.append(None)
             for line in inFile:

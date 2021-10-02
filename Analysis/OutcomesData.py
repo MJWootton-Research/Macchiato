@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 """
-Timing&EndData.py produces average simulation durations for simulations that end with specific token configurations, and the number of such simulations thereof, along with the overall average duration.
+OutcomesData.py produces average simulation durations for simulations that end with specific token configurations, and the number of such simulations thereof, along with the overall average duration.
 Command line arguments taken in order:
 * Name of simulation results folder (run this script in the parent directory).
 * Labels of the terminal places to count, separated by colons (eg, 'P1:P2:P3').
@@ -100,8 +100,15 @@ def main():
         data.append([0.0, 0])
 
     # Loop over results files
-    for i in range(nFiles):
-        file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i+1)))
+    ii = 0 if os.path.isfile(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_0.csv')) else 1
+    for j in range(nFiles):
+        i = j+ii
+        # try:
+        #     if sys.argv[3] == '-0':
+        #         i -= 1
+        # except:
+        #     pass
+        file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i)))
         l = 0
         # Skip over title lines
         for line in file:
@@ -118,17 +125,19 @@ def main():
                     if int(sLine[pp]) == 1:
                         if errorAnalysis:
                             eData[p][data[p][1]] = float(sLine[1])
+                            if eData[p][data[p][1]] > 27500: # TEMP
+                                print(i)
                         data[p][0] += float(sLine[1])
                         data[p][1] += 1
                         done = True
-                        endings[p].append(i+1)
+                        endings[p].append(i)
                         break
                 else:
                     # Record simulations that have timed-out
                     data[-1][0] += last
                     data[-1][1] += 1
                     done = True
-                    endings[-1].append(i+1)
+                    endings[-1].append(i)
                     break
             if l > 2:
                 last = float(sLine[1])

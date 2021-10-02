@@ -45,8 +45,10 @@ def main():
         columnFound = False
         col = None
 
-        for i in range(nFiles):
-            file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i+1)))
+        ii = 0 if os.path.isfile(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_0.csv')) else 1
+        for j in range(nFiles):
+            i = j+ii
+            file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i)))
             l = -1
             A = []
             for line in file:
