@@ -28,7 +28,9 @@ class atr(fmui.pnfmu):
         self.damageThreshold_uo2 = self.uo2_melt
         #   NB: this is the temperature of Zr-2 exothermic reactions
         #       --> unrealistic to simulate above this temperature
-        self.damageThreshold_zr2 = 1200+273.15 # K [KfK 3973, Erbacher & Leistikow 1985]
+        # self.damageThreshold_zr2 = 1200+273.15 # K [KfK 3973, Erbacher & Leistikow 1985]
+        self.usnrcClad = 1477 # K [U.S. Nuclear Regulatory Commission]
+        self.damageThreshold_zr2 = 1500
 
 
         # Parameters
@@ -171,7 +173,70 @@ class atr(fmui.pnfmu):
                     place['PCladOverheat'].changeTokens(1)
                     update = True
 
+            if self.results[-1]['Cladding%d.e' % i][-1] > self.usnrcClad:
+                if not place['PCladTempShutdown'].tokens:
+                    place['PCladTempShutdown'].changeTokens(1)
+                    update = True
+
+        if place['PFuelOverheat'].tokens+place['PCladOverheat'].tokens:
+            self.pn.placeExit = True
+
         return update
+
+    def processResults(self, lables):
+        """
+        Extracts and records results to file after simulations
+
+        Parameters
+        ----------
+        labels : list of string objects
+            The labels of system varriables to be extracted from the model, specified in the form in which they appear in Modelica
+
+        """
+        lables = ['time'] + lables # Yes, I know about the spelling mistake
+        pn = self.pn
+        procRes = {}
+        for name in lables:
+            procRes[name] = np.array([])
+            for r in range(len(self.results)):
+                procRes[name] = np.append(procRes[name], self.results[r][name])
+
+        path = os.path.join(os.getcwd(), pn.name, '%s_FMU_%d.csv' % (pn.name, pn.time))
+
+        all = ['fuelThIn', 'coolTR', 'coolTin']
+        mm = ['Coolant', 'Cladding', 'Fuel']
+
+        data = 'Time'
+        for wr in all:
+            data += ','+wr
+        for wr in mm:
+            for ap in ['min', 'max']:
+                data += ','+wr+'.'+ap
+        data += '\n'
+        for i in range(len(procRes[lables[0]])):
+            data += f'{procRes["time"][i]}'
+            for label in all:
+                data += f',{procRes[label][i]}'
+            for mLabel in mm:
+                mData = []
+                for lLabel in lables:
+                    if mLabel in lLabel:
+                        mData.append(procRes[lLabel][i])
+                data += f',{np.min(mData)},{np.max(mData)}'
+            data += '\n'
+        # rfile = open(path, 'w')
+        # rfile.write('Time')
+        # for n in range(1,len(lables)):
+        #     rfile.write(',%s' % lables[n])
+        # rfile.write('\n')
+        # for i in range(len(procRes[lables[0]])):
+        #     for n in range(len(lables)):
+        #         rfile.write('%f,' % procRes[lables[n]][i])
+        #     rfile.write('\n')
+
+        rfile = open(path, 'w')
+        rfile.write(data)
+        rfile.close()
 
 def run(params):
     # Path to FMU
@@ -216,6 +281,16 @@ def run(params):
     pn.trans['TFuelOverheat'].addOutArc('PFuelOverheat')
     pn.trans['TCladOverheat'].addInArc('PCladOverheat')
     pn.trans['TCladOverheat'].addOutArc('PCladOverheat')
+
+    pn.addPlace('PCladTempShutdown')
+    pn.addPlace('PCladTempShutdownLock')
+    pn.addTrans('TCladTempShutdown')
+    pn.trans['TCladTempShutdown'].addInArc('PCladTempShutdown')
+    pn.trans['TCladTempShutdown'].addOutArc('PCladTempShutdown')
+    pn.trans['TCladTempShutdown'].addInArc('PCladTempShutdownLock', type='inh')
+    pn.trans['TCladTempShutdown'].addOutArc('PCladTempShutdownLock')
+    pn.trans['TCladTempShutdown'].addOutArc('PTIVD0')
+
     # Convert units from seconds from hours
     for t in pn.trans:
         if pn.trans[t].uniform is not None:
