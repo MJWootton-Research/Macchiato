@@ -305,7 +305,7 @@ class PetriNet(object):
                 trans.rmOutArc(label)
 
 
-    def addTrans(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=[], vote=None, group=None):
+    def addTrans(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=None, vote=None, group=None):
         """
         Creates a new transition in the Petri Net
 
@@ -1771,7 +1771,7 @@ class Trans(object):
         Label used to group transitions for visualisation
 
     """
-    def __init__(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=[], vote=None, group=None):
+    def __init__(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=None, vote=None, group=None):
         self.label = str(label)
         if ' ' in self.label:
             raise ValueError('"%s" is an invalid label, spaces are not permitted' % self.label)
@@ -1813,7 +1813,7 @@ class Trans(object):
         self.ready = False
         self.firedCount = 0
         self.lastFired = None
-        self.reset = reset
+        self.reset = reset if reset is not None else []
         if vote is not None:
             if type(vote) is not int:
                 raise TypeError('Voting threshold (%r) must be positive integer (transition "%s")' % (vote, self.label))
