@@ -416,9 +416,10 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
                 if pn.trans[t].outArcs[p].weight != 1:
                     wr += ':%r' % pn.trans[t].outArcs[p].weight
         if len(pn.trans[t].reset):
-            wr += ' RESET'
+            wr += ' RESET '
             for p in pn.trans[t].reset:
-                wr += ' %s' % p
+                wr += '%s:' % p
+            wr = wr[:-1]
         if pn.trans[t].vote is not None:
                 wr += ' VOTE %d' % pn.trans[t].vote
         if pn.trans[t].maxFire is not None:
