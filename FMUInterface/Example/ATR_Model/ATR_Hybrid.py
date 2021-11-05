@@ -44,7 +44,7 @@ class atr(fmui.pnfmu):
         self.coolC=4.5049E+05 # J/K
         self.fuelToFuelR=2.6198E+01 # K/W
         self.cladToCladR=2.3613E+01 # K/W
-        self.spCap=4182 # J/(kg*K)
+        self.spCap=4182.0 # J/(kg*K)
 
         # Actions
         self.highPressureBegin = None
