@@ -450,7 +450,7 @@ def main():
     parser = argparse.ArgumentParser(prog='Macchiato', description=intro, formatter_class=RawFormatter,epilog=None)
     parser.add_argument('file', nargs=1, metavar='input_file', type=argparse.FileType('r'), help='*.mpn file containing a Petri Net')
     parser.add_argument('nSims', nargs='?', default=None, type=int, help='Set fixed number of simulations to run [optional]')
-    parser.add_argument('-V', '--verbose', dest='verbose', action='store_true', help='Enable verbose mode (slow)')
+    parser.add_argument('-V', '-v', '--verbose', dest='verbose', action='store_true', help='Enable verbose mode (slow)')
     args = parser.parse_args()
 
     # Get Petri Net and simulation parameters
