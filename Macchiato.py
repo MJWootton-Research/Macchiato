@@ -223,6 +223,8 @@ def read(file):
                     except:
                         raise KeyError('Error reading transition type from: %r\n[%s]' % (read, line))
                     if type not in ['instant', 'rate', 'uniform', 'delay', 'weibull', 'beta', 'lognorm', 'cyclic']:
+                        if not type:
+                            raise KeyError('No type given for transition "%s"' % (label))
                         raise KeyError('Unrecognised type "%r" for transition "%s"' % (type, label))
 
                     try:
