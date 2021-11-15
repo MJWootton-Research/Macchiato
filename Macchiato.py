@@ -27,7 +27,6 @@ called from the command line, integrates them.
 # Python Modules
 import os
 import sys
-import math
 import time
 import argparse
 import textwrap
@@ -53,7 +52,8 @@ def enablePrint():
 
 def read(file):
     """
-    Reads Macchiato Petri Net (.mpn) files and returns structure in PetriNet object
+    Reads Macchiato Petri Net (.mpn) files and returns structure in PetriNet
+    object
 
     Parameters
     ----------
