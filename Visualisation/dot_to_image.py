@@ -19,7 +19,7 @@ def main(dir, formats):
         sys.exit('\nCannot produce images. No file formats specifed.\n')
     for dFile in glob.glob1(os.getcwd(),'*.dot'):
         print(dFile)
-        render(dFile, formats)
+        render(os.path.join(os.getcwd(), dFile), formats)
 
 if __name__ == '__main__':
     main(os.path.join(sys.argv[1]), sys.argv[2:])

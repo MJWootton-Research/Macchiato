@@ -12,7 +12,6 @@ import numpy as np
 from pyfmi import load_fmu
 # Macchiato modules
 import Macchiato
-import PetriNet
 import FMUInterface.FMUInterface as fmui
 
 class atr(fmui.pnfmu):
@@ -263,7 +262,7 @@ def run(params):
     # Get Petri Net
     if type(params[1]) is str:
         pn, _ = Macchiato.read(params[1])
-    elif type(params[1]) is PetriNet.PetriNet:
+    elif type(params[1]) is Macchiato.PetriNet:
         pn = params[1]
     else:
         raise TypeError('Invalid type for Petri Net (%r)' % type(params[1]))

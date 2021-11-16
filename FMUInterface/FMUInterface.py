@@ -16,16 +16,15 @@ import copy
 # import matplotlib.pyplot as plt
 from pyfmi import load_fmu
 # Macchiato
-import PetriNet as mpn
 import Macchiato
 
 class pnfmu(object):
     def __init__(self, name, pn, fmuPath, inputs, wd=None, tMax=100.0, tStep=10.0):
         """
         Skeleton object to manage the relationship between the Petri Net
-        decribed by Macchiato, and the physical model (e.g. Bond Graph) in FMU
-        form. Import this module and use inheritance to specify the desired
-        interactions.
+        decribed by Macchiato, and the physical model (e.g. Bond Graph) in
+        FMU form. Import this module and use inheritance to specify the
+        desired interactions.
 
         NB: FMU = Functional Mock-up Unit
 
@@ -33,9 +32,9 @@ class pnfmu(object):
         ----------
         name : string
             Name of model to use
-        pn : string OR mpn.PetriNet
+        pn : string OR Macchiato.PetriNet
         * If given string, attempts to read as path to an .mpn file
-        * If given mpn.PetriNet, sets self.pn to given object
+        * If given Macchiato.PetriNet, sets self.pn to given object
         fmuPath : string
             Path to FMU file
         inputs : list of strings
@@ -45,16 +44,15 @@ class pnfmu(object):
         tMax : float
             Maximum clock time for simulation (Default = 100.0)
         tStep : float
-            Duration to simulation between checks on critical system parameters
-            (Default = 10.0)
+            Duration to simulation between checks on critical system
+            parameters (Default = 10.0)
 
         Attributes
         ----------
         * Define the attributes according to needs of the model...
-
         """
         self.name = name
-        self.pn = mpn.PetriNet(name)
+        self.pn = Macchiato.PetriNet(name)
         self.setPN(pn)
         if wd is not None:
             os.chdir(wd)
@@ -78,7 +76,6 @@ class pnfmu(object):
         ----------
         v1, v2, v3... : float
             Must return as many values as anticipated by the FMU
-
         """
         pass
 
@@ -95,20 +92,19 @@ class pnfmu(object):
         ----------
         update : boolean
             Indicates if changes to the Petri Net have been made
-
         """
         update = False
         return update
 
     def newPN(self, pnNew):
         """
-        Updates self.pn with accepted new verion of the Petri Net for next step and writes output
+        Updates self.pn with accepted new verion of the Petri Net for next
+        step and writes output
 
         Parameters
         ----------
-        pnNew : mpn.PetriNet
+        pnNew : Macchiato.PetriNet
             New version of the Petri Net object
-
         """
         self.pn = copy.deepcopy(pnNew)
         self.pn.writeNet(self.pfile, self.tfile, self.tlist, self.pn.runMode)
@@ -116,7 +112,6 @@ class pnfmu(object):
     def endfiles(self):
         """
         Ends Petri Net output file
-
         """
         self.pn.placesSummary(self.pn.runMode, tOut=True, pfile=self.pfile)
         self.pfile.close()
@@ -129,19 +124,18 @@ class pnfmu(object):
 
         Parameters
         ----------
-        pn : string OR mpn.PetriNet
+        pn : string OR Macchiato.PetriNet
         * If given string, attempts to read as path to an .mpn file
-        * If given mpn.PetriNet, sets self.pn to given object
-
+        * If given Macchiato.PetriNet, sets self.pn to given object
         """
         rpn = None
         if type(pn) is str:
             rpn, _ = Macchiato.read(pn)
-        elif type(pn) is mpn.PetriNet:
+        elif type(pn) is Macchiato.PetriNet:
             rpn = pn
         else:
             raise TypeError('pn is of unknown type: %r' % type(pn))
-        if type(rpn) is not mpn.PetriNet:
+        if type(rpn) is not Macchiato.PetriNet:
             raise RuntimeError('Failed to properly set Petri Net')
         rpn.name = self.pn.name
         self.pn = rpn
@@ -156,8 +150,8 @@ class pnfmu(object):
         Parameters
         ----------
         labels : list of string objects
-            The labels of system varriables to be extracted from the model, specified in the form in which they appear in Modelica
-
+            The labels of system varriables to be extracted from the model,
+            specified in the form in which they appear in Modelica
         """
         lables = ['time'] + lables
         pn = self.pn
@@ -182,7 +176,6 @@ class pnfmu(object):
     def run(self):
         """
         Runs model
-
         """
         begin = False
         big = False

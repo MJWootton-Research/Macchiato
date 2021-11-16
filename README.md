@@ -5,7 +5,7 @@
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
 ## A Simple Petri Nets Implementation for Python 3
-### [Version 1-4-6](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/CHANGELOG.md)
+### [Version 1-5](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/CHANGELOG.md)
 
 © Dr. Mark James Wootton 2016-2021  
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
@@ -189,7 +189,7 @@ Assuming the instructions for [system integration](#system-integration) have bee
 $ Macchiato /path/to/PetriNet.mpn {nSims}
 ```
 
-Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `{nSims}` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-V` or `--verbose` at the end of the above command, but be aware that this will negatively impact performance.
+Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `{nSims}` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-v` or `--verbose` at the end of the above command, but be aware that this will negatively impact performance.
 
 The help text is displayed by:
 
@@ -335,14 +335,14 @@ Note the parameters `overwrite`, `rp`, and `altName` are optional, and respectiv
 
 #### Manipulating Petri Nets
 
-To create a `PetriNet` object from scratch, import the module [`PetriNet.py`](PetriNet.py) and initialise an instance of the class, with any parameter not provided by the user defaulting to the value shown in the following example (a value should ideally always be given for `name`).
+To create a `PetriNet` object from scratch, import the module [`Macchiato.py`](Macchiato.py) and initialise an instance of the class, with any parameter not provided by the user defaulting to the value shown in the following example (a value should ideally always be given for `name`).
 
 ```python
 # Import module
-import PetriNet as PN
+import Macchiato as MC
 
 # Create instance of PetriNet object (with default values shown - these may be ommitted)
-pn = PN.PetriNet(name=None, units='hrs', runMode='schedule', dot=False,
+pn = MC.PetriNet(name=None, units='hrs', runMode='schedule', dot=False,
                  visualise=None, details=True, useGroup=True, orientation=None,
                  debug=False, dotLoc=None)
 ```
@@ -351,7 +351,7 @@ The structure of a `PetriNet` object created by either of methods discussed may 
 
 ```python
 # Import module
-import PetriNet as PN
+import Macchiato as MC
 
 # Create instance of PetriNet object
 pn = PN.PetriNet(name='Example')
@@ -416,10 +416,9 @@ This makes it possible to run any arbitrary code between steps for highly custom
 ```python
 # Import modules
 import Macciato as MC
-import PetriNet as PN
 
 # Create instance of PetriNet object
-pn = PN.PetriNet(name='Example')
+pn = MC.PetriNet(name='Example')
 # Add places
 pn.addPlace('P1', tokens=2)
 pn.addPlace('P2')

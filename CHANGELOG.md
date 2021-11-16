@@ -34,3 +34,10 @@
 
 * Added support for comments at the end of line in an `*.mpn` file
 * Tidied up parsing of command-line arguments added help text
+
+### Version 1-5
+
+* Merged `PetriNet.py` into `Macchiato.py`
+* Miscellaneous bug fixes and small quality of life improvements
+* Added `HistogramTime.py`
+* Changed verbose mode tag to `-v` instead of `-V`
