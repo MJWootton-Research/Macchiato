@@ -18,15 +18,15 @@ for d in data:
     w += len(d)-1
 
 for d in data:
-    for dd in range(len(d[1:])):
-        d[dd+1] = float(d[dd+1])/8766.0
+    for dd in range(len(d[2:])):
+        d[dd+2] = float(d[dd+2])/8766.0
     ymax = None
     if len(sys.argv) > 2:
         if "%" in sys.argv[2]:
             ymax = float(sys.argv[2][:-1])
         else:
-            for dd in range(len(d)-1, 0, -1):
-                if d[dd] > float(sys.argv[2]):
+            for dd in range(len(d)-1, 1, -1):
+                if float(d[dd]) > float(sys.argv[2])/8766.0:
                     d.pop(dd)
     print(d[0])
     plt.title(d[0])

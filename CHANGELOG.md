@@ -41,3 +41,8 @@
 * Miscellaneous bug fixes and small quality of life improvements
 * Added `HistogramTime.py`
 * Changed verbose mode tag to `-v` instead of `-V`
+
+#### Version 1-5-1
+
+* Changed method for silencing output in non-verbose mode
+* Bug fixes for analysis scripts

@@ -61,10 +61,10 @@ def main():
                 continue
         # Record data
         d = 0
-        for j in line.split(',')[2:-1]:
+        for k in line.split(',')[2:-1]:
             data[d][1] += int(j)
             if errorAnalysis:
-                eData[d][i] = int(j)
+                eData[d][j] = int(k)
             d+=1
     file.close()
 

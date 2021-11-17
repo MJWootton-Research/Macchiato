@@ -38,6 +38,7 @@ import textwrap
 import subprocess
 import collections
 from platform import system
+from builtins import print as speak
 
 ############################################################################
 # File and Simulation Management Utilities
@@ -45,7 +46,7 @@ from platform import system
 def main():
     intro=f'''
     Macchiato – A Simple and Scriptable Petri Nets Implementation
-    Version 1-5
+    Version 1-5-1
     (c) Dr. Mark James Wootton 2016-2021
     '''
     # Command line arguments and help text
@@ -71,17 +72,22 @@ def main():
     print('='*80 + '\nSimulations complete after %.2g hrs (%04d-%02d-%02d %02d:%02d:%02d)\n' % (float(time.time()-wall)/float(3600), lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) + '='*80)
     print(os.getcwd())
 
+def silence(*args):
+    return
+
 def blockPrint():
     """
     Silences textual output to terminal from Macchiato
     """
-    sys.stdout = open(os.devnull, 'w')
+    global print
+    print = silence
 
 def enablePrint():
     """
     Reenables textual output to terminal from Macchiato
     """
-    sys.stdout = sys.__stdout__
+    global print
+    print = speak
 
 def read(file):
     """

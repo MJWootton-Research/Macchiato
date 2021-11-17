@@ -42,7 +42,7 @@ def main():
         # placeN = int(place)
         for j in range(nFiles):
             i = j+ii
-            inFile = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i+1)))
+            inFile = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % i), 'r')
             ends.append(None)
             for line in inFile:
                 if len(line) == 1:
