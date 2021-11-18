@@ -62,7 +62,7 @@ def main():
         # Record data
         d = 0
         for k in line.split(',')[2:-1]:
-            data[d][1] += int(j)
+            data[d][1] += int(k)
             if errorAnalysis:
                 eData[d][j] = int(k)
             d+=1
