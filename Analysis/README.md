@@ -20,14 +20,14 @@ Example:
 $ python /path/to/OutcomesData.py /path/to/Results_Folder P1:P2:P3
 ```
 
-### [`TransFireFrequency.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TransFireFrequency.py)
+### [`TransFireData.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/TransFireData.py)
 
 This script produces statistics for transition firings, with [standard error](https://en.wikipedia.org/wiki/Standard_error) given. Simply provide the directory containing the results for inspection and a plain text file will be produced in the current working directory.
 
 Example:
 
 ```shell
-$ python /path/to/TransFireFrequency.py /path/to/Results_Folder
+$ python /path/to/TransFireData.py /path/to/Results_Folder
 ```
 
 ### [`ExtractPlaceEndings.py`](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/Analysis/ExtractPlaceEndings.py)
