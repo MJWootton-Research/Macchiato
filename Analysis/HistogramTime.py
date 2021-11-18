@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
 import matplotlib.ticker as mtick
 
+conversion = 8766.0
+
 data = []
 
 dataFile = open(os.path.join(os.getcwd(), sys.argv[1]))
@@ -19,14 +21,14 @@ for d in data:
 
 for d in data:
     for dd in range(len(d[2:])):
-        d[dd+2] = float(d[dd+2])/8766.0
+        d[dd+2] = float(d[dd+2])/conversion
     ymax = None
     if len(sys.argv) > 2:
         if "%" in sys.argv[2]:
             ymax = float(sys.argv[2][:-1])
         else:
             for dd in range(len(d)-1, 1, -1):
-                if float(d[dd]) > float(sys.argv[2])/8766.0:
+                if float(d[dd]) > float(sys.argv[2])/conversion:
                     d.pop(dd)
     print(d[0])
     plt.title(d[0])
