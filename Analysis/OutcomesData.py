@@ -65,7 +65,7 @@ def main():
     last = 0.0
     # Get target places from command line arguments
     pListLab = sys.argv[2].split(':')
-    searchP = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_1.csv'))
+    searchP = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_1.csv'), 'r')
     sp = 0
     pList = []
     for line in searchP:
@@ -103,7 +103,7 @@ def main():
     ii = 0 if os.path.isfile(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_0.csv')) else 1
     for j in range(nFiles):
         i = j+ii
-        file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i)))
+        file = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_%d.csv' % (i)), 'r')
         l = 0
         # Skip over title lines
         for line in file:
@@ -149,7 +149,7 @@ def main():
     ends = open(os.path.join(os.getcwd(), '%s_Endings.txt' % sys.argv[1]), 'w')
     for e in range(nP):
         if e < nP-1:
-            ends.write('Ending [%d]:\n' % int(pList[e]))
+            ends.write('Ending [%s]:\n' % pListLab[e])
         else:
             ends.write('Timeouts:\n')
         for f in endings[e]:
