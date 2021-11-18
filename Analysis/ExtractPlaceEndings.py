@@ -13,7 +13,7 @@ def main():
     print('\nDiscovered %d files to inspect in "%s".\n' % (nFiles, sys.argv[1]))
 
     pListLab = sys.argv[2].split(':')
-    searchP = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_1.csv'))
+    searchP = open(os.path.join(os.getcwd(), sys.argv[1], 'Macchiato_PetriNet_Places_1.csv'), 'r')
     sp = 0
     pList = []
     for line in searchP:
