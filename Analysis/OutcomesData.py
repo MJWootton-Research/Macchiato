@@ -233,7 +233,7 @@ def main():
             plt.hist(eData[p][0:data[p][1]], bins=100)
             plt.xlabel('Duration')
             plt.ylabel('Count')
-            plt.savefig('%s_%s_end_histogram.png' % (sys.argv[1], pListLab[p]))
+            plt.savefig('%s_%s_end_histogram.png' % (sys.argv[1], pListLab[p]), bbox_inches="tight")
             plt.clf()
     dsF.close()
 
