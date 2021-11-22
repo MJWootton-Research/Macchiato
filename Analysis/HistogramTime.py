@@ -34,7 +34,7 @@ for d in data:
     plt.title(d[0])
     plt.ylabel("Proportion Predicted")
     plt.xlabel("Time [years]")
-    h, _, _ = plt.hist(d[1:], bins=6, weights=np.ones(len(d[1:]))/(w/100.0), color="black")
+    h, _, _ = plt.hist(d[1:], weights=np.ones(len(d[1:]))/(w/100.0), color="black")
     print(np.max(h))
     n = False
     hmax = np.max(h)
