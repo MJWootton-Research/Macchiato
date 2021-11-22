@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
 import matplotlib.ticker as mtick
 
-conversion = 8766.0
+conversion = 8766.0 # Mean year in hours
 
 data = []
 
