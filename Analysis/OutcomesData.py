@@ -146,16 +146,16 @@ def main():
         for p in range(len(pList)):
             slice = eData[p][0:eDC[p]]
             if len(slice):
-                ds = '%s,|' % pListLab[p]
+                ds = f'{pListLab[p]},|'
                 for ee in slice:
                     ds += ',%r' % ee
                 # print(ds)
-                dsF.write('%s\n' % ds)
+                dsF.write(f'{ds}\n')
                 plt.hist(slice, bins=100)
                 plt.title(pListLab[p])
                 plt.xlabel('Duration')
                 plt.ylabel('Count')
-                plt.savefig('%s_%s_end_histogram.png' % (sys.argv[1], pListLab[p]), bbox_inches="tight")
+                plt.savefig(f'{rName}_{pListLab[p]}_end_histogram.png', bbox_inches="tight")
                 plt.clf()
 
 if __name__ == '__main__':
