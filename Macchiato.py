@@ -14,7 +14,7 @@
 ----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
-Version 1-5
+Version 1-5-1
 (c) Dr. Mark James Wootton 2016-2021
 ============================================================================
 
