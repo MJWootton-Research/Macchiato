@@ -478,7 +478,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
 
 class RawFormatter(argparse.HelpFormatter):
     def _fill_text(self, text, width, indent):
-        return "\n".join([textwrap.fill(line, width) for line in textwrap.indent(textwrap.dedent(text), indent).splitlines()])
+        return '\n'.join([textwrap.fill(line, width) for line in textwrap.indent(textwrap.dedent(text), indent).splitlines()])
 
 ############################################################################
 # Petri Net Operational Objects and Methods
