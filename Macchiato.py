@@ -53,11 +53,34 @@ def main():
     parser = argparse.ArgumentParser(prog='Macchiato', description=intro, formatter_class=RawFormatter,epilog=None)
     parser.add_argument('file', nargs=1, metavar='input_file', type=argparse.FileType('r'), help='*.mpn file containing a Petri Net')
     parser.add_argument('nSims', nargs='?', default=None, type=int, help='Set fixed number of simulations to run [optional]')
-    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='Enable verbose mode (slow)')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose mode (slow)')
+    parser.add_argument('-p', '--places', nargs='*', default=[], help='Limit file output to a list of places. Format as P1:P2:P3 etc.')
+    parser.add_argument('-t', '--trans', nargs='*', default=[], help='Limit file output to a list of transitions. Format as T1:T2:T3 etc.')
     args = parser.parse_args()
 
     # Get Petri Net and simulation parameters
     pn, rp = read(args.file[0].name)
+
+    # Process place and transition print lists
+    keyerr = ''
+    keyerrP = ''
+    keyerrT = ''
+    for p in args.places:
+        if p not in pn.places:
+            keyerrP += f'"{p}", '
+    for t in args.trans:
+        if t not in pn.trans:
+            keyerrT += f'"{t}", '
+    if keyerrP and keyerrT:
+        keyerr += f'A request for file output of non-existent places and transitions has been made:   -- Places: {keyerrP[:-2]}   -- Transitions: {keyerrT[:-2]}'
+    elif keyerrP:
+        keyerr += f'A request for file output of non-existent places has been made:   -- Places: {keyerrP[:-2]}'
+    elif keyerrT:
+        keyerr += f'A request for file output of non-existent transitions has been made:   -- Transitions: {keyerrT[:-2]}'
+    if keyerr:
+        raise KeyError(keyerr)
+    pn.placesToPrint = args.places
+    pn.transToPrint = args.trans
 
     # Run specified simulation
     lt = time.localtime()[:6]
@@ -593,9 +616,17 @@ class PetriNet(object):
         Log of the firing history of the Petri Net
     dotLoc : string
         Path to Graphviz's dot.exe
-
+    placesToPrint : list
+        If a list of place labels is given, only those places will be
+        included in output files
+    transToPrint : list
+        If a list of transition labels is given, only those transitions will
+        be included in output files
     """
-    def __init__(self, name=None, units='hrs', runMode='schedule', dot=False, visualise=None, details=True, useGroup=True, orientation=None, debug=False, dotLoc=None):
+    def __init__(self, name=None, units='hrs', runMode='schedule', dot=False,
+                 visualise=None, details=True, useGroup=True, orientation=None,
+                 debug=False, dotLoc=None, placesToPrint=None,
+                 transToPrint=None):
         self.time = int(time.time())
         self.name = str(name)
         if name is None:
@@ -644,6 +675,9 @@ class PetriNet(object):
 
         self.placeExit = False
         self.transExit = False
+
+        self.placesToPrint = placesToPrint if placesToPrint is not None else []
+        self.transToPrint = transToPrint if transToPrint is not None else []
 
         self.history = History()
         # Location of Graphviz's dot.exe:
@@ -854,24 +888,32 @@ class PetriNet(object):
             if mode in ['stochastic', 'schedule']:
                 line += (',')
             for p in self.places:
+                if self.placesToPrint and p not in self.placesToPrint:
+                    continue
                 line += ('%d,' % self.places[p].ins)
             pfile.write('%s\n' % line)
             line = ('Out,')
             if mode in ['stochastic', 'schedule']:
                 line += (',')
             for p in self.places:
+                if self.placesToPrint and p not in self.placesToPrint:
+                    continue
                 line += ('%d,' % self.places[p].outs)
             pfile.write('%s\n' % line)
             line = ('Net,')
             if mode in ['stochastic', 'schedule']:
                 line += (',')
             for p in self.places:
+                if self.placesToPrint and p not in self.placesToPrint:
+                    continue
                 line += ('%d,' % (self.places[p].ins - self.places[p].outs))
             pfile.write('%s\n' % line)
             line = ('Reset,')
             if mode in ['stochastic', 'schedule']:
                 line += (',')
             for p in self.places:
+                if self.placesToPrint and p not in self.placesToPrint:
+                    continue
                 line += ('%d,' % self.places[p].resetCount)
             pfile.write('%s\n' % line)
 
@@ -1454,6 +1496,8 @@ class PetriNet(object):
         if mode in ['stochastic', 'schedule']:
             header += 'Time/%s,' % self.units
         for p in self.places:
+            if self.placesToPrint and p not in self.placesToPrint:
+                continue
             header += ('%s,' % self.places[p].label)
         pfile.write('%s\n' % header)
         # Make transitions file
@@ -1465,6 +1509,8 @@ class PetriNet(object):
         if mode in ['stochastic', 'schedule']:
             header += 'Time/%s,' % self.units
         for t in self.trans:
+            if self.transToPrint and t not in self.transToPrint:
+                continue
             header += ('%s,' % self.trans[t].label)
         tfile.write('%s\n' % header)
         # Transitions fired at each step
@@ -1506,6 +1552,8 @@ class PetriNet(object):
         if mode in ['stochastic', 'schedule']:
             line += ('%f,' % self.clock)
         for p in self.places:
+            if self.placesToPrint and p not in self.placesToPrint:
+                continue
             line += ('%d,' % self.places[p].tokens)
         pfile.write('%s\n' % line)
         # Transitions
@@ -1513,6 +1561,8 @@ class PetriNet(object):
         if mode in ['stochastic', 'schedule']:
             line += ('%f,' % self.clock)
         for t in self.trans:
+            if self.transToPrint and t not in self.transToPrint:
+                continue
             line += ('%d,' % self.trans[t].firedCount)
         tfile.write('%s\n' % line)
         # Transition List

@@ -46,3 +46,7 @@
 
 * Changed method for silencing output in non-verbose mode
 * Bug fixes for analysis scripts
+
+### Version 1-6
+
+* Added feature to restrict output files to a specific list of places and transitions

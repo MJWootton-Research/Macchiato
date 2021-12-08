@@ -5,7 +5,7 @@
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
 ## A Simple Petri Nets Implementation for Python 3
-### [Version 1-5-1](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/CHANGELOG.md)
+### [Version 1-6](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/CHANGELOG.md)
 
 © Dr. Mark James Wootton 2016-2021  
 [`mark.wootton@nottingham.ac.uk`](mailto:mark.wootton@nottingham.ac.uk)
@@ -190,6 +190,12 @@ $ Macchiato /path/to/PetriNet.mpn {nSims}
 ```
 
 Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `{nSims}` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-v` or `--verbose` at the end of the above command, but be aware that this will negatively impact performance.
+
+If it is necessary to restrict the output in the relevant `*.cvs` files produced to a limited selection of places or transitions, this can be done by adding the command line flags `-p` and `-t`, for example:
+
+```shell
+$ Macchiato /path/to/PetriNet.mpn -p P0 P1 P2 -t T0 T1 T2
+```
 
 The help text is displayed by:
 
