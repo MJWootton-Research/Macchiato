@@ -46,7 +46,7 @@ Additional points can be added from the *"Home"* tab. However, be certain that t
   <img src='.src/AddPoint.png'>
 </p>
 
-The model is exported to an `*.mpn` file when the key combination *"ctrl*+*e"* is pressed. The output is saved in the same directory as the source file with the name specified in the system parameters object. Existing files will be overwritten, with no warning issued, so be careful not to unintentionally destroy work.
+The model is exported to an `*.mpn` file when the key combination *"ctrl*+*e"* is pressed (If this shortcut fails, the macro can be activated manually via *"View"* > *"Macros"* > *"Run"*). The output is saved in the same directory as the source file with the name specified in the system parameters object. Existing files will be overwritten, with no warning issued, so be careful not to unintentionally destroy work.
 
 <p align="center">
   <img src='.src/Parameters.png' width='500'>
