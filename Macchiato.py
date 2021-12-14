@@ -2079,11 +2079,12 @@ class PetriNet(object):
             if verbose:
                 self.transSummary()
             self.placesSummary(mode, tOut=verbose, pfile=pfile if fileOutput else None)
-            fin = '\nStep: %d' % self.step
-            if self.clock is not None:
-                fin += ' Clock: %.2e %s' % (self.clock, self.units)
-            print('='*80+fin)
-            print('='*80)
+            if verbose:
+                fin = '\nStep: %d' % self.step
+                if self.clock is not None:
+                    fin += ' Clock: %.2e %s' % (self.clock, self.units)
+                print('='*80+fin)
+                print('='*80)
         if fileOutput:
             pfile.close()
             tfile.close()

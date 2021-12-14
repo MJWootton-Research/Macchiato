@@ -219,7 +219,7 @@ class pnfmu(object):
 
                 tStep = copy.copy(self.tStep)
                 if big:
-                    tStep = copy.copy(self.bigstep)
+                    tStep = copy.copy(self.bigstep) # never assigned
                 if begin:
                     if ts0+tStep < t1:
                         ts1 = ts0 + tStep
