@@ -183,10 +183,8 @@ class pnfmu(object):
         transExit = False
         while True:
             t0 = self.pn.clock
-            #print(self.pn.step)
             if t0 >= self.tMax:
                 break
-            #self.pn.time = self.pn.step
             pnNew = copy.deepcopy(self.pn)
             pnNew.run(1, verbose=False, fileOutput=False)
             t1 = pnNew.clock
