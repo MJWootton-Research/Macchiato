@@ -208,7 +208,7 @@ class pnfmu(object):
             opts = self.model.simulate_options()
             if not t1 > t0:
                 self.newPN(pnNew)
-                if checkTermination():
+                if self.checkTermination():
                     break
                 continue
             ts0 = t0
@@ -271,7 +271,7 @@ class pnfmu(object):
                     self.newPN(pnNew)
                     break
 
-            if self.checkTermination()
+            if self.checkTermination():
                 break
 
         self.endfiles()
