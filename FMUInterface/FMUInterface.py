@@ -184,9 +184,9 @@ class pnfmu(object):
         """
         if self.pn.transExit or self.pn.placeExit:
             print('Terminate conidition(s) activated in Petri Net')
-            if transExit:
+            if self.pn.transExit:
                 print('\t--Transition maximum fire count')
-            if placeExit:
+            if self.pn.placeExit:
                 print('\t--Place token limit')
             return True
         return False
