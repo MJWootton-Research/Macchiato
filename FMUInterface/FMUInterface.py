@@ -173,6 +173,24 @@ class pnfmu(object):
             rfile.write('\n')
         rfile.close()
 
+    def checkTermination(self):
+        """
+        Checks if the Petri Net's termination conditions are met
+
+        Returns
+        ----------
+        - : boolean
+            True if termination conditions are met, otherwise false
+        """
+        if self.pn.transExit or self.pn.placeExit:
+            print('Terminate conidition(s) activated in Petri Net')
+            if transExit:
+                print('\t--Transition maximum fire count')
+            if placeExit:
+                print('\t--Place token limit')
+            return True
+        return False
+
     def run(self):
         """
         Runs model
@@ -180,7 +198,6 @@ class pnfmu(object):
         begin = False
         big = False
         first = True
-        transExit = False
         while True:
             t0 = self.pn.clock
             if t0 >= self.tMax:
@@ -191,15 +208,8 @@ class pnfmu(object):
             opts = self.model.simulate_options()
             if not t1 > t0:
                 self.newPN(pnNew)
-                ### Experiment
-                if self.pn.transExit or self.pn.placeExit:
-                    print('Terminate conidition(s) activated in Petri Net')
-                    if transExit:
-                        print('\t--Transition maximum fire count')
-                    if placeExit:
-                        print('\t--Place token limit')
+                if checkTermination():
                     break
-                ###
                 continue
             ts0 = t0
             ts1 = ts0 + self.tStep
@@ -236,12 +246,10 @@ class pnfmu(object):
                 else:
                     ts1 = t1
                     stop = True
-                ### Feb 2020
+
                 if long:
                     ts1 = t1
-                ###
-                transExit = pnNew.transExit
-                placeExit = pnNew.placeExit
+
                 if len(self.results):
                     if ts0 < 0.999999999*self.results[-1]['time'][-1] or ts0 > 1.000000001*self.results[-1]['time'][-1]:
                         raise RuntimeError('Petri Net/FMU clock mismatch (%.f vs %.f)' % (ts0, self.results[-1]['time'][-1]))
@@ -258,21 +266,12 @@ class pnfmu(object):
                     self.pn.step += 1
                     self.pn.clock = ts1
                     self.pn.writeNet(self.pfile, self.tfile, self.tlist, self.pn.runMode)
-                    transExit = self.pn.transExit
-                    placeExit = self.pn.placeExit
                     break
                 elif stop or long:
                     self.newPN(pnNew)
                     break
 
-            if transExit or placeExit:
-                print('Terminate conidition(s) activated in Petri Net')
-                if transExit:
-                    print('\t--Transition maximum fire count')
-                if placeExit:
-                    print('\t--Place token limit')
+            if self.checkTermination()
                 break
-            # if placeExit:
-            #     print('')
-            #     break
+
         self.endfiles()
