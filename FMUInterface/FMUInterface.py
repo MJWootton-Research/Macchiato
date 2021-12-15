@@ -191,6 +191,15 @@ class pnfmu(object):
             opts = self.model.simulate_options()
             if not t1 > t0:
                 self.newPN(pnNew)
+                ### Experiment
+                if self.pn.transExit or self.pn.placeExit:
+                    print('Terminate conidition(s) activated in Petri Net')
+                    if transExit:
+                        print('\t--Transition maximum fire count')
+                    if placeExit:
+                        print('\t--Place token limit')
+                    break
+                ###
                 continue
             ts0 = t0
             ts1 = ts0 + self.tStep
