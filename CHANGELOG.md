@@ -50,3 +50,7 @@
 ### Version 1-6
 
 * Added feature to restrict output files to a specific list of places and transitions
+
+#### Version 1-6-1
+
+* Custom calls to `Macchiato.PetriNet.run(...)` now respect verbosity toggle properly

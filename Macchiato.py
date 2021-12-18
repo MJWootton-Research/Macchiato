@@ -14,7 +14,7 @@
 ----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
-Version 1-5-1
+Version 1-6-1
 (c) Dr. Mark James Wootton 2016-2021
 ============================================================================
 
@@ -1993,6 +1993,9 @@ class PetriNet(object):
         # Create file to record simulation
         if fileOutput:
             pfile, tfile, tlist = self.writeNetStart(mode)
+
+        if not verbose:
+            blockPrint()
         print ('='*80)
         if steps:
             while True:
@@ -2050,6 +2053,8 @@ class PetriNet(object):
                     if self.trans[t].checkMax():
                         endTrans = True
                 if endPlaces or endTrans:
+                    if not verbose:
+                        enablePrint()
                     if endPlaces:
                         print('Place token count has reached terminate condition. Ending simulation.')
                         self.placeExit = True
@@ -2070,6 +2075,8 @@ class PetriNet(object):
                     break
 
         else:
+            if not verbose:
+                enablePrint()
             print('Initial state rendered. No simulation conducted.')
 
 
@@ -2079,12 +2086,11 @@ class PetriNet(object):
             if verbose:
                 self.transSummary()
             self.placesSummary(mode, tOut=verbose, pfile=pfile if fileOutput else None)
-            if verbose:
-                fin = '\nStep: %d' % self.step
-                if self.clock is not None:
-                    fin += ' Clock: %.2e %s' % (self.clock, self.units)
-                print('='*80+fin)
-                print('='*80)
+            fin = '\nStep: %d' % self.step
+            if self.clock is not None:
+                fin += ' Clock: %.2e %s' % (self.clock, self.units)
+            print('='*80+fin)
+            print('='*80)
         if fileOutput:
             pfile.close()
             tfile.close()
