@@ -2053,8 +2053,6 @@ class PetriNet(object):
                     if self.trans[t].checkMax():
                         endTrans = True
                 if endPlaces or endTrans:
-                    if not verbose:
-                        enablePrint()
                     if endPlaces:
                         print('Place token count has reached terminate condition. Ending simulation.')
                         self.placeExit = True
@@ -2083,8 +2081,7 @@ class PetriNet(object):
         # Print end of step summary
         print('='*80+'\n')
         if steps:
-            if verbose:
-                self.transSummary()
+            self.transSummary()
             self.placesSummary(mode, tOut=verbose, pfile=pfile if fileOutput else None)
             fin = '\nStep: %d' % self.step
             if self.clock is not None:
