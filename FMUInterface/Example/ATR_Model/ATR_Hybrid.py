@@ -269,6 +269,10 @@ def run(params):
 
     # Add additional objects to Petri Net to facilitate interaction with FMU
     pn.trans['TUnsafe'].maxFire = None
+    pn.trans['TUnsafe'].addInArc('PUnsafe', type='inh')
+    pn.trans['TSMSD'].addInArc('PUnsafe', type='inh')
+    pn.trans['TEMSD'].addInArc('PUnsafe', type='inh')
+    pn.trans['TUPSD'].addInArc('PUnsafe', type='inh')
     pn.addTrans('TUnsafeCounter', delay=25.0, maxFire=1)
     pn.trans['TUnsafeCounter'].addInArc('PUnsafe')
     pn.trans['TUnsafeCounter'].addOutArc('PUnsafe')
