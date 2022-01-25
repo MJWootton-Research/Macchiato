@@ -12,7 +12,7 @@ data = []
 
 dataFile = open(os.path.join(os.getcwd(), sys.argv[1]))
 for line in dataFile:
-    data.append(line.strip().split(",")[:-1])
+    data.append(line.strip().split(","))
 dataFile.close()
 
 w = 0
