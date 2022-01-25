@@ -12,7 +12,7 @@ data = []
 
 dataFile = open(os.path.join(os.getcwd(), sys.argv[1]))
 for line in dataFile:
-    data.append(line.strip().split(","))
+    data.append(line.replace(',|', '').strip().split(","))
 dataFile.close()
 
 w = 0
@@ -20,15 +20,15 @@ for d in data:
     w += len(d)-2
 
 for d in data:
-    for dd in range(len(d[2:])):
-        d[dd+2] = float(d[dd+2])/conversion
+    for dd in range(len(d[1:])):
+        d[dd+1] = float(d[dd+1])/conversion
     ymax = None
     if len(sys.argv) > 2:
         if "%" in sys.argv[2]:
             ymax = float(sys.argv[2][:-1])
         else:
-            for dd in range(len(d)-1, 1, -1):
-                if float(d[dd]) > float(sys.argv[2])/conversion:
+            for dd in range(len(d)-1, 0, -1):
+                if float(d[dd]) > float(sys.argv[2]):
                     d.pop(dd)
     print(d[0])
     plt.title(d[0])
