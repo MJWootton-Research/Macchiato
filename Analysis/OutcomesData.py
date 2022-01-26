@@ -118,10 +118,11 @@ def main():
         r = float(eDC[p])/float(nFiles)
         rE = math.sqrt((r-r**2)/nFiles)
         outputString += f'{pListLab[p]},{eDC[p]},{r},{rE}'
+
         if percentiles[p]:
-            outputString += f',{percentiles[p][0]},{percentiles[p][1]}'
+            pcString = f',{percentiles[p][0]},{percentiles[p][1]}'
         else:
-            outputString += ',N/A,N/A'
+            pcString = ',N/A,N/A'
 
         try:
             f = math.floor(math.log(results[p][0],10))
@@ -130,7 +131,7 @@ def main():
         if math.isnan(results[p][0]):
             outputString += ',N/A,N/A'
         else:
-            outputString += ',%g,%g,,[(,%.2f,+/-,%.2f,)*10^,%d,]' % (results[p][0], results[p][1], results[p][0]/(10**f), results[p][1]/(10**f), f)
+            outputString += ',%g,%g%s,,[(,%.2f,+/-,%.2f,)*10^,%d,]' % (results[p][0], results[p][1], pcString, results[p][0]/(10**f), results[p][1]/(10**f), f)
         outputString += '\n'
 
     f = math.floor(math.log(resAll[0],10))
