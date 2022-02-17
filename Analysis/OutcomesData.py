@@ -116,7 +116,7 @@ def main():
     else:
         results.append([nan,nan])
         percentiles.append(None)
-    resAll = [np.mean(all), np.std(slice)/math.sqrt(nFiles)]
+    resAll = [np.mean(all), np.std(all)/math.sqrt(nFiles)]
     outputString = 'Outcome,N,Ratio,Ratio Error,Mean Time,Time Error,10th Percentile, 90th Percentile\n'
     for p in range(nP):
         r = float(eDC[p])/float(nFiles)
