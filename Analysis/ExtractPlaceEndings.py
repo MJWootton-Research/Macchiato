@@ -22,16 +22,20 @@ def main():
         elif sp == 1:
             psline = line.strip('\n').split(',')
             for pl in pListLab:
+                found_pl_i = None
                 for i in range(len(psline)):
                     if pl == psline[i]:
-                        pList.append(i)
+                        found_pl_i = i
                         break
+                pList.append(found_pl_i)
             break
     searchP.close()
     print('Place columns found:')
     for i in range(len(pList)):
         print(pListLab[i],':',pList[i])
     print()
+    if None in pList:
+        raise KeyError('Ending place search string has unfound tag(s). Review command-line arguments')
 
     # places = sys.argv[2].split(':')
     # pList = places
