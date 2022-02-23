@@ -1151,7 +1151,7 @@ Transitions
 
     # Terminal
         TSafe:instant IN PSDS1C:1 PLPC:1 PSCSS:40 PSDS2C:1 PSDS2US:1 OUT PSafe:1 VOTE 2
-        TSMSD:instant IN PiSRM:1 PSafe:1 OUT PScheduledMaintenance:1 MAX 1
+        TSMSD:instant IN PiSRM:1 PSafe:1 PSDS2USm:1:inh OUT PScheduledMaintenance:1 MAX 1
         TEMSD:instant IN PSafe:1 PiSRM:1:inh PSDS2USm:1:inh OUT PEarlyMaintenance:1 MAX 1
         TUPSD:instant IN PSDS2USm:1 PSafe:1 OUT PUnplannedShutdown:1 MAX 1
         TUnsafe:instant IN PSDS2F:1 PPASF:1 PSCF:1 PLPF:1 OUT PUnsafe:1 VOTE 1 MAX 1
