@@ -46,7 +46,7 @@ from builtins import print as speak
 def main():
     intro=f'''
     Macchiato – A Simple and Scriptable Petri Nets Implementation
-    Version 1-5-1
+    Version 1-6-1
     (c) Dr. Mark James Wootton 2016-2021
     '''
     # Command line arguments and help text
