@@ -461,7 +461,7 @@ while True:
         # Conditions for terminating simulation
         # ...
         break
-        
+
 # Finalise output files
 pn.placesSummary(pn.runMode, tOut=True, pfile=pfile)
 pfile.close()
