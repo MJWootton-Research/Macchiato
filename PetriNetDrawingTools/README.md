@@ -4,12 +4,12 @@
 
 ## Dependencies
 
-* [Macchiato](https://github.com/MJWootton-Resilience-Projects/Macchiato)
+* [Macchiato](https://github.com/MJWootton-Research/Macchiato)
 * [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software)
 
 ## Usage
 
-To begin, make a copy of the the [example file](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/MacchiatoExample.vsdm), which contains the macro that exports the Petri Net as an `*.mpn` file.  A copy of the [stencil file](https://github.com/MJWootton-Resilience-Projects/Macchiato/blob/master/PetriNetDrawingTools/MacchiatoStencil.vssx) must be saved in the same directory or imported from the repository itself. Only objects from this stencil should be used.
+To begin, make a copy of the the [example file](https://github.com/MJWootton-Research/Macchiato/blob/master/PetriNetDrawingTools/MacchiatoExample.vsdm), which contains the macro that exports the Petri Net as an `*.mpn` file.  A copy of the [stencil file](https://github.com/MJWootton-Research/Macchiato/blob/master/PetriNetDrawingTools/MacchiatoStencil.vssx) must be saved in the same directory or imported from the repository itself. Only objects from this stencil should be used.
 
 When the example file is opened, a small banner will appear, asking the user  whether macros should be enabled. Click *"Enable Content"* as otherwise it will not be possible to export the Petri Net.
 
