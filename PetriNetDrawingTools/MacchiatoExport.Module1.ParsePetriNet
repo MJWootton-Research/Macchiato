@@ -1,0 +1,570 @@
+
+Public Sub ParsePetriNet()
+    '*****************************************
+    'get all shapes on currently selected page
+    '*****************************************
+    Dim Shapelist As Shapes
+    Dim SelectedShape As Shape
+    Set Shapelist = ActivePage.Shapes
+    '***********************************
+    'Number all Places/Transitions/arcs
+    '***********************************
+    PlaceNumber = 0
+    TransNumber = 0
+    SArcNumber = 0
+    TArcNumber = 0
+    IArcNumber = 0
+    CArcNumber = 0
+    LinkNumber = 0
+    PLNumber = 0
+    'loop through all shapes
+    Dim DefaultName As String
+    For Each SelectedShape In Shapelist
+        'get type of petri net object
+        ObjectType = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+        'is object a transition?
+        If ObjectType = "Instant Transition" Or ObjectType = "Weibull Transition" Or ObjectType = "Delay Transition" Or ObjectType = "Rate Transition" Or ObjectType = "Uniform Transition" Or ObjectType = "Log-Normal Transition" Or ObjectType = "Beta Transition" Or ObjectType = "Cyclic Transition" Then
+            'number and increment
+            SelectedShape.CellsU("Prop." & "Number").FormulaU = TransNumber
+            'if name is blank, use number as name
+            Test = SelectedShape.CellsU("Prop." & "Name").ResultStr(visNone)
+            If SelectedShape.CellsU("Prop." & "Name").ResultStr(visNone) = "" Then
+                DefaultName = "T" + CStr(TransNumber)
+                SelectedShape.CellsU("Prop." & "Name").FormulaU = Chr(34) & DefaultName & Chr(34)
+            End If
+            TransNumber = TransNumber + 1
+        End If
+        'is object a place?
+        If ObjectType = "Place" Then
+            'number and increment
+            SelectedShape.CellsU("Prop." & "Number").FormulaU = PlaceNumber
+            'if name is blank, use number as name
+            If SelectedShape.CellsU("Prop." & "Name").ResultStr(visNone) = "" Then
+                DefaultName = "P" + CStr(PlaceNumber)
+                SelectedShape.CellsU("Prop." & "Name").FormulaU = Chr(34) & DefaultName & Chr(34)
+            End If
+            PlaceNumber = PlaceNumber + 1
+        End If
+        'is object a standard arc?
+        If ObjectType = "Standard Arc" Then
+            'number and increment
+            
+            SelectedShape.CellsU("Prop." & "Number").FormulaU = SArcNumber
+            SArcNumber = SArcNumber + 1
+        End If
+        'is object a test arc?
+        If ObjectType = "Test Arc" Then
+            'number and increment
+            
+            SelectedShape.CellsU("Prop." & "Number").FormulaU = TArcNumber
+            TArcNumber = TArcNumber + 1
+        End If
+        'is object an inhibitor arc?
+        If ObjectType = "Inhibit Arc" Then
+            'number and increment
+            
+            SelectedShape.CellsU("Prop." & "Number").FormulaU = IArcNumber
+            IArcNumber = IArcNumber + 1
+        End If
+        'is object a conditional arc?
+        If ObjectType = "Conditional Arc" Then
+            'number and increment
+            
+            SelectedShape.CellsU("Prop." & "Number").FormulaU = IArcNumber
+            CArcNumber = CArcNumber + 1
+        End If
+        'is object a place link?
+        If ObjectType = "Conditional Arc" Then
+            'count
+            PLNumber = PLNumber + 1
+        End If
+    Next SelectedShape
+    
+    PlaceNumber = PlaceNumber - 1
+    TransNumber = TransNumber - 1
+    SArcNumber = SArcNumber - 1
+    TArcNumber = TArcNumber - 1
+    IArcNumber = IArcNumber - 1
+    CArcNumber = CArcNumber - 1
+    LinkNumber = LinkNumber - 1
+    
+    '******************
+    'Number Place Links
+    '******************
+    'number place links
+    Dim linkname As String
+    Dim ShapeType As String
+    Dim Pname As String
+    Dim assignedplacenumber As Integer
+    Dim linkplace As Shape
+    ReDim linknamearray(PLNumber, 2) As Variant
+    'ReDim LinkNumb(LinkNumber) As Long
+    Dim LinkCounter As Integer
+    LinkCounter = 0
+    
+    
+    'loop through all shapes to find place links
+    'create array of link numbers
+    For Each SelectedShape In Shapelist
+        ShapeType = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+        
+        If ShapeType = "Place Link" Then
+            'selected shape is place link
+            linkname = SelectedShape.CellsU("Prop." & "Name").ResultStr(visNone)
+            'Place link found, now find a shape with the same name
+            For Each linkplace In Shapelist
+                ShapeType = linkplace.CellsU("Prop." & "Type").ResultStr(visNone)
+                'Debug.Print Shapetype
+                If ShapeType = "Place" Then
+                    Pname = linkplace.CellsU("Prop." & "Name").ResultStr(visNone)
+                    If Pname = linkname Then
+                        'Give link same number as place
+                        'LinkCounter = LinkCounter + 1
+                        'assignedplacenumber = linkplace.CellsU("Prop." & "Number")
+                        'linknamearray(LinkCounter, 2) = assignedplacenumber
+                        'linknamearray(LinkCounter, 1) = linkname
+                        SelectedShape.CellsU("Prop." & "Number") = linkplace.CellsU("Prop." & "Number")
+                        
+                        
+                    End If
+                End If
+            Next
+        End If
+    Next
+    
+    '****************
+    'Extract Mappings
+    '****************
+    'create array which records number of incoming and outgoing arcs from each transition
+    'PlaTra is an abbreviation to Place to Transition etc
+    ReDim PlaTraTracker(TransNumber) As Integer
+    ReDim TraPlaTracker(TransNumber) As Integer
+    'set each value in arrays to each to prevent null + number errors later
+    For Iter = 0 To TransNumber
+        PlaTraTracker(Iter) = 0
+        TraPlaTracker(Iter) = 0
+    Next
+    'declare variables
+    Dim shp() As Long
+    Dim beginshp As Shape
+    Dim endshp As Shape
+    Dim Ts As Long
+    Dim TN As Integer
+    'get updated shapelist (now has numbers added)
+    Set Shapelist = ActivePage.Shapes
+    'populate PlaTraTracker & TraPlaTracker with incoming/outgoing arc counts
+    'this is used to find correct size for later arrays which hold actual PlaTra & TraPla mappings
+    For Each SelectedShape In Shapelist
+        GetCustomPropertyValue = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+        If GetCustomPropertyValue = "Standard Arc" Then
+            shp = SelectedShape.GluedShapes(visGluedShapesIncoming2D, "")
+            Set beginshp = ActivePage.Shapes.ItemFromID(shp(0))
+            shp = SelectedShape.GluedShapes(visGluedShapesOutgoing2D, "")
+            Set endshp = ActivePage.Shapes.ItemFromID(shp(0))
+            'Find Transition -> Place mappings
+            ObjectType = beginshp.CellsU("Prop." & "Type").ResultStr(visNone)
+            If ObjectType = "Instant Transition" Or ObjectType = "Weibull Transition" Or ObjectType = "Delay Transition" Or ObjectType = "Rate Transition" Or ObjectType = "Uniform Transition" Or ObjectType = "Log-Normal Transition" Or ObjectType = "Beta Transition" Or ObjectType = "Cyclic Transition" Then
+                'update trackers
+                TN = beginshp.CellsU("Prop." & "Number")
+                TraPlaTracker(TN) = TraPlaTracker(TN) + 1
+            End If
+            'Find Place -> Transition mappings
+            If beginshp.CellsU("Prop." & "Type").ResultStr(visNone) = "Place" Or beginshp.CellsU("Prop." & "Type").ResultStr(visNone) = "Place Link" Then
+                'update trackers
+                TN = endshp.CellsU("Prop." & "Number")
+                PlaTraTracker(TN) = PlaTraTracker(TN) + 1
+            End If
+        End If
+        'find test arcs
+        If GetCustomPropertyValue = "Test Arc" Then
+            'get beginning/ending shapes
+            shp = SelectedShape.GluedShapes(visGluedShapesIncoming2D, "")
+            Set beginshp = ActivePage.Shapes.ItemFromID(shp(0))
+            shp = SelectedShape.GluedShapes(visGluedShapesOutgoing2D, "")
+            Set endshp = ActivePage.Shapes.ItemFromID(shp(0))
+            'Place first
+            If beginshp.CellsU("Prop." & "Type").ResultStr(visNone) = "Place" Or beginshp.CellsU("Prop." & "Type").ResultStr(visNone) = "Place Link" Then
+                TN = endshp.CellsU("Prop." & "Number")
+                'update trackers
+                TraPlaTracker(TN) = TraPlaTracker(TN) + 1
+                PlaTraTracker(TN) = PlaTraTracker(TN) + 1
+            End If
+            'Place second
+            ObjectType = beginshp.CellsU("Prop." & "Type").ResultStr(visNone)
+            If ObjectType = "Instant Transition" Or ObjectType = "Weibull Transition" Or ObjectType = "Delay Transition" Or ObjectType = "Rate Transition" Or ObjectType = "Uniform Transition" Or ObjectType = "Log-Normal Transition" Or ObjectType = "Beta Transition" Or ObjectType = "Cyclic Transition" Then
+                TN = beginshp.CellsU("Prop." & "Number")
+                'update trackers
+                TraPlaTracker(TN) = TraPlaTracker(TN) + 1
+                PlaTraTracker(TN) = PlaTraTracker(TN) + 1
+            End If
+        End If
+    Next
+    'Find highest number of incoming arcs and use to dimension PlaTra Array
+    Dim HighestValue As Integer
+    HighestValue = 0
+    For TN = 0 To TransNumber
+        If HighestValue < PlaTraTracker(TN) Then
+            HighestValue = PlaTraTracker(TN)
+        End If
+    Next TN
+    ReDim PlaTra(TransNumber, HighestValue * 2) As Variant
+    'Find highest number of outgoing arcs and use to dimension TraPla Array
+    HighestValue = 0
+    For TN = 0 To TransNumber
+        If HighestValue < TraPlaTracker(TN) Then
+            HighestValue = TraPlaTracker(TN)
+        End If
+    Next TN
+    ReDim TraPla(TransNumber, HighestValue * 2) As Variant
+    'Populate PlaTra & TraPla arrays
+    'reset TraPlaTracker & PlaTraTracker to zero to be used as counters
+    For Iter = 0 To TransNumber
+        PlaTraTracker(Iter) = 0
+        TraPlaTracker(Iter) = 0
+    Next
+    'Create Mappings
+    For Each SelectedShape In Shapelist
+        GetCustomPropertyValue = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+        If GetCustomPropertyValue = "Standard Arc" Then
+            shp = SelectedShape.GluedShapes(visGluedShapesIncoming2D, "")
+            Set beginshp = ActivePage.Shapes.ItemFromID(shp(0))
+            shp = SelectedShape.GluedShapes(visGluedShapesOutgoing2D, "")
+            Set endshp = ActivePage.Shapes.ItemFromID(shp(0))
+            'Find Transition -> Place mappings
+            ObjectType = beginshp.CellsU("Prop." & "Type").ResultStr(visNone)
+            If ObjectType = "Instant Transition" Or ObjectType = "Weibull Transition" Or ObjectType = "Delay Transition" Or ObjectType = "Rate Transition" Or ObjectType = "Uniform Transition" Or ObjectType = "Log-Normal Transition" Or ObjectType = "Beta Transition" Or ObjectType = "Cyclic Transition" Then
+                'get transition number
+                TN = beginshp.CellsU("Prop." & "Number")
+                'get place name
+                Name = endshp.CellsU("Prop." & "Name").ResultStr(visNone)
+                'get token quantity
+                Ts = SelectedShape.CellsU("Prop." & "Tokens")
+                'write to sheet
+                TraPla(TN, 2 * TraPlaTracker(TN)) = Name
+                TraPla(TN, 2 * TraPlaTracker(TN) + 1) = Ts
+                'update trackers
+                TraPlaTracker(TN) = TraPlaTracker(TN) + 1
+            End If
+            'Find Place -> Transition mappings
+            If beginshp.CellsU("Prop." & "Type").ResultStr(visNone) = "Place" Or beginshp.CellsU("Prop." & "Type").ResultStr(visNone) = "Place Link" Then
+                'get place name
+                Name = beginshp.CellsU("Prop." & "Name").ResultStr(visNone)
+                'get transition number
+                TN = endshp.CellsU("Prop." & "Number")
+                'get token quantity
+                Ts = SelectedShape.CellsU("Prop." & "Tokens")
+                'write to array
+                PlaTra(TN, 2 * PlaTraTracker(TN)) = Name
+                PlaTra(TN, 2 * PlaTraTracker(TN) + 1) = Ts
+                'update trackers
+                PlaTraTracker(TN) = PlaTraTracker(TN) + 1
+            End If
+        End If
+        
+        'find test arcs
+        If GetCustomPropertyValue = "Test Arc" Then
+            'two near identical if statements as start and end point of test arc is unclear
+            'if statements are mutally exclusive
+            'get beginning/ending shapes
+            shp = SelectedShape.GluedShapes(visGluedShapesIncoming2D, "")
+            Set beginshp = ActivePage.Shapes.ItemFromID(shp(0))
+            shp = SelectedShape.GluedShapes(visGluedShapesOutgoing2D, "")
+            Set endshp = ActivePage.Shapes.ItemFromID(shp(0))
+            'Place first
+            If beginshp.CellsU("Prop." & "Type").ResultStr(visNone) = "Place" Or beginshp.CellsU("Prop." & "Type").ResultStr(visNone) = "Place Link" Then
+                'get place name
+                Name = beginshp.CellsU("Prop." & "Name").ResultStr(visNone)
+                'get transition number
+                TN = endshp.CellsU("Prop." & "Number")
+                'get token quantity
+                Ts = SelectedShape.CellsU("Prop." & "Tokens")
+                'write to array
+                PlaTra(TN, 2 * PlaTraTracker(TN)) = Name
+                PlaTra(TN, 2 * PlaTraTracker(TN) + 1) = Ts
+                'update trackers
+                PlaTraTracker(TN) = PlaTraTracker(TN) + 1
+                'write to sheet
+                TraPla(TN, 2 * TraPlaTracker(TN)) = Name
+                TraPla(TN, 2 * TraPlaTracker(TN) + 1) = Ts
+                'update trackers
+                TraPlaTracker(TN) = TraPlaTracker(TN) + 1
+            End If
+            'Place second
+            ObjectType = beginshp.CellsU("Prop." & "Type").ResultStr(visNone)
+            If ObjectType = "Instant Transition" Or ObjectType = "Weibull Transition" Or ObjectType = "Delay Transition" Or ObjectType = "Rate Transition" Or ObjectType = "Uniform Transition" Or ObjectType = "Log-Normal Transition" Or ObjectType = "Beta Transition" Or ObjectType = "Cyclic Transition" Then
+                'get transition number
+                TN = beginshp.CellsU("Prop." & "Number")
+                'get place name
+                Name = endshp.CellsU("Prop." & "Name").ResultStr(visNone)
+                'get token quantity
+                Ts = SelectedShape.CellsU("Prop." & "Tokens")
+                'write to array
+                PlaTra(TN, 2 * PlaTraTracker(TN)) = Name
+                PlaTra(TN, 2 * PlaTraTracker(TN) + 1) = Ts
+                'update trackers
+                PlaTraTracker(TN) = PlaTraTracker(TN) + 1
+                'write to sheet
+                TraPla(TN, 2 * TraPlaTracker(TN)) = Name
+                TraPla(TN, 2 * TraPlaTracker(TN) + 1) = Ts
+                'update trackers
+                TraPlaTracker(TN) = TraPlaTracker(TN) + 1
+            End If
+        End If
+    Next
+    
+    'create and populate an array for inhibitor arcs
+    If IArcNumber > -1 Then
+        ReDim InhibitorArcs(IArcNumber, 3) As Variant
+        Dim Counter As Integer
+        Counter = 0
+        For Each SelectedShape In Shapelist
+            GetCustomPropertyValue = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+            If GetCustomPropertyValue = "Inhibit Arc" Then
+                
+                shp = SelectedShape.GluedShapes(visGluedShapesIncoming2D, "")
+                Set beginshp = ActivePage.Shapes.ItemFromID(shp(0))
+                shp = SelectedShape.GluedShapes(visGluedShapesOutgoing2D, "")
+                Set endshp = ActivePage.Shapes.ItemFromID(shp(0))
+                'get place name
+                Name = beginshp.CellsU("Prop." & "Name").ResultStr(visNone)
+                'get transition number
+                TN = endshp.CellsU("Prop." & "Number")
+                'get token quantity
+                Ts = SelectedShape.CellsU("Prop." & "Tokens")
+                InhibitorArcs(Counter, 1) = TN
+                InhibitorArcs(Counter, 2) = Name
+                InhibitorArcs(Counter, 3) = Ts
+                Counter = Counter + 1
+            End If
+        Next
+    End If
+    
+    'create and populate an array for Conditional arcs
+    If CArcNumber > -1 Then
+        ReDim ConditionalArcs(CArcNumber, 3) As String
+        Counter = 0
+        For Each SelectedShape In Shapelist
+            GetCustomPropertyValue = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+            If GetCustomPropertyValue = "Conditional Arc" Then
+                
+                shp = SelectedShape.GluedShapes(visGluedShapesIncoming2D, "")
+                Set beginshp = ActivePage.Shapes.ItemFromID(shp(0))
+                shp = SelectedShape.GluedShapes(visGluedShapesOutgoing2D, "")
+                Set endshp = ActivePage.Shapes.ItemFromID(shp(0))
+                'get place name
+                Name = beginshp.CellsU("Prop." & "Name").ResultStr(visNone)
+                'get transition number
+                TN = endshp.CellsU("Prop." & "Number")
+                'get token quantity
+                Dim Tss As String
+                Tss = SelectedShape.CellsU("Prop." & "Tokens").ResultStr(visNone)
+                ConditionalArcs(Counter, 1) = TN
+                ConditionalArcs(Counter, 2) = Name
+                ConditionalArcs(Counter, 3) = Tss
+                Counter = Counter + 1
+            End If
+        Next
+    End If
+    
+    'populate place starting numbers
+    ReDim MZero(PlaceNumber) As Integer
+    For Each SelectedShape In Shapelist
+        GetCustomPropertyValue = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+        If GetCustomPropertyValue = "Place" Then
+            MZero(SelectedShape.CellsU("Prop." & "Number")) = SelectedShape.CellsU("Prop." & "Tokens")
+        End If
+    Next
+    
+    'create and populate numeric table holding transition details - not currently used
+    'also create array which holds transition type and details as string for export
+    ReDim TransitionString(TransNumber) As String
+    ReDim Transitions(TransNumber, 5) As Variant
+    Dim TNum As Integer
+    For Each SelectedShape In Shapelist
+        GetCustomPropertyValue = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+        If GetCustomPropertyValue = "Instant Transition" Then
+            Transitions(SelectedShape.CellsU("Prop." & "Number"), 1) = 1
+            TransitionString(SelectedShape.CellsU("Prop." & "Number")) = "instant"
+        End If
+        If GetCustomPropertyValue = "Delay Transition" Then
+            Transitions(SelectedShape.CellsU("Prop." & "Number"), 1) = 2
+            Transitions(SelectedShape.CellsU("Prop." & "Number"), 2) = CDec(SelectedShape.CellsU("Prop." & "Delay"))
+            TransitionString(SelectedShape.CellsU("Prop." & "Number")) = "delay:" + SelectedShape.CellsU("Prop." & "Delay").ResultStr(visNone)
+        End If
+        If GetCustomPropertyValue = "Weibull Transition" Then
+            Transitions(SelectedShape.CellsU("Prop." & "Number"), 1) = 3
+            Transitions(SelectedShape.CellsU("Prop." & "Number"), 2) = SelectedShape.CellsU("Prop." & "mean").ResultStr(visNone)
+            Transitions(SelectedShape.CellsU("Prop." & "Number"), 3) = SelectedShape.CellsU("Prop." & "ShapeFactor").ResultStr(visNone)
+            TransitionString(SelectedShape.CellsU("Prop." & "Number")) = "weibull:" + SelectedShape.CellsU("Prop." & "mean").ResultStr(visNone) + ":" + SelectedShape.CellsU("Prop." & "ShapeFactor").ResultStr(visNone)
+            If SelectedShape.CellsU("Prop." & "Uncertainty").ResultStr(visNone) <> "n" Then
+                TransitionString(SelectedShape.CellsU("Prop." & "Number")) = TransitionString(SelectedShape.CellsU("Prop." & "Number")) + ":" + SelectedShape.CellsU("Prop." & "Uncertainty").ResultStr(visNone)
+            End If
+        End If
+        If GetCustomPropertyValue = "Rate Transition" Then
+            Transitions(SelectedShape.CellsU("Prop." & "Number"), 1) = 4
+            Transitions(SelectedShape.CellsU("Prop." & "Number"), 2) = CDec(SelectedShape.CellsU("Prop." & "Rate"))
+            TransitionString(SelectedShape.CellsU("Prop." & "Number")) = "rate:" + SelectedShape.CellsU("Prop." & "Rate").ResultStr(visNone)
+        End If
+        If GetCustomPropertyValue = "Uniform Transition" Then
+            TransitionString(SelectedShape.CellsU("Prop." & "Number")) = "uniform:" + SelectedShape.CellsU("Prop." & "UpperLimit").ResultStr(visNone)
+        End If
+        If GetCustomPropertyValue = "Log-Normal Transition" Then
+            TransitionString(SelectedShape.CellsU("Prop." & "Number")) = "lognorm:" + SelectedShape.CellsU("Prop." & "Mean").ResultStr(visNone) + ":" + SelectedShape.CellsU("Prop." & "Standard_Deviation").ResultStr(visNone)
+        End If
+        If GetCustomPropertyValue = "Beta Transition" Then
+            TransitionString(SelectedShape.CellsU("Prop." & "Number")) = "beta:" + SelectedShape.CellsU("Prop." & "Alpha").ResultStr(visNone) + ":" + SelectedShape.CellsU("Prop." & "Beta").ResultStr(visNone)
+            If SelectedShape.CellsU("Prop." & "Multiplying_Factor").ResultStr(visNone) <> "n" Then
+                TransitionString(SelectedShape.CellsU("Prop." & "Number")) = TransitionString(SelectedShape.CellsU("Prop." & "Number")) + ":" + SelectedShape.CellsU("Prop." & "Multiplying_Factor").ResultStr(visNone)
+            End If
+        End If
+        If GetCustomPropertyValue = "Cyclic Transition" Then
+            TransitionString(SelectedShape.CellsU("Prop." & "Number")) = "cyclic:" + SelectedShape.CellsU("Prop." & "Frequency").ResultStr(visNone) + ":" + SelectedShape.CellsU("Prop." & "Offset").ResultStr(visNone)
+        End If
+    Next
+    
+    '**************************************************
+    'Parse Numeric Arrays into Text Input for Machiatto
+    '**************************************************
+    'create string for filelocation
+    Dim OutputFileName As String
+    'get output file name & paramaters
+    Dim Units As String
+    Dim RunMode As String
+    Dim Visualise As String
+    Dim Dot As String
+    Dim MaxClock As String
+    Dim MaxSteps As String
+    Dim History As String
+    Dim AnalysisStep As String
+    Dim simsFactor As String
+    For Each SelectedShape In Shapelist
+        If SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone) = "Parameters" Then
+            OutputFileName = SelectedShape.CellsU("Prop." & "FileName").ResultStr(visNone)
+            Name = SelectedShape.CellsU("Prop." & "Name").ResultStr(visNone)
+            Units = SelectedShape.CellsU("Prop." & "Units").ResultStr(visNone)
+            RunMode = SelectedShape.CellsU("Prop." & "RunMode").ResultStr(visNone)
+            Visualise = SelectedShape.CellsU("Prop." & "Visualise").ResultStr(visNone)
+            Dot = SelectedShape.CellsU("Prop." & "Dot").ResultStr(visNone)
+            MaxClock = SelectedShape.CellsU("Prop." & "maxClock").ResultStr(visNone)
+            MaxSteps = SelectedShape.CellsU("Prop." & "maxSteps").ResultStr(visNone)
+            History = SelectedShape.CellsU("Prop." & "History").ResultStr(visNone)
+            AnalysisStep = SelectedShape.CellsU("Prop." & "analysisStep").ResultStr(visNone)
+            simsFactor = SelectedShape.CellsU("Prop." & "simsFactor").ResultStr(visNone)
+        End If
+    Next SelectedShape
+    Dim OutputFileLocation As String
+    OutputFileLocation = "\" + OutputFileName + ".mpn"
+    'open this file for writing
+    Open ThisDocument.Path & OutputFileLocation For Output As #1
+    'print initial parameters
+    Print #1, "# Petri Net Parameters"
+    Print #1, "    " + "name " + Name
+    Print #1, "    " + "units " + Units
+    Print #1, "    " + "runMode " + RunMode
+    Print #1, "    " + "visualise " + Visualise
+    Print #1, "    " + "dot " + Dot
+    Print #1, ""
+    Print #1, "# Run Parameters"
+    Print #1, "    " + "maxClock " + MaxClock
+    Print #1, "    " + "maxSteps " + MaxSteps
+    Print #1, "    " + "simsFactor " + simsFactor
+    Print #1, "    " + "history " + History
+    Print #1, "    " + "analysisStep " + AnalysisStep
+    'print Places
+    Print #1, ""
+    Print #1, "# Build Petri Net"
+    Print #1, "Places"
+    For P = 0 To PlaceNumber
+        
+        For Each SelectedShape In Shapelist
+            'get type of petri net object
+            ObjectType = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+            If ObjectType = "Place" Then
+                If SelectedShape.CellsU("Prop." & "Number") = P Then
+                    Name = SelectedShape.CellsU("Prop." & "Name").ResultStr(visNone)
+                End If
+            End If
+        Next SelectedShape
+        Print #1, "    " + Name + " " + CStr(MZero(P))
+    Next P
+    'print transitions
+    Print #1, ""
+    Print #1, "Transitions"
+    For T = 0 To TransNumber
+        'find transition and get details
+        Dim Voting As String
+        Dim Reset As String
+        Dim Max As String
+        For Each SelectedShape In Shapelist
+            'get type of petri net object
+            ObjectType = SelectedShape.CellsU("Prop." & "Type").ResultStr(visNone)
+            If ObjectType = "Instant Transition" Or ObjectType = "Weibull Transition" Or ObjectType = "Delay Transition" Or ObjectType = "Rate Transition" Or ObjectType = "Uniform Transition" Or ObjectType = "Log-Normal Transition" Or ObjectType = "Beta Transition" Or ObjectType = "Cyclic Transition" Then
+                If SelectedShape.CellsU("Prop." & "Number") = T Then
+                    Voting = SelectedShape.CellsU("Prop." & "Voting").ResultStr(visNone)
+                    Reset = SelectedShape.CellsU("Prop." & "Reset").ResultStr(visNone)
+                    Max = SelectedShape.CellsU("Prop." & "Max").ResultStr(visNone)
+                    Name = SelectedShape.CellsU("Prop." & "Name").ResultStr(visNone)
+                End If
+            End If
+        Next SelectedShape
+        
+        'build incoming arcs & inhibitors string
+        Dim Inc As String
+        Inc = ""
+        For Incoming = 0 To PlaTraTracker(T) - 1
+            Inc = Inc + " " + CStr(PlaTra(T, Incoming * 2)) + ":" + CStr(PlaTra(T, Incoming * 2 + 1))
+        Next Incoming
+        
+        'now search through inhibitor list and add any inhibitors to output
+        If IArcNumber > -1 Then
+            For I = 0 To IArcNumber
+                If InhibitorArcs(I, 1) = T Then
+                    'Inhibitor Arc Found
+                    Inc = Inc + " " + CStr(InhibitorArcs(I, 2)) + ":" + CStr(InhibitorArcs(I, 3)) + ":inh"
+                End If
+            Next I
+        End If
+        
+        'now search through conditional list and add any conditionals to output
+        If CArcNumber > -1 Then
+            For I = 0 To CArcNumber
+                If ConditionalArcs(I, 1) = T Then
+                    'Conditional Arc Found
+                    Inc = Inc + " " + CStr(ConditionalArcs(I, 2)) + ":" + CStr(ConditionalArcs(I, 3)) + ":pch"
+                End If
+            Next I
+        End If
+        
+        'build outgoing arcs string if not reset transition
+        Dim Outg As String
+        Outg = " OUT"
+        For Outgoing = 0 To TraPlaTracker(T) - 1
+            Outg = Outg + " " + CStr(TraPla(T, Outgoing * 2)) + ":" + CStr(TraPla(T, Outgoing * 2 + 1))
+        Next Outgoing
+        If Reset <> "False" Then
+            'reset transition found
+            Outg = Outg + " " + "RESET " + Reset
+        End If
+        
+        'append voting string if applicable
+        If Voting <> "False" Then
+             'voting is enabled on this transition
+             Outg = Outg + " VOTE " + Voting
+        End If
+        
+        'append max string if applicable
+        If Max <> "False" Then
+             'voting is enabled on this transition
+             Outg = Outg + " MAX " + Max
+        End If
+        
+        'write to file
+        Print #1, "    " + Name + ":" + TransitionString(T) + " IN" + Inc + Outg
+    Next T
+    'close file
+    Close #1
+End Sub
+
+
+
+
