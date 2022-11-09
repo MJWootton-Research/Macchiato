@@ -51,6 +51,9 @@ The model is exported to an `*.mpn` file when the key combination *"ctrl*+*e"* i
 <p align="center">
   <img src='.src/Parameters.png' width='500'>
 </p>
+## Troubleshooting
+
+Some users have reported that they have been unable to dismiss the security protections disabling the use of the macro. In this event, one can create a new Visio file and add the code provided in [`MacchiatoExport.Module1.ParsePetriNet`](https://github.com/MJWootton-Research/Macchiato/blob/main/PetriNetDrawingTools/MacchiatoExport.Module1.ParsePetriNet) as a new macro with the same name via the *"View"* > *"Macros"* menu.
 
 ## Acknowledgements
 
