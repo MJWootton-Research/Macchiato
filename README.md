@@ -83,7 +83,7 @@ In the following sections, it is assumed that Python 3 is invoked by `python`. D
 python --version
 ```
 
-If not already installed, Python 3 can be obtained from www.python.org
+If not already present, Python 3 should be installed via your operating system's package manager or obtained from www.python.org
 
 ### System Integration
 
