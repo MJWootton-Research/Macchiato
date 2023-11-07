@@ -16,7 +16,7 @@ Two scripts are provided for visualisation. Due to the limitations of Graphviz, 
 This script will produce a single `*.dot` file (readable by Graphviz) depicting a Petri Net in its initial state, as described in an `*.mpn` file. Replacing `PetriNet.mpn` with the path of the target `*.mpn` , it is invoked with the following command:
 
 ```shell
-$ python /path/to/mpn_to_dot.py /path/to/PetriNet.mpn format1 format2 format3
+python /path/to/mpn_to_dot.py /path/to/PetriNet.mpn format1 format2 format3
 ```
 
 If multiple image file formats are supplied a file of each of the given types will also be produced. Formats should be specified by their file extension only, e.g. `svg` or `eps`.
@@ -28,5 +28,5 @@ If multiple image file formats are supplied a file of each of the given types wi
 This script will read a `.dot` file, or a directory of `*.dot` files, and produce image files of types from the given list of formats. Substituting `/path/to/target` for the directory or file to be read, the script is executed with the following command, with the desired image formats listed at the end.
 
 ```shell
-$ python /path/to/dot_to_image.py /path/to/target format1 format2 format 3
+python /path/to/dot_to_image.py /path/to/target format1 format2 format 3
 ```

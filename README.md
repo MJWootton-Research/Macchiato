@@ -56,31 +56,31 @@
 Cloning the repository via [Git](https://git-scm.com) is the recommended method for installing Macchiato. To see whether you have Git installed and the current version, open a command-line terminal and run:
 
 ```shell
-$ git --version
+git --version
 ```
-Be aware that the symbol `$` (alternatively, `>` or `%`, depending on shell type) indicates a terminal command, and should not be copied with the rest of the line. If no Git installation is found, consult [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for further instructions. It is recommended to [create an SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to one’s GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to eliminate the need for password entry during pull requests.
+If no Git installation is found, consult [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for further instructions. It is recommended to [create an SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to one’s GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to eliminate the need for password entry during pull requests.
 
 Create a folder named `git` in your home directory and enter it in the terminal. The following command will create a local instance of the repository in the current working directory:
 ```shell
-$ git clone git@github.com:MJWootton-Research/Macchiato.git
+git clone git@github.com:MJWootton-Research/Macchiato.git
 ```
 
 or if SSH key authentication has not been set up, the repository can instead be accessed via username and password through the command:
 
 ````shell
-$ git clone https://github.com/MJWootton-Research/Macchiato.git
+git clone https://github.com/MJWootton-Research/Macchiato.git
 ````
 
 To update the repository, execute the following command in its directory:
 
 ```shell
-$ git pull
+git pull
 ```
 
 In the following sections, it is assumed that Python 3 is invoked by `python`. Depending on system step up, one may need to substitute this command with `python3`. The default version of Python can be found via:
 
 ```shell
-$ python --version
+python --version
 ```
 
 If not already installed, Python 3 can be obtained from www.python.org
@@ -127,7 +127,7 @@ You may need to change the above paths if Macchiato was installed at a different
 
 ### Graphviz
 
-The recommended method for installing Graphviz is via a package manager, such that the rendering of `*.dot` files as images be made available at the command line via `$ dot {etc}`.
+The recommended method for installing Graphviz is via a package manager, such that the rendering of `*.dot` files as images be made available at the command line via `dot {etc}`.
 
 #### Linux
 
@@ -136,19 +136,19 @@ Graphviz is available through the package managers of most Linux distributions
 **`apt` (Debian, Ubuntu, Linux Mint, Pop!_OS, elementary OS, etc.):**
 
 ```bash
-$ sudo apt install graphviz
+sudo apt install graphviz
 ```
 
 **`yum` (Fedora, CentOS, RHEL, Scientific Linux, Yellow Dog Linux, Oracle Linux, etc.)**
 
 ```bash
-$ sudo yum install graphviz
+sudo yum install graphviz
 ```
 
 **`pacman`  (Arch, Manjaro, etc.)**
 
 ```bash
-$ sudo pacman -Syy graphviz
+sudo pacman -Syy graphviz
 ```
 
 #### Windows
@@ -156,7 +156,7 @@ $ sudo pacman -Syy graphviz
 Windows users will need to install an appropriate command line installer first, for example [Scoop](https://scoop.sh), from which Graphviz is installed by:
 
 ````powershell
-> scoop install graphviz
+scoop install graphviz
 ````
 
 It may also be necessary to run the command `dot -c` with administrative privileges to complete the process.
@@ -168,7 +168,7 @@ It is also possible to download an installer from Graphviz's website. This conti
 On MacOs install Graphviz via [Homebrew](https://brew.sh/), via:
 
 ```shell
-% brew install graphviz
+brew install graphviz
 ```
 
 ## Petri Net Integration Algorithm
@@ -186,7 +186,7 @@ Macchiato Petri Net structures are stored in `*.mpn` files, the creation of whic
 Assuming the instructions for [system integration](#system-integration) have been followed, the following command will run a batch of simulations, where `{nSims}` should be replaced with the desired number of iterations:
 
 ```shell
-$ Macchiato /path/to/PetriNet.mpn {nSims}
+Macchiato /path/to/PetriNet.mpn {nSims}
 ```
 
 Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `{nSims}` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-v` or `--verbose` at the end of the above command, but be aware that this will negatively impact performance.
@@ -194,13 +194,13 @@ Note that regardless of the locations of Macchiato or the Petri Net file, the si
 If it is necessary to restrict the output in the relevant `*.cvs` files produced to a limited selection of places or transitions, this can be done by adding the command line flags `-p` and `-t`, for example:
 
 ```shell
-$ Macchiato /path/to/PetriNet.mpn -p P0 P1 P2 -t T0 T1 T2
+Macchiato /path/to/PetriNet.mpn -p P0 P1 P2 -t T0 T1 T2
 ```
 
 The help text is displayed by:
 
 ```bash
-$ Macchiato --help
+Macchiato --help
 ```
 
 ### Macchiato Petri Net Files (`*.mpn`)

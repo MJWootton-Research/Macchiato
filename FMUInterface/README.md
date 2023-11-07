@@ -18,8 +18,8 @@
 Where possible, install the PyFMI dependencies through [Conda](https://docs.conda.io/en/latest/) as at the time of writing (March 2021), it seems that the version of the libraries available from [pip](https://pip.pypa.io/en/stable/) are outdated. Outdated libraries installed via pip should be uninstalled to prevent conflicts with the more up-to-date libraries from Conda. Once PyFMI is installed, the versions available to is can be found by running the following commands in a interactive Python session or script:
 
 ```python
->>> import pyfmi
->>> pyfmi.check_packages()
+import pyfmi
+pyfmi.check_packages()
 ```
 
 Output akin to the below should be expected:
@@ -211,8 +211,8 @@ The function then loops for the required number of simulations, at each iteratio
 
 To run the the above example with a simulation batch size of 1000, one would enter the following:
 
-```bash
-$ python Example/ATR_Model/ATR_Hybrid.py Example/ATR_Model/ATR_PetriNet.mpn Example/ATR_Model/ATR_BondGraph_{OS}.fmu 1000
+```shell
+python Example/ATR_Model/ATR_Hybrid.py Example/ATR_Model/ATR_PetriNet.mpn Example/ATR_Model/ATR_BondGraph_{OS}.fmu 1000
 ```
 
 where `{OS}` is replaced by the appropriate system.

@@ -17,7 +17,7 @@ This script will provide information on the proportion of simulations ending in 
 Example:
 
 ```shell
-$ python /path/to/OutcomesData.py /path/to/Results_Folder P1:P2:P3
+python /path/to/OutcomesData.py /path/to/Results_Folder P1:P2:P3
 ```
 
 ### [`TransFireData.py`](https://github.com/MJWootton-Research/Macchiato/blob/master/Analysis/TransFireData.py)
@@ -27,7 +27,7 @@ This script produces statistics for transition firings, with [standard error](ht
 Example:
 
 ```shell
-$ python /path/to/TransFireData.py /path/to/Results_Folder
+python /path/to/TransFireData.py /path/to/Results_Folder
 ```
 
 ### [`ExtractPlaceEndings.py`](https://github.com/MJWootton-Research/Macchiato/blob/master/Analysis/ExtractPlaceEndings.py)
@@ -37,7 +37,7 @@ This script will extract the final state of every instance of a given set of pla
 Example:
 
 ```shell
-$ python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder P1:P2:P3
+python /path/to/ExtractPlaceEndings.py /path/to/Results_Folder P1:P2:P3
 ```
 
 ### [`Places_wrt_Time.py`](https://github.com/MJWootton-Research/Macchiato/blob/master/Analysis/Places_wrt_Time.py)
@@ -46,8 +46,8 @@ This script will give the average number of tokens in each of a given set of pla
 
 Example:
 
-```sh
-$ python /path/to/Places_wrt_Time.py /path/to/Results_Folder max_time interval P1:P2:P3
+```shell
+python /path/to/Places_wrt_Time.py /path/to/Results_Folder max_time interval P1:P2:P3
 ```
 
 where `max_time` is the greatest time up to which the script will sample, `interval` is the gap between samplings, and `:` delimits the list of places to sample given at the end.
