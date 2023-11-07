@@ -211,7 +211,7 @@ It is assumed that the reader is already familiar with the basics of standard Pe
 
 #### Structure
 
-An `*.mpn` should be comprised of three sections — the simulation parameters, the places list, and the transitions list. To mark the beginning of of the latter two, the lines `Places` and `Transitions` must respectively appear in the file. Lines beginning with `#` are treated as comments. Comments must be on a separate line to structural lines. An example file is seen in [`Example.mpn`](https://github.com/MJWootton-Research/Macchiato/blob/master/Example.mpn).
+An `*.mpn` should be comprised of three sections — the simulation parameters, the places list, and the transitions list. To mark the beginning of of the latter two, the lines `Places` and `Transitions` must respectively appear in the file. Any input on a line after a `#` character is treated as a comment. An example file is seen in [`Example.mpn`](https://github.com/MJWootton-Research/Macchiato/blob/master/Example.mpn).
 
 #### Simulation Parameters
 
