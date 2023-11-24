@@ -7,8 +7,8 @@
 ## A Simple Petri Nets Implementation for Python 3
 ### [Version 1-6-1](https://github.com/MJWootton-Research/Macchiato/blob/master/CHANGELOG.md)
 
-© Dr. Mark James Wootton 2016-2022
-[`mark.wootton@nottingham.ac.uk`](mailto:m.j.wootton@birmingham.ac.uk)
+© Dr. Mark James Wootton
+[`m.j.wootton@birmingham.ac.uk`](mailto:m.j.wootton@birmingham.ac.uk)
 
 
 
