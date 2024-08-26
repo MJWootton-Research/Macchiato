@@ -9,7 +9,7 @@
 
 ## Usage
 
-To begin, make a copy of the the [example file](https://github.com/MJWootton-Research/Macchiato/blob/master/PetriNetDrawingTools/MacchiatoExample.vsdm), which contains the macro that exports the Petri Net as an `*.mpn` file.  A copy of the [stencil file](https://github.com/MJWootton-Research/Macchiato/blob/master/PetriNetDrawingTools/MacchiatoStencil.vssx) must be saved in the same directory or imported from the repository itself. Only objects from this stencil should be used.
+To begin, make a copy of the the [example file](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/MacchiatoExample.vsdm), which contains the macro that exports the Petri Net as an `*.mpn` file.  A copy of the [stencil file](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/MacchiatoStencil.vssx) must be saved in the same directory or imported from the repository itself. Only objects from this stencil should be used.
 
 When the example file is opened, a small banner will appear, asking the user  whether macros should be enabled. Click *"Enable Content"* as otherwise it will not be possible to export the Petri Net.
 
@@ -54,7 +54,7 @@ The model is exported to an `*.mpn` file when the key combination *"ctrl*+*e"* i
 
 ## Troubleshooting
 
-Some users have reported that they have been unable to dismiss the security protections disabling the use of the macro. In this event, one can create a new Visio file and add the code provided in [`MacchiatoExport.Module1.ParsePetriNet`](https://github.com/MJWootton-Research/Macchiato/blob/main/PetriNetDrawingTools/MacchiatoExport.Module1.ParsePetriNet) as a new macro with the same name via the *"View"* > *"Macros"* menu.
+Some users have reported that they have been unable to dismiss the security protections disabling the use of the macro. In this event, one can create a new Visio file and add the code provided in [`MacchiatoExport.Module1.ParsePetriNet`](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/MacchiatoExport.Module1.ParsePetriNet) as a new macro with the same name via the *"View"* > *"Macros"* menu.
 
 ## Acknowledgements
 

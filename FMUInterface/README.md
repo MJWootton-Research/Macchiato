@@ -2,7 +2,7 @@
 
 *For the hybridisation of Petri Nets with physical models in FMU format.*
 
-This document contains images from [Wootton et al. 2024](https://doi.org/10.1080/09617353.2024.2363067), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+This document contains images from [Wootton *et al*. 2024](https://doi.org/10.1080/09617353.2024.2363067), ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
 
 ## Dependencies
 
@@ -52,7 +52,7 @@ scipy......................... 1.6.1
 
 ## Introduction
 
-Hybrid [Petri Net](https://en.wikipedia.org/wiki/Petri_net)-Physical models are achieved through a number of steps. The Petri Net (PN) is handled solely through Macchiato itself, but the physical part of the model is loaded and run as an FMU ([functional mock-up unit](https://www.modelon.com/fmi-functional-mock-up-unit-types)) via [PyFMI](https://github.com/modelon-community/PyFMI). The FMUs in this work were exported from Modelica but in principle any suitably configured FMU is usable. The [Bond Graph](https://en.wikipedia.org/wiki/Bond_graph) (BG) methodology was used to describe the physical processes, achieved within Modelica via the [BondLib library](https://build.openmodelica.org/Documentation/BondLib.html). The coordination between the two parts of the model is managed by the file [`FMUInterface.py`](https://github.com/MJWootton-Research/Macchiato/blob/master/FMUInterface.py). This file should not be edited by the user; instead, follow the guide found in the [Usage](#usage) section which explains how to set up the PN-FMU interface.
+Hybrid [Petri Net](https://en.wikipedia.org/wiki/Petri_net)-Physical models are achieved through a number of steps. The Petri Net (PN) is handled solely through Macchiato itself, but the physical part of the model is loaded and run as an FMU ([functional mock-up unit](https://www.modelon.com/fmi-functional-mock-up-unit-types)) via [PyFMI](https://github.com/modelon-community/PyFMI). The FMUs in this work were exported from Modelica but in principle any suitably configured FMU is usable. The [Bond Graph](https://en.wikipedia.org/wiki/Bond_graph) (BG) methodology was used to describe the physical processes, achieved within Modelica via the [BondLib library](https://build.openmodelica.org/Documentation/BondLib.html). The coordination between the two parts of the model is managed by the file [`FMUInterface.py`](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface/FMUInterface.py). This file should not be edited by the user; instead, follow the guide found in the [Usage](#usage) section which explains how to set up the PN-FMU interface.
 
 ## Usage
 
@@ -98,9 +98,9 @@ For the sake of the model, each fuel rod is treated as identical, so only one ne
 | ----------------------------------------------------- | :----------------------------------------------------------- |
 | Figure 3: *Diagram of heat transfer along a fuel rod* | Figure 4: *BG modelling heat transfer in a fuel rod. There are twelve repeating sections in series* |
 
-The files for this model are available in the folder [`PNFMU_Hybrid_Example`](https://github.com/MJWootton-Research/Macchiato/tree/master/FMUInterface/Example) and its subdirectories. In `ATR_Model`, the files required to run the example are found, with `ATR_PetriNet.mpn` and `ATR_Bond_Graph_{X}.fmu` being the inputs for the PN and BG parts of the model respectively, where `{X}` is the operating system in use (a 64 bit version of Linux, macOS, or Windows 10 is required). These are read by  `ATR_Hybrid.py` to achieve the hybridisation, discussed in detail [below](#atr_hybridpy).
+The files for this model are available in the folder [`PNFMU_Hybrid_Example`](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface/Example) and its subdirectories. In `ATR_Model`, the files required to run the example are found, with `ATR_PetriNet.mpn` and `ATR_Bond_Graph_{X}.fmu` being the inputs for the PN and BG parts of the model respectively, where `{X}` is the operating system in use (a 64 bit version of Linux, macOS, or Windows 10 is required). These are read by  `ATR_Hybrid.py` to achieve the hybridisation, discussed in detail [below](#atr_hybridpy).
 
-The folder `Petri_Net_Construction` contains `ATR_PetrNet_Base.vsdm` with provides convenient graphical editing of the former via MS Visio ([see here](https://github.com/MJWootton-Research/Macchiato/blob/master/PetriNetDrawingTools/README.md) for details of the usage of the macro). Note that as the reactor has forty shutdown rods, the function and failure of each of which is modelled individually, this part of the PN is not generated from `ATR_PetrNet_Base.vsdm`, but instead via the script `Rods.py`.  The script will write an `*.mpn` file with the desired number of rods which can be copied into the output of `ATR_PetrNet_Base.vsdm`.
+The folder `Petri_Net_Construction` contains `ATR_PetrNet_Base.vsdm` with provides convenient graphical editing of the former via MS Visio ([see here](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/README.md) for details of the usage of the macro). Note that as the reactor has forty shutdown rods, the function and failure of each of which is modelled individually, this part of the PN is not generated from `ATR_PetrNet_Base.vsdm`, but instead via the script `Rods.py`.  The script will write an `*.mpn` file with the desired number of rods which can be copied into the output of `ATR_PetrNet_Base.vsdm`.
 
 The folder `Reactor_Bond_Graph` contains the Modelica package required to build the FMU, which can be viewed and edited from the aforementioned Modelica environments. A version of the model for FMU export is found as `ATR_BondGraph_FMU.mo`, as well as a stand-alone version as `ATR_Bond_Graph.mo`. When loading the Modelica codes, import BondLib first ([available here](https://github.com/modelica-3rdparty/BondLib) or [here](https://github.com/MJWootton-Research/BondLib)), followed by `Reactor_Bond_Graph`. In both cases, this is done by loading the file named `package.mo` in their respectively top directories.
 
@@ -110,7 +110,7 @@ This file sets up the specific interactions for the example system and manages t
 
 ##### `atr`
 
-The first step is to create an object class which inherits from the `pnfmu` class of [`FMUInterface`](https://github.com/MJWootton-Research/Macchiato/blob/master/FMUInterface.py) (referenced locally as `fmui`).
+The first step is to create an object class which inherits from the `pnfmu` class of [`FMUInterface`](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface/FMUInterface.py) (referenced locally as `fmui`).
 
 ```python
 class atr(fmui.pnfmu):
@@ -128,7 +128,7 @@ Next, an updated version of `inputFunction` must be supplied. This must read the
 
 Separate from the `atr` object, the `run` function manages initial set of the hybrid model object and repeated executions of the simulation. If `ATR_Hybrid.py` is run from the command line directly, arguments passed to `run` from `main()`, but the file can also be imported as a module in a separate script, with the user passing the required parameters from there. The parameters need to be supplied as a `list` object in the following order:
 
-1. Path to the `*.mpn` file containing the PN, or a `PetriNet` object as defined in Macchiato's [`PetriNet.py`](https://github.com/MJWootton-Research/Macchiato/blob/master/PetriNet.py)
+1. Path to the `*.mpn` file containing the PN, or a `PetriNet` object as defined in Macchiato's [`PetriNet.py`](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNet.py)
 2. Path to the `*.fmu` file containing the physical model
 3. Simulations to perform, which can take the form of a single integer, in which case, that many simulations will be performed, or two integers in ascending order separated by a colon, in which case, simulations with labels from the lower to upper bound will be executed. This allows a batch of simulations to be run in parts at the convenience of the user.
 4. (Optional) Path in which a new folder is created to save simulation output. By default, the current working directory is used.

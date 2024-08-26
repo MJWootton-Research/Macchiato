@@ -4,8 +4,8 @@
 
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
-## A Simple Petri Nets Implementation for Python 3
-### [Version 1-6-1](https://github.com/MJWootton-Research/Macchiato/blob/main/CHANGELOG.md)
+## A Simple Petri Nets Implementation
+### [Version 1-6-1](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
 
 © Dr. Mark James Wootton<br>
 [`m.j.wootton@sheffield.ac.uk`](mailto:m.j.wootton@sheffield.ac.uk)
@@ -16,7 +16,7 @@ To cite this work,
 
 > Mark James Wootton, John D. Andrews, Adam L. Lloyd, Roger Smith, A. John Arul, Gopika Vinod, M. Hari Prasad, Vipul Garg. Risk Modelling of Ageing Nuclear Reactor Systems, *Annals of Nuclear Energy*, volume 166, 108701, 2022. [`doi.org/10.1016/j.anucene.2021.108701`](https://doi.org/10.1016/j.anucene.2021.108701)
 
-- For working involving the the [FMU interface](https://github.com/MJWootton-Research/Macchiato/tree/master/FMUInterface), please reference:
+- For working involving the the [FMU interface](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface), please reference:
 
 > Mark James Wootton, John D. Andrews, Ying Zhou, Roger Smith, A. John Arul, Gopika Vinod, M. Hari Prasad, and Vipul Garg. An Integrated Petri Net-Pseudo Bond Graph Model for Nuclear Hazard Assessment. *Safety and Reliability*, 1–48, 2024. [`doi.org/10.1080/09617353.2024.2363067`](https://doi.org/10.1080/09617353.2024.2363067)
 
@@ -219,7 +219,7 @@ It is assumed that the reader is already familiar with the basics of standard Pe
 
 #### Structure
 
-An `*.mpn` should be comprised of three sections — the simulation parameters, the places list, and the transitions list. To mark the beginning of of the latter two, the lines `Places` and `Transitions` must respectively appear in the file. Any input on a line after a `#` character is treated as a comment. An example file is seen in [`Example.mpn`](https://github.com/MJWootton-Research/Macchiato/blob/master/Example.mpn).
+An `*.mpn` should be comprised of three sections — the simulation parameters, the places list, and the transitions list. To mark the beginning of of the latter two, the lines `Places` and `Transitions` must respectively appear in the file. Any input on a line after a `#` character is treated as a comment. An example file is seen in [`Example.mpn`](https://github.com/MJWootton-Research/Macchiato/tree/main/Example.mpn).
 
 #### Simulation Parameters
 
@@ -239,7 +239,7 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 - `simsFactor` — Parameterises the total number of simulations performed (Default is 1.5×10<sup>3</sup>).  Repetition of simulations ends once the total simulated time surpasses the product of `maxClock` and `simsFactor`.  If a set number of simulations is specified at the command line, `simsFactor` is overruled.
 - `dotLoc` — (Default is `None`) Directory containing `dot.exe` for legacy mode visualisations (not recommended).
 
-**Important Note:** It is not recommended to use the `visualise` option beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the tools provided by [`mpn_to_dot.py`](https://github.com/MJWootton-Research/Macchiato/blob/master/mpn_to_dot.py) and [`dot_to_image.py`](https://github.com/MJWootton-Research/Macchiato/blob/master/dot_to_image.py) after the simulations are complete. If one is not intending to use `dot_to_image.py`, then it is also recommended to set `dot` to `False`.
+**Important Note:** It is not recommended to use the `visualise` option beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the tools provided by [`mpn_to_dot.py`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation/mpn_to_dot.py) and [`dot_to_image.py`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation/mpn_to_dot.py) after the simulations are complete. If one is not intending to use `dot_to_image.py`, then it is also recommended to set `dot` to `False`.
 
 #### Places
 
@@ -315,15 +315,15 @@ As an alternative to transcribing a Petri Net structure by hand, it is possible 
 
 In the directory [`PetriNetDrawingTools`](PetriNetDrawingTools), one will find a Microsoft Visio drawing and a stencil file. Create a copy of these files to produce Petri Nets graphically — both must be found in the same directory. To use the tool, make sure that stencils and shape data are set to be visible and that macros are enabled. The shortcut *Ctrl+e* will export the Petri Net to an `*.mpn` file with the properties specified in the *Parameters* object. It is recommended to export models frequently to avoid being caught out by the occasional idiosyncrasies of Microsoft Visio.
 
-[Full documentation for the tool is available here](https://github.com/MJWootton-Research/Macchiato/blob/master/PetriNetDrawingTools/README.md).
+[Full documentation for the tool is available here](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/README.md).
 
 ### Scripting Tools
 
-The Python modules provided by [`Macchiato.py`](Macchiato.py) and [`PetriNet.py`](PetriNet.py) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function. A few examples are found below.
+The Python module provided by [`Macchiato.py`](Macchiato.py) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function. A few examples are found below.
 
 #### Reading & Writing `*.mpn` Files
 
-Importing  [`Macchiato.py`](Macchiato.py)  gives access to the `read` and `write` functions, which allow the handling of `*.mpn` files. The function `read` takes a file path and returns a `PetriNet` object (as defined in [`PetriNet.py`](PetriNet.py)) and `list` object containing the simulation parameters in the file.
+Importing  [`Macchiato.py`](Macchiato.py)  gives access to the `read` and `write` functions, which allow the handling of `*.mpn` files. The function `read` takes a file path and returns a `PetriNet` object and `list` object containing the simulation parameters in the file.
 
 ```python
 # Import module
@@ -484,17 +484,17 @@ MC.write(pn, altName='%s_end'%pn.name)
 
 Four Python scripts are available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved in `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
 
-Documentation for the usage of the analysis scripts is found [here](https://github.com/MJWootton-Research/Macchiato/blob/master/Analysis/README.md).
+Documentation for the usage of the analysis scripts is found [here](https://github.com/MJWootton-Research/Macchiato/tree/main/Analysis/README.md).
 
 ### Visualisation
 
-In the [`Visualisation`](https://github.com/MJWootton-Research/Macchiato/blob/master/Visualisation) directory, two scripts are available to produce images of Petri Nets from `*.mpn` files or Macchiato simulation output. These depend on Graphviz and are best suited for inspection and verification rather instead of creating report quality images, for which the [Visio tools](https://github.com/MJWootton-Research/Macchiato/blob/master/PetriNetDrawingTools/README.md) are recommended.
+In the [`Visualisation`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation) directory, two scripts are available to produce images of Petri Nets from `*.mpn` files or Macchiato simulation output. These depend on Graphviz and are best suited for inspection and verification rather instead of creating report quality images, for which the [Visio tools](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/README.md) are recommended.
 
-Documentation for the usage of the visualisation scripts is found [here](https://github.com/MJWootton-Research/Macchiato/blob/master/Visualisation/README.md).
+Documentation for the usage of the visualisation scripts is found [here](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation/README.md).
 
 ### FMU Interface
 
-Macchiato Petri Nets can also be used in conjunction with a physical model provided in [FMU format](https://en.wikipedia.org/wiki/Functional_Mock-up_Interface), the tools for which are provided in the [`FMUInterface`](https://github.com/MJWootton-Research/Macchiato/tree/master/FMUInterface) directory.
+Macchiato Petri Nets can also be used in conjunction with a physical model provided in [FMU format](https://en.wikipedia.org/wiki/Functional_Mock-up_Interface), the tools for which are provided in the [`FMUInterface`](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface) directory.
 
 ## Acknowledgements
 With thanks to Dr Robert *"Larus"* Lee for developing the original Macchiato stencil and macro for Microsoft Visio.
