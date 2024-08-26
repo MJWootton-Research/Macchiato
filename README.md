@@ -10,13 +10,19 @@
 © Dr. Mark James Wootton<br>
 [`m.j.wootton@sheffield.ac.uk`](mailto:m.j.wootton@sheffield.ac.uk)
 
-To cite this work,
+#### Licence
 
-- For standalone Petri net models, please reference:
+Macchiato is published under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0). Please give attribution if using this project.
+
+#### Bibliograhpic Information
+
+To cite this work in written manuscripts,
+
+- for standalone Petri net models, please reference:
 
 > Mark James Wootton, John D. Andrews, Adam L. Lloyd, Roger Smith, A. John Arul, Gopika Vinod, M. Hari Prasad, Vipul Garg. Risk Modelling of Ageing Nuclear Reactor Systems, *Annals of Nuclear Energy*, volume 166, 108701, 2022. [`doi.org/10.1016/j.anucene.2021.108701`](https://doi.org/10.1016/j.anucene.2021.108701)
 
-- For working involving the the [FMU interface](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface), please reference:
+- for work involving the the [FMU interface](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface), please reference:
 
 > Mark James Wootton, John D. Andrews, Ying Zhou, Roger Smith, A. John Arul, Gopika Vinod, M. Hari Prasad, and Vipul Garg. An Integrated Petri Net-Pseudo Bond Graph Model for Nuclear Hazard Assessment. *Safety and Reliability*, 1–48, 2024. [`doi.org/10.1080/09617353.2024.2363067`](https://doi.org/10.1080/09617353.2024.2363067)
 
