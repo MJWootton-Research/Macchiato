@@ -2,6 +2,8 @@
 
 *For the hybridisation of Petri Nets with physical models in FMU format.*
 
+This document contains images from [Wootton et al. 2024](https://doi.org/10.1080/09617353.2024.2363067), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
 ## Dependencies
 
 * [Python 3](https://www.python.org)

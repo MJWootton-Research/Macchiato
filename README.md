@@ -10,7 +10,15 @@
 © Dr. Mark James Wootton<br>
 [`m.j.wootton@birmingham.ac.uk`](mailto:m.j.wootton@birmingham.ac.uk)
 
+To cite this work,
 
+- For standalone Petri net models, please reference:
+
+> Mark James Wootton, John D. Andrews, Adam L. Lloyd, Roger Smith, A. John Arul, Gopika Vinod, M. Hari Prasad, Vipul Garg. Risk Modelling of Ageing Nuclear Reactor Systems, *Annals of Nuclear Energy*, volume 166, 108701, 2022. [`doi.org/10.1016/j.anucene.2021.108701`](https://doi.org/10.1016/j.anucene.2021.108701)
+
+- For working involving the the [FMU interface](https://github.com/MJWootton-Research/Macchiato/tree/master/FMUInterface), please reference:
+
+> Mark James Wootton, John D. Andrews, Ying Zhou, Roger Smith, A. John Arul, Gopika Vinod, M. Hari Prasad, and Vipul Garg. An Integrated Petri Net-Pseudo Bond Graph Model for Nuclear Hazard Assessment. *Safety and Reliability*, 1–48, 2024. [`doi.org/10.1080/09617353.2024.2363067`](https://doi.org/10.1080/09617353.2024.2363067)
 
 ## Contents
 
@@ -173,7 +181,7 @@ brew install graphviz
 
 ## Petri Net Integration Algorithm
 
-The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation.
+The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation. Image from [Wootton *et al.* 2022](https://doi.org/10.1002/asmb.2722), ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0))
 
 <p align="center">
   <img src='.src/Algorithm.png' width='750' title='Macchiato&#39s Petri Net Integration Algorithm'>
