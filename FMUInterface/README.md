@@ -86,7 +86,7 @@ For instruction relating to the creation of the PN component of the hybrid model
 
 ### Example
 
-An example system is presented, taken from {*pending*}. A PN describing the failure modes of a nuclear reactor is coupled with a representation of heat flow through its fuel rods in BG form. A schematic of the system is shown in figure 1 and the corresponding PN is shown in figure 2.
+An example system is presented, taken from [Wootton *et al*. 2024](https://doi.org/10.1080/09617353.2024.2363067). A PN describing the failure modes of a nuclear reactor is coupled with a representation of heat flow through its fuel rods in BG form. A schematic of the system is shown in figure 1 and the corresponding PN is shown in figure 2.
 
 | <img src=".src/Overview.png" width="550" />                   | <img src=".src/PN.png" width="400" />                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
