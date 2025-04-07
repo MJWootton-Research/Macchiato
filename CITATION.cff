@@ -13,23 +13,6 @@ message: >-
   Safety and Reliability, 1–48, 2024.
   doi.org/10.1080/09617353.2024.2363067
   (FMU interface)
-type: software
-authors:
-  - given-names: Mark
-    name-particle: Dr
-    family-names: Wootton
-    email: m.j.wootton@sheffield.ac.uk
-    affiliation: University of Sheffield
-    orcid: 'https://orcid.org/0000-0001-6850-5978'
-repository-code: 'https://github.com/MJWootton-Research/Macchiato'
-keywords:
-  - Petri nets
-  - risk and reliability
-  - safety modelling
-  - process simulation
-license: GPL-3.0
-version: 1-6-1
-date-released: '2021-12-18'
 preferred-citation:
   - authors:
     - family-names: Wootton
@@ -55,3 +38,20 @@ preferred-citation:
   volume: 166
   pages: 108701
   year: 2022
+type: software
+authors:
+  - given-names: Mark
+    name-particle: Dr
+    family-names: Wootton
+    email: m.j.wootton@sheffield.ac.uk
+    affiliation: University of Sheffield
+    orcid: 'https://orcid.org/0000-0001-6850-5978'
+repository-code: 'https://github.com/MJWootton-Research/Macchiato'
+keywords:
+  - Petri nets
+  - risk and reliability
+  - safety modelling
+  - process simulation
+license: GPL-3.0
+version: 1-6-1
+date-released: '2021-12-18'
