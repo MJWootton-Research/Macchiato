@@ -48,10 +48,10 @@ preferred-citation:
         given-names: "M. Hari"
       - family-names: Garg
         given-names: "Vipul"
-    doi: doi.org/10.1016/j.anucene.2021.108701
-    journal: "Annals of Nuclear Energy"
-    title: "Modelling of Ageing Nuclear Reactor Systems"
-    type: article
-    volume: 166
-    pages: 108701
-    year: 2022
+  doi: doi.org/10.1016/j.anucene.2021.108701
+  journal: "Annals of Nuclear Energy"
+  title: "Modelling of Ageing Nuclear Reactor Systems"
+  type: article
+  volume: 166
+  pages: 108701
+  year: 2022
