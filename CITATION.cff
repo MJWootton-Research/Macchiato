@@ -1,18 +1,18 @@
 cff-version: 1.2.0
 title: Macchiato
 message: >-
-  Citation information for Macchiato. See also: Mark James
-  Wootton, John D. Andrews, Adam L. Lloyd, Roger Smith, A.
-  John Arul, Gopika Vinod, M. Hari Prasad, Vipul Garg. Risk
-  Modelling of Ageing Nuclear Reactor Systems, Annals of
-  Nuclear Energy, volume 166, 108701, 2022.
-  doi.org/10.1016/j.anucene.2021.108701 (general). Mark
-  James Wootton, John D. Andrews, Ying Zhou, Roger Smith, A.
-  John Arul, Gopika Vinod, M. Hari Prasad, and Vipul Garg.
-  An Integrated Petri Net-Pseudo Bond Graph Model for
-  Nuclear Hazard Assessment. Safety and Reliability, 1–48,
-  2024. doi.org/10.1080/09617353.2024.2363067 (FMU
-  interface).
+  Citation information for Macchiato. See also:
+  Mark James Wootton, John D. Andrews, Adam L. Lloyd, Roger Smith, A. John Arul, Gopika Vinod, M. Hari Prasad, Vipul Garg.
+  Risk Modelling of Ageing Nuclear Reactor Systems
+  Annals of Nuclear Energy, volume 166, 108701, 2022.
+  doi.org/10.1016/j.anucene.2021.108701
+  (general)
+  
+  Mark James Wootton, John D. Andrews, Ying Zhou, Roger Smith, A. John Arul, Gopika Vinod, M. Hari Prasad, and Vipul Garg.
+  An Integrated Petri Net-Pseudo Bond Graph Model for Nuclear Hazard Assessment.
+  Safety and Reliability, 1–48, 2024.
+  doi.org/10.1080/09617353.2024.2363067
+  (FMU interface)
 type: software
 authors:
   - given-names: Mark
@@ -30,3 +30,28 @@ keywords:
 license: GPL-3.0
 version: 1-6-1
 date-released: '2021-12-18'
+preferred-citation:
+  - authors:
+      - family-names: Wootton
+        given-names: "Mark James"
+      - family-names: Andrews
+        given-names: "John D."
+      - family-names: Lloyd
+        given-names: "Adam L."
+      - family-names: Smith
+        given-names: "Roger"
+      - family-names: Arul
+        given-names: "A. John"
+      - family-names: Vinod
+        given-names: "Gopika"
+      - family-names: Prasad
+        given-names: "M. Hari"
+      - family-names: Garg
+        given-names: "Vipul"
+    doi: doi.org/10.1016/j.anucene.2021.108701
+    journal: "Annals of Nuclear Energy"
+    title: "Modelling of Ageing Nuclear Reactor Systems"
+    type: article
+    volume: 166
+	pages: 108701
+    year: 2022
