@@ -1,0 +1,34 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Macchiato
+message: >-
+  Citation information for Macchiato. See also: Mark James
+  Wootton, John D. Andrews, Adam L. Lloyd, Roger Smith, A.
+  John Arul, Gopika Vinod, M. Hari Prasad, Vipul Garg. Risk
+  Modelling of Ageing Nuclear Reactor Systems, Annals of
+  Nuclear Energy, volume 166, 108701, 2022.
+  doi.org/10.1016/j.anucene.2021.108701 (general). Mark
+  James Wootton, John D. Andrews, Ying Zhou, Roger Smith, A.
+  John Arul, Gopika Vinod, M. Hari Prasad, and Vipul Garg.
+  An Integrated Petri Net-Pseudo Bond Graph Model for
+  Nuclear Hazard Assessment. Safety and Reliability, 1–48,
+  2024. doi.org/10.1080/09617353.2024.2363067 (FMU
+  interface).
+type: software
+authors:
+  - given-names: Mark
+    name-particle: Dr
+    family-names: Wootton
+    email: m.j.wootton@sheffield.ac.uk
+    affiliation: University of Sheffield
+    orcid: 'https://orcid.org/0000-0001-6850-5978'
+keywords:
+  - Petri nets
+  - risk and reliability
+  - safety modelling
+  - process simulation
+license: GPL-3.0
+version: 1-6-1
+date-released: '2021-12-18'
