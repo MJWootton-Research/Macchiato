@@ -12,7 +12,7 @@
 
 #### Licence
 
-Macchiato is published under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0). Please give attribution if using this project.
+Macchiato is published under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0). Please give [attribution](https://raw.githubusercontent.com/MJWootton-Research/Macchiato/refs/heads/main/CITATION.cff) if using this project.
 
 #### Bibliograhpic Information
 
@@ -91,15 +91,15 @@ To update the repository, execute the following command in its directory:
 git pull
 ```
 
-In the following sections, it is assumed that Python 3 is invoked by `python`. Depending on system step up, one may need to substitute this command with `python3`. The default version of Python can be found via:
+In the following sections, it is assumed that Python 3 is invoked by `python`. Depending on  step up, one may need to substitute this command with `python3`. The default version of Python can be found via:
 
 ```shell
 python --version
 ```
 
-If not already present, Python 3 should be installed via your operating system's package manager or obtained from www.python.org
+If not already present, Python 3 should be installed via your operating 's package manager or obtained from www.python.org
 
-### System Integration
+###  Integration
 
 One can configure their system to allow Macchiato to be accessed conveniently from any working directory within a terminal or Python session, such that simulations can be initiated with command `Macchiato` from any location, and that a Python script using the module need only include the line `import Macchiato`, regardless of the file path.
 
