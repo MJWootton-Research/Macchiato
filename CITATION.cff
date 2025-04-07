@@ -13,31 +13,6 @@ message: >-
   Safety and Reliability, 1–48, 2024.
   doi.org/10.1080/09617353.2024.2363067
   (FMU interface)
-preferred-citation:
-  - authors:
-    - family-names: Wootton
-    given-names: "Mark James"
-    - family-names: Andrews
-    given-names: "John D."
-    - family-names: Lloyd
-    given-names: "Adam L."
-    - family-names: Smith
-    given-names: "Roger"
-    - family-names: Arul
-    given-names: "A. John"
-    - family-names: Vinod
-    given-names: "Gopika"
-    - family-names: Prasad
-    given-names: "M. Hari"
-    - family-names: Garg
-    given-names: "Vipul"
-  doi: doi.org/10.1016/j.anucene.2021.108701
-  journal: "Annals of Nuclear Energy"
-  title: "Modelling of Ageing Nuclear Reactor Systems"
-  type: article
-  volume: 166
-  pages: 108701
-  year: 2022
 type: software
 authors:
   - given-names: Mark
