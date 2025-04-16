@@ -16,7 +16,7 @@ Macchiato is published under the [GNU General Public License v3.0](https://choos
 
 #### Bibliograhpic Information
 
-To cite this work in written manuscripts,
+Peer-reviewed manuscripts,
 
 - for standalone Petri net models, please reference:
 
