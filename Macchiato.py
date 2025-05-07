@@ -15,7 +15,7 @@
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
 Version 1-6-1
-(c) Dr. Mark James Wootton 2016-2021
+(c) Dr. Mark James Wootton 2016-2025
 ============================================================================
 
 This file is comprised of two main sections. The former provides utilities
@@ -33,6 +33,7 @@ import copy
 import math
 import time
 import random
+import fnmatch
 import argparse
 import textwrap
 import subprocess
@@ -506,7 +507,7 @@ class RawFormatter(argparse.HelpFormatter):
 ############################################################################
 # Petri Net Operational Objects and Methods
 ############################################################################
-def labelCheck(label, ref=None, error=False):
+def labelCheck(label, ref=None, error=True):
     """
     Function to test object labels for problematic characters and print an
     appropriate warning or raise an exception.
@@ -518,13 +519,15 @@ def labelCheck(label, ref=None, error=False):
     ref : string
         Information about object type for print-out
     error : boolean
-        If True, an exception is raised instead of printing a warning (Default is False).
+        If False, a warning is printed with raising an exception (Default is
+        True).
 
     """
     failed = ''
     if ' ' in label:
         failed += '"%s" is an invalid %s, spaces are not permitted\n' % (label, ref)
-        error = True
+    if '*' in label:
+        failed += '"%s" is an invalid %s, asterisks are not permitted\n' % (label, ref)
     # if '_' in label:
     #     failed += 'Warning: (%s) Underscores are permitted in %ss but will interfere with conversion to LaTeX\n' % (label, ref)
     # if '-' in label or '\" in label:
@@ -782,7 +785,6 @@ class PetriNet(object):
             if label in trans.outArcs:
                 trans.rmOutArc(label)
 
-
     def addTrans(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=None, vote=None, group=None):
         """
         Creates a new transition in the Petri Net
@@ -819,6 +821,15 @@ class PetriNet(object):
             Label used to group transitions for visualisation
         """
         if not label in self.trans:
+            if reset is not None:
+                if '*' in ''.join(reset):
+                    newReset = []
+                    for rPlace in reset:
+                        if '*' in rPlace:
+                            newReset += expanded_rPlace = fnmatch(self.places, rPlace)
+                        else:
+                            newReset.append(rPlace)
+                    reset = newReset
             self.trans[label] = Trans(label, rate=rate, uniform=uniform, delay=delay, weibull=weibull, beta=beta, lognorm=lognorm, cyclic=cyclic, maxFire=maxFire, reset=reset, vote=vote, group=group)
         else:
             raise KeyError('Transition with label, "%s", already exists' % label)
