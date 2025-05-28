@@ -11,8 +11,8 @@
 #### Version 1-4-1
 
 * Added new methods to PetriNet object to reveal objects with no connecting arcs
-  * disconnectedPlaces 
-  * disconnectedTrans
+  * `disconnectedPlaces `
+  * `disconnectedTrans`
 
 #### Version 1-4-2
 
@@ -54,3 +54,7 @@
 #### Version 1-6-1
 
 * Custom calls to `Macchiato.PetriNet.run(...)` now respect verbosity toggle properly
+
+### Version 1-7
+
+* Added glob-style support for transitions' reset relation place list.

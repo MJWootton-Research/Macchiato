@@ -14,7 +14,7 @@
 ----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
-Version 1-6-1
+Version 1-7
 (c) Dr. Mark James Wootton 2016-2025
 ============================================================================
 
@@ -33,7 +33,7 @@ import copy
 import math
 import time
 import random
-import fnmatch
+from fnmatch import filter
 import argparse
 import textwrap
 import subprocess
@@ -47,8 +47,8 @@ from builtins import print as speak
 def main():
     intro=f'''
     Macchiato – A Simple and Scriptable Petri Nets Implementation
-    Version 1-6-1
-    (c) Dr. Mark James Wootton 2016-2021
+    Version 1-7
+    (c) Dr. Mark James Wootton 2016-2025
     '''
     # Command line arguments and help text
     parser = argparse.ArgumentParser(prog='Macchiato', description=intro, formatter_class=RawFormatter,epilog=None)
@@ -113,6 +113,37 @@ def enablePrint():
     global print
     print = speak
 
+def expandReset(pn, reset):
+    """
+    Uses glob-style filtering to expand reset place lists
+
+    Parameters
+    ----------
+    pn : PetriNet object
+        Petri net containing the place list to check
+    reset : list
+        Unexpanded reset relation place list
+
+    Returns
+    ----------
+    newReset : list
+        New list of places for the reset transition relation
+    """
+    if True in [globChar in ':'.join(reset) for globChar in ['?', '*', '[']]:
+        newReset = []
+        for rPlace in reset:
+            expansion = filter(pn.places, rPlace)
+            if not len(expansion):
+                print(f'Warning: "{rPlace}" matches no places.')
+            newReset += [expPlace for expPlace in expansion if expPlace not in newReset]
+        for rPlace in newReset:
+            assert rPlace in pn.places, (f'{rPlace} not found in places list -- cannot create reset relation.')
+        print(reset)
+        print(newReset)
+        return newReset
+    else:
+        return reset
+
 def read(file):
     """
     Reads Macchiato Petri Net (.mpn) files and returns structure in PetriNet
@@ -156,7 +187,7 @@ def read(file):
 
     # Check file type
     if not file.endswith('.mpn'):
-        print('WARNING: Given file is not ".mpn"')
+        print('Warning: Given file is not ".mpn"')
         time.sleep(1)
     for line in open(file, 'r'):
         # Skip blank lines
@@ -357,7 +388,7 @@ def read(file):
                     pn.trans[label].addOutArc(read[0], weight=weight)
                 # Assign places to reset on fire
                 elif tMode == 'RESET':
-                    pn.trans[label].reset = info.split(':')
+                    pn.trans[label].reset = expandReset(pn, info.split(':'))
                 # Set maxium number of times a transition can fire
                 elif tMode == 'MAX':
                     pn.trans[label].maxFire = int(info)
@@ -526,8 +557,8 @@ def labelCheck(label, ref=None, error=True):
     failed = ''
     if ' ' in label:
         failed += '"%s" is an invalid %s, spaces are not permitted\n' % (label, ref)
-    if '*' in label:
-        failed += '"%s" is an invalid %s, asterisks are not permitted\n' % (label, ref)
+    if True in [globChar in label for globChar in ['?', '*', '[', ']']]:
+        failed += '"%s" is an invalid %s, glob characters are not permitted\n' % (label, ref)
     # if '_' in label:
     #     failed += 'Warning: (%s) Underscores are permitted in %ss but will interfere with conversion to LaTeX\n' % (label, ref)
     # if '-' in label or '\" in label:
@@ -816,20 +847,18 @@ class PetriNet(object):
         maxFire : integer
             Maximum number of times the transition is permitted to fire
         reset : list
-            A list of places to reset on firing
+            A list of places to reset on firing (*/? glob selection supported)
         group : integer
             Label used to group transitions for visualisation
         """
         if not label in self.trans:
             if reset is not None:
-                if '*' in ''.join(reset):
-                    newReset = []
-                    for rPlace in reset:
-                        if '*' in rPlace:
-                            newReset += expanded_rPlace = fnmatch(self.places, rPlace)
-                        else:
-                            newReset.append(rPlace)
-                    reset = newReset
+                if type(reset) is not list:
+                    if ':' in reset:
+                        reset = reset.split(':')
+                    else:
+                        reset = [reset]
+                reset = expandReset(self, reset)
             self.trans[label] = Trans(label, rate=rate, uniform=uniform, delay=delay, weibull=weibull, beta=beta, lognorm=lognorm, cyclic=cyclic, maxFire=maxFire, reset=reset, vote=vote, group=group)
         else:
             raise KeyError('Transition with label, "%s", already exists' % label)
