@@ -120,7 +120,12 @@ You may need to change the path `$HOME/git/Macchiato` if Macchiato was installed
 
 #### PowerShell
 
-For users of PowerShell on Windows 10, the integration must be done in two steps. To allow easy execution of Macchiato simulations from any directory, create a folder in `Documents` called `WindowsPowerShell`. In this new folder, add a plain text file with the name
+For users of PowerShell on Windows, the integration must be done in two steps. To allow easy execution of Macchiato simulations from any directory, create a folder in `Documents` called
+```
+WindowsPowerShell
+```
+
+In this new folder, add a plain text file with the name
 
 ```
 Microsoft.PowerShell_profile.ps1
@@ -135,7 +140,13 @@ function macchiato {
 }
 ```
 
-To make Macchiato available for import to any Python instance or script, open *"Settings"* from the *Start Menu* and search for *"advanced system settings"*. You will see a result for *"View advanced system settings"*. Clicking on this option will open a window title *"System Properties"*. On the *"Advanced"* tab, there is a button labelled *"Environmental Variables"*, which brings up a window with the same name. In the beneath the *"System variables"* selection, click on *"New..."*. In the field *"Variable name"* enter `PYTHONPATH` and in *"Variable value"* enter:
+To make Macchiato available for import to any Python instance or script, open *"Settings"* from the *Start Menu* and search for *"advanced system settings"* (these settings can also be accessed by typing `systempropertiesadvanced` in PowerShell). You will see a result for *"View advanced system settings"*. Clicking on this option will open a window title *"System Properties"*. On the *"Advanced"* tab, there is a button labelled *"Environmental Variables"*, which brings up a window with the same name. In the beneath the *"System variables"* selection, click on *"New..."*. In the field *"Variable name"* enter
+
+```
+PYTHONPATH
+```
+
+and in *"Variable value"* enter:
 
 ```
 C:\Users\{YOUR_USERSNAME}\git\Macchiato
