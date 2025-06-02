@@ -99,9 +99,9 @@ python --version
 
 If not already present, Python 3 should be installed via your operating 's package manager or obtained from www.python.org
 
-###  Integration
+###  System Integration
 
-One can configure their system to allow Macchiato to be accessed conveniently from any working directory within a terminal or Python session, such that simulations can be initiated with command `Macchiato` from any location, and that a Python script using the module need only include the line `import Macchiato`, regardless of the file path.
+One can configure their system to allow Macchiato to be accessed conveniently from any working directory within a terminal or Python session, such that simulations can be initiated with command `macchiato` from any location, and that a Python script using the module need only include the line `import Macchiato`, regardless of the file path.
 
 #### Bash & Z Shell
 
@@ -109,7 +109,7 @@ In a Bash or Z Shell environment, such as is default in many Linux distributions
 
 ```bash
 # Execute Macchiato simulations from any directory
-Macchiato(){ python3 $HOME/git/Macchiato/Macchiato.py $* ; }
+macchiato(){ python3 $HOME/git/Macchiato/Macchiato.py $* ; }
 # Make Macchiato availible for Python to import from any directory
 export PYTHONPATH=$HOME/git/Macchiato:$PYTHONPATH
 ```
@@ -120,11 +120,17 @@ You may need to change the path `$HOME/git/Macchiato` if Macchiato was installed
 
 #### PowerShell
 
-For users of PowerShell on Windows 10, the integration must be done in two steps. To allow easy execution of Macchiato simulations from any directory, create a folder in `Documents` called `WindowsPowerShell`. In this new folder, add a plain text file with the name `Microsoft.PowerShell_profile.ps1` containing the lines:
+For users of PowerShell on Windows 10, the integration must be done in two steps. To allow easy execution of Macchiato simulations from any directory, create a folder in `Documents` called `WindowsPowerShell`. In this new folder, add a plain text file with the name
+
+```
+Microsoft.PowerShell_profile.ps1
+```
+
+containing the lines:
 
 ```powershell
 # Execute Macchiato simulations from any directory
-function Macchiato {
+function macchiato {
     python $home\git\Macchiato\Macchiato.py $args
 }
 ```
@@ -200,7 +206,7 @@ Macchiato Petri Net structures are stored in `*.mpn` files, the creation of whic
 Assuming the instructions for [system integration](#system-integration) have been followed, the following command will run a batch of simulations, where `{nSims}` should be replaced with the desired number of iterations:
 
 ```shell
-Macchiato /path/to/PetriNet.mpn {nSims}
+macchiato /path/to/PetriNet.mpn {nSims}
 ```
 
 Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `{nSims}` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-v` or `--verbose` at the end of the above command, but be aware that this will negatively impact performance.
@@ -208,13 +214,13 @@ Note that regardless of the locations of Macchiato or the Petri Net file, the si
 If it is necessary to restrict the output in the relevant `*.cvs` files produced to a limited selection of places or transitions, this can be done by adding the command line flags `-p` and `-t`, for example:
 
 ```shell
-Macchiato /path/to/PetriNet.mpn -p P0 P1 P2 -t T0 T1 T2
+macchiato /path/to/PetriNet.mpn -p P0 P1 P2 -t T0 T1 T2
 ```
 
 The help text is displayed by:
 
 ```bash
-Macchiato --help
+macchiato --help
 ```
 
 ### Macchiato Petri Net Files (`*.mpn`)
