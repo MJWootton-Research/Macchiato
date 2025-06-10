@@ -393,7 +393,7 @@ The structure of a `PetriNet` object created by either of methods discussed may 
 import Macchiato as MC
 
 # Create instance of PetriNet object
-pn = PN.PetriNet(name='Example')
+pn = MC.PetriNet(name='Example')
 # Add places
 pn.addPlace('P1', tokens=2)
 pn.addPlace('P2')
