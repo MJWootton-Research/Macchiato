@@ -365,7 +365,13 @@ Conversely, `write` takes a `PetriNet` object and writes it to an `*.mpn` file
 import Macchiato as MC
 
 # Creat a Petri Net
-pn = fooPetriNet
+pn = MC.PetriNet(name='Example')
+
+# Create Petri Net stucture
+# ...
+# ...
+# ...
+
 # Write Petri Net to *.mpn file
 MC.write(pn, overwrite=False, rp=None, altName=None)
 ```
