@@ -2,6 +2,8 @@
 
 *Scripts for data extraction from Macchiato simulation results*
 
+Note: The current version of these scripts has not yet been updated for concatenate mode (version 1-8 onwards).
+
 ## Dependencies
 
 * [Python 3](https://www.python.org/)

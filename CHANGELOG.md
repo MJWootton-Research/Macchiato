@@ -58,3 +58,8 @@
 ### Version 1-7
 
 * Added glob-style support for transitions' reset relation place list.
+
+### Version 1-8
+
+* Added concatenate option which reduces the number of simulation output files to one for places, transitions, and firing, plus the summary file.
+* Renamed "TransList" files to "FireList" for all modes.

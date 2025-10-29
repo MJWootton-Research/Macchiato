@@ -33,6 +33,7 @@ import copy
 import math
 import time
 import random
+import shutil
 from fnmatch import filter
 import argparse
 import textwrap
@@ -47,7 +48,7 @@ from builtins import print as speak
 def main():
     intro=f'''
     Macchiato – A Simple and Scriptable Petri Nets Implementation
-    Version 1-7
+    Version 1-8
     (c) Dr. Mark James Wootton 2016-2025
     '''
     # Command line arguments and help text
@@ -55,6 +56,7 @@ def main():
     parser.add_argument('file', nargs=1, metavar='input_file', type=argparse.FileType('r'), help='*.mpn file containing a Petri Net')
     parser.add_argument('nSims', nargs='?', default=None, type=int, help='Set fixed number of simulations to run [optional]')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose mode (slow)')
+    parser.add_argument('-c', '--concatenate', action='store_true', help='Simulation results are concatenated as a single set of three files for place, transition, and firings.')
     parser.add_argument('-p', '--places', nargs='*', default=[], help='Limit file output to a list of places. Format as P1:P2:P3 etc.')
     parser.add_argument('-t', '--trans', nargs='*', default=[], help='Limit file output to a list of transitions. Format as T1:T2:T3 etc.')
     args = parser.parse_args()
@@ -89,7 +91,7 @@ def main():
     if not args.verbose:
         blockPrint()
     wall = time.time()
-    repeat(pn, rp[0], maxSteps=rp[1], simsFactor=rp[2], fixedNumber=args.nSims, history=rp[3], analysisStep=rp[4], fileOutput=rp[5], endOnly=rp[6])
+    repeat(pn, rp[0], maxSteps=rp[1], simsFactor=rp[2], fixedNumber=args.nSims, history=rp[3], analysisStep=rp[4], fileOutput=rp[5], endOnly=rp[6], concatenate=args.concatenate)
     if not args.verbose:
         enablePrint()
     lt = time.localtime()[:6]
@@ -97,6 +99,9 @@ def main():
     print(os.getcwd())
 
 def silence(*args):
+    """
+    Dummy function to replace print in low-verbosity mode
+    """
     return
 
 def blockPrint():
@@ -1554,7 +1559,7 @@ class PetriNet(object):
             header += ('%s,' % self.trans[t].label)
         tfile.write('%s\n' % header)
         # Transitions fired at each step
-        name = 'Macchiato_PetriNet_TransList_%d.csv' % self.time
+        name = 'Macchiato_PetriNet_FireList_%d.csv' % self.time
         if self.debug:
             name = 'debug_TransList.csv'
         tlist = open(os.path.join(os.getcwd(), path, name), 'w')
@@ -1586,6 +1591,8 @@ class PetriNet(object):
         *  single : One transition is randomly selected and fired
         *  stochastic : One transition is selected for firing in proportion
            to its rates (plus instant and fixed delay transitions)
+        fireList : list
+            Transitions firing on this step.
         """
         # Places
         line = ('%d,' % self.step)
@@ -2007,6 +2014,12 @@ class PetriNet(object):
             Toggles file output
         verbose : boolean
             Toggles amount of terminal print out
+
+        Returns
+        ----------
+        lastFiles : list
+            Path to last set of three output files if fileOutput enabled.
+            Returns empty list otherwise.
         """
         # Check Petri Net has nodes
         if not len(self.places):
@@ -2128,10 +2141,13 @@ class PetriNet(object):
                 fin += ' Clock: %.2e %s' % (self.clock, self.units)
             print('='*80+fin)
             print('='*80)
+        lastFiles = []
         if fileOutput:
-            pfile.close()
-            tfile.close()
-            tlist.close()
+            for file in [pfile, tfile, tlist]:
+                lastFiles.append(os.path.realpath(file.name))
+                file.close()
+
+        return lastFiles
 
 class Place(object):
     """
@@ -2541,7 +2557,7 @@ class History(object):
         # Mark that lists for places and transitions have been created for this Petri Net structure
         self.set = True
 
-def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, history=True, fileOutput=True, endOnly=False, analysisStep=1E2):#, log=True):
+def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, history=True, fileOutput=True, endOnly=False, concatenate=False, analysisStep=1E2):#, log=True):
     """
     Automated repeated executions of a Petri Net
 
@@ -2557,10 +2573,19 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, hist
         Parametises the number of simulations conducted. Repetition of
         simulations ends once the total simulated time supasses the product
         of maxClock and simsFactor.
+    fixedNumber : integer (Default: None)
+        Set exact number of simulations to perform, overruling simsFactor and
+        maxClock parameters.
     history : boolean
         Collects and aggregates data if True
     analysisStep : float
         Time resolution of post-simulation analysis
+    fileOutput : boolean (Default: True)
+        Toggles whether results are written to file.
+    endOnly : boolean (Default: False)
+        Only the final stage of the Petri net is recorded when enabled.
+    concatenate : boolean (Default: False)
+        Condenses output files to one per type if enabled.
     # log : boolean
     #     Toggle log file
     """
@@ -2592,7 +2617,9 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, hist
         print('\n'+'='*80+'\nBeginning simulation %d:' % i)
         pn.time = i
         # Run simulation
-        pn.run(maxSteps, maxClock=maxClock, history=history, fileOutput=fileOutput, endOnly=endOnly)
+        lastFiles = pn.run(maxSteps, maxClock=maxClock, history=history, fileOutput=fileOutput, endOnly=endOnly)
+        if fileOutput and concatenate:
+            catResults(lastFiles, pn.name, pn.time, backUp.time)
         # Record place history
         for p in pn.places:
             pStats[p][0] += pn.places[p].ins
@@ -2778,6 +2805,37 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, hist
         # Print wall time
         wall = int(time.time()) - wall
         print('Analysis wall time: %d seconds' % wall)
+
+def catResults(lastFiles, name, ref, time):
+    """
+    Appends last output files to concatenated file
+
+    Parameters
+    ----------
+    lastFiles : list
+        Paths of the files to process
+    name : string
+        Petri Net label
+    ref : integer
+        Marker for current file-set
+    time : integer
+        UNIX timestamp of Petri Net
+    """
+    dir = os.path.dirname(lastFiles[0])
+    for path, info in zip(lastFiles, ['Places', 'Trans', 'FireList']):
+        # inter = ('>'*5+','+os.path.basename(path)+','+'<'*5+'\n').encode('utf-8')
+        # inter = (('>'*5+',')*3+'\n').encode('utf-8')
+        inter = ('>'*5+f',{ref},'+'<'*5+'\n').encode('utf-8')
+        with open(os.path.join(dir, f'{name}_{info}_{time}.csv'), 'ab') as allFile:
+            allFile.write(inter)
+            with open(path, 'rb') as lastFile:
+                shutil.copyfileobj(lastFile, allFile)
+        # Delete  path
+        try:
+            os.remove(path)
+        except FileNotFoundError:
+            pass
+
 
 def writeRepeatStats(summary, analysisStep, count, name, time):
     """

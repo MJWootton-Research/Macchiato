@@ -5,7 +5,7 @@
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
 ## A Simple Petri Nets Implementation
-### [Version 1-7](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
+### [Version 1-8](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
 
 © Dr. Mark James Wootton<br>
 [`m.j.wootton@sheffield.ac.uk`](mailto:m.j.wootton@sheffield.ac.uk)
@@ -109,14 +109,14 @@ In a Bash or Z Shell environment, such as is default in many Linux distributions
 
 ```bash
 # Execute Macchiato simulations from any directory
-macchiato(){ python3 $HOME/git/Macchiato/Macchiato.py $* ; }
+macchiato(){ python $HOME/git/Macchiato/Macchiato.py $* ; }
 # Make Macchiato availible for Python to import from any directory
 export PYTHONPATH=$HOME/git/Macchiato:$PYTHONPATH
 ```
 
-The changes will take effect immediately in any new terminal instance. In an existing terminal, you can update via the command `source ~/.bashrc` or `source ~/.zshrc` as appropriate.
+This assumes that Macchiato is located in the directory `$HOME/git/Macchiato`. If this is not the case, make sure that the two paths above point to the actual location of `Macchiato.py` and its parent folder respectively. On some systems, you may need to substitute `python3` for `python`.
 
-You may need to change the path `$HOME/git/Macchiato` if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` on the first line.
+The changes will take effect immediately in any new terminal instance. In an existing terminal, you can update via the command `source ~/.bashrc` or `source ~/.zshrc` as appropriate.
 
 #### PowerShell
 
@@ -227,6 +227,8 @@ If it is necessary to restrict the output in the relevant `*.cvs` files produced
 ```shell
 macchiato /path/to/PetriNet.mpn -p P0 P1 P2 -t T0 T1 T2
 ```
+
+By default, the results from each simulation are stored in separate files. However, for some systems it is preferable to concatenate these in to a single file for each of the three types of data produced. This is achieved with the flag `-c` or `--concatenate`.
 
 The help text is displayed by:
 
@@ -352,20 +354,20 @@ Importing  [`Macchiato.py`](Macchiato.py)  gives access to the `read` and `write
 
 ```python
 # Import module
-import Macchiato as MC
+import Macchiato as mc
 
 # Read *.mpn file
-pn, simParams = MC.read('/path/to/PetriNet.mpn')
+pn, simParams = mc.read('/path/to/PetriNet.mpn')
 ```
 
 Conversely, `write` takes a `PetriNet` object and writes it to an `*.mpn` file
 
 ```python
 # Import module
-import Macchiato as MC
+import Macchiato as mc
 
 # Creat a Petri Net
-pn = MC.PetriNet(name='Example')
+pn = mc.PetriNet(name='Example')
 
 # Create Petri Net stucture
 # ...
@@ -373,7 +375,7 @@ pn = MC.PetriNet(name='Example')
 # ...
 
 # Write Petri Net to *.mpn file
-MC.write(pn, overwrite=False, rp=None, altName=None)
+mc.write(pn, overwrite=False, rp=None, altName=None)
 ```
 
 Note the parameters `overwrite`, `rp`, and `altName` are optional, and respectively control whether existing files can be overwritten (default value is `False`), a `list` object containing the simulation parameters written to the file (default value is `None`, resulting in the default parameters being used, see [Simulation Parameters](#simulation-parameters)), and the name given to the Petri Net in the file produced (default value is `None`, which results in no change in name).
@@ -384,10 +386,10 @@ To create a `PetriNet` object from scratch, import the module [`Macchiato.py`](M
 
 ```python
 # Import module
-import Macchiato as MC
+import Macchiato as mc
 
 # Create instance of PetriNet object (with default values shown - these may be ommitted)
-pn = MC.PetriNet(name=None, units='hrs', runMode='schedule', dot=False,
+pn = mc.PetriNet(name=None, units='hrs', runMode='schedule', dot=False,
                  visualise=None, details=True, useGroup=True, orientation=None,
                  debug=False, dotLoc=None)
 ```
@@ -396,10 +398,10 @@ The structure of a `PetriNet` object created by either of methods discussed may 
 
 ```python
 # Import module
-import Macchiato as MC
+import Macchiato as mc
 
 # Create instance of PetriNet object
-pn = MC.PetriNet(name='Example')
+pn = mc.PetriNet(name='Example')
 # Add places
 pn.addPlace('P1', tokens=2)
 pn.addPlace('P2')
@@ -463,7 +465,7 @@ This makes it possible to run any arbitrary code between steps for highly custom
 import Macciato as MC
 
 # Create instance of PetriNet object
-pn = MC.PetriNet(name='Example')
+pn = mc.PetriNet(name='Example')
 # Add places
 pn.addPlace('P1', tokens=2)
 pn.addPlace('P2')
@@ -477,7 +479,7 @@ pn.trans['T2'].addInArc('P2', weight=2)
 pn.trans['T2'].addOutArc('P1', weight=2)
 
 # Write initial structure to *.mpn file
-MC.write(pn, altName='%s_start'%pn.name)
+mc.write(pn, altName='%s_start'%pn.name)
 
 # Write initial Petri Net marking to file
 pfile, tfile, tlist = pn.writeNetStart(pn.runMode)
@@ -508,7 +510,7 @@ tfile.close()
 tlist.close()
 
 # Write final structure to *.mpn file
-MC.write(pn, altName='%s_end'%pn.name)
+mc.write(pn, altName='%s_end'%pn.name)
 ```
 
 ### Analysis
