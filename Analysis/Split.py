@@ -25,7 +25,7 @@ def main():
                     if n:
                         out_file.close()
                     n+=1
-                    out_file = open(os.path.join(outdir, 'Macchiato_PetriNet_'+tag+f'_{n}.cvs'), 'w')
+                    out_file = open(os.path.join(outdir, 'Macchiato_PetriNet_'+tag+f'_{n}.csv'), 'w')
                     continue
                 out_file.write(line)
             out_file.close()
