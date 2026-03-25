@@ -1284,8 +1284,7 @@ class PetriNet(object):
         transition : Trans object
             The transition selected to fire
         time : float
-            The clock advancement generated (only apllies to 'stochastic'
-            mode)
+            The clock advancement generated
         """
         table = []
         time = None
@@ -1489,8 +1488,10 @@ class PetriNet(object):
                     w = 0.0
                 if w < 0.0:
                     w += trans.cyclic[0]/con
+                if w == 0.0 and self.clock == 0.0:
+                    w += trans.cyclic[0]/con
                 assert w >= 0.0
-                assert w < trans.cyclic[0]/con
+                # assert w < trans.cyclic[0]/con
                 if trans.lastFired == self.clock:
                     w += trans.cyclic[0]/con
                 wait += w
@@ -1954,7 +1955,7 @@ class PetriNet(object):
                     raise KeyError('Transition "%s" has outgoing arc to non-existant place "%s"' % (trans.label, oo.end))
         self.arcsVerified = True
 
-    def fire(self, fireList):
+    def fire(self, fireList, time):
         """
         Manages transition firing
 
@@ -1962,10 +1963,12 @@ class PetriNet(object):
         ----------
         fireList : list
             List of transitions to fire
+        time : float
+            Duration of clock advancement on firing
         """
         for trans in fireList:
             self.calcTokens(trans.label)
-            trans.lastFired = self.clock
+            trans.lastFired = self.clock + time
         self.updateTokens()
         self.clearReady()
         for trans in fireList:
@@ -2079,7 +2082,7 @@ class PetriNet(object):
                 # Update places' token holding time
                 self.updateTokenTime(time)
                 # Fire the transition(s)
-                self.fire(fireList)
+                self.fire(fireList, time)
                 # Advance step
                 self.step += 1
                 # Advance clock
@@ -2332,7 +2335,7 @@ class Trans(object):
     firedCount : integer
         Number of times this transition has been fired
     lastFired : integer
-        Indicates the last step on which the transition was fired
+        Indicates the system clock after the transition was last fired
     group : integer
         Label used to group transitions for visualisation
     """
