@@ -144,8 +144,6 @@ def expandReset(pn, reset):
             newReset += [expPlace for expPlace in expansion if expPlace not in newReset]
         for rPlace in newReset:
             assert rPlace in pn.places, (f'{rPlace} not found in places list -- cannot create reset relation.')
-        print(reset)
-        print(newReset)
         return newReset
     else:
         return reset
