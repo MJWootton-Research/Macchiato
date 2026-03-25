@@ -14,8 +14,8 @@
 ----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
-Version 1-8
-(c) Dr. Mark James Wootton 2016-2025
+Version 1-8-1
+(c) Dr. Mark James Wootton 2016-2026
 ============================================================================
 
 This file is comprised of two main sections. The former provides utilities
@@ -56,6 +56,7 @@ def main():
     parser.add_argument('file', nargs=1, metavar='input_file', type=argparse.FileType('r'), help='*.mpn file containing a Petri Net')
     parser.add_argument('nSims', nargs='?', default=None, type=int, help='Set fixed number of simulations to run [optional]')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose mode (slow)')
+    parser.add_argument('-s', '--start', nargs='?', default=0, type=int, help='Starting offset for simulation label counter')
     parser.add_argument('-c', '--concatenate', action='store_true', help='Simulation results are concatenated as a single set of three files for place, transition, and firings.')
     parser.add_argument('-p', '--places', nargs='*', default=[], help='Limit file output to a list of places. Format as P1:P2:P3 etc.')
     parser.add_argument('-t', '--trans', nargs='*', default=[], help='Limit file output to a list of transitions. Format as T1:T2:T3 etc.')
@@ -91,7 +92,7 @@ def main():
     if not args.verbose:
         blockPrint()
     wall = time.time()
-    repeat(pn, rp[0], maxSteps=rp[1], simsFactor=rp[2], fixedNumber=args.nSims, history=rp[3], analysisStep=rp[4], fileOutput=rp[5], endOnly=rp[6], concatenate=args.concatenate)
+    repeat(pn, rp[0], maxSteps=rp[1], simsFactor=rp[2], fixedNumber=args.nSims, start=args.start, history=rp[3], analysisStep=rp[4], fileOutput=rp[5], endOnly=rp[6], concatenate=args.concatenate)
     if not args.verbose:
         enablePrint()
     lt = time.localtime()[:6]
@@ -2560,7 +2561,7 @@ class History(object):
         # Mark that lists for places and transitions have been created for this Petri Net structure
         self.set = True
 
-def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, history=True, fileOutput=True, endOnly=False, concatenate=False, analysisStep=1E2):#, log=True):
+def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, start=0, history=True, fileOutput=True, endOnly=False, concatenate=False, analysisStep=1E2):#, log=True):
     """
     Automated repeated executions of a Petri Net
 
@@ -2579,6 +2580,8 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, hist
     fixedNumber : integer (Default: None)
         Set exact number of simulations to perform, overruling simsFactor and
         maxClock parameters.
+    start : integer (Default: 0)
+        Starting offset for simulation label counter
     history : boolean
         Collects and aggregates data if True
     analysisStep : float
@@ -2597,7 +2600,7 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, hist
     # Back Petri Net structure
     backUp = copy.deepcopy(pn)
 
-    i = 1
+    i = 1 + start
     summary = ''
     clock = 0.0
     histories = []
@@ -2637,10 +2640,10 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, hist
         # Update aggregated simulation time accrued
         clock += pn.clock
         # End loop if total time or simulation count limit has been reached
-        if (clock >= maxClock*simsFactor and fixedNumber is None) or i == fixedNumber:
+        if (clock >= maxClock*simsFactor and fixedNumber is None) or i-start == fixedNumber:
             # Print simulations' wall time
             wall = int(time.time() - wall)
-            summary = '='*80 + '\n%d simulations, total clock: %.5g %s (%.5g %s per simulation)\nSimulation wall time: %d seconds\n' % (i, clock, pn.units, clock/float(i), pn.units, wall) + '='*80
+            summary = '='*80 + '\n%d simulations, total clock: %.5g %s (%.5g %s per simulation)\nSimulation wall time: %d seconds\n' % (i-start, clock, pn.units, clock/float(i), pn.units, wall) + '='*80
             print('\n\n%s' % summary)
             break
         i += 1

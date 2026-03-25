@@ -63,3 +63,9 @@
 
 * Added concatenate option which reduces the number of simulation output files to one for places, transitions, and firing, plus the summary file.
 * Renamed "TransList" files to "FireList" for all modes.
+
+### Version 1-9
+
+* Fixed bug with cyclic transitions that could lead to double firing in specific circumstances
+* Corrected cyclic timing behaviour to match documentation when system clock is zero 
+* Added option to offset the labels used for repeated simulations
