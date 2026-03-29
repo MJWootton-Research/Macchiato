@@ -14,7 +14,7 @@
 ----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
-Version 1-8-1
+Version 1-10
 (c) Dr. Mark James Wootton 2016-2026
 ============================================================================
 
@@ -57,13 +57,22 @@ def main():
     parser.add_argument('nSims', nargs='?', default=None, type=int, help='Set fixed number of simulations to run [optional]')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose mode (slow)')
     parser.add_argument('-s', '--start', nargs='?', default=0, type=int, help='Starting offset for simulation label counter')
-    parser.add_argument('-c', '--concatenate', action='store_true', help='Simulation results are concatenated as a single set of three files for place, transition, and firings.')
+    parser.add_argument('-c', '--concatenate', action='store_true', help='Simulation results are concatenated as a single set of three files for places, transitions, and firings.')
     parser.add_argument('-p', '--places', nargs='*', default=[], help='Limit file output to a list of places. Format as P1:P2:P3 etc.')
     parser.add_argument('-t', '--trans', nargs='*', default=[], help='Limit file output to a list of transitions. Format as T1:T2:T3 etc.')
+    parser.add_argument('-P', '--noplacesfile', action='store_true', help='Suppress file output for places')
+    parser.add_argument('-T', '--notransfile', action='store_true', help='Suppress file output for transtions')
+    parser.add_argument('-F', '--nofirefile', action='store_true', help='Suppress file output for fire list')
     args = parser.parse_args()
 
     # Get Petri Net and simulation parameters
     pn, rp = read(args.file[0].name)
+
+    # Set file output flags
+    pn.writePlaceFile, pn.writeTransFile, pn.writeFireFile = (not args.noplacesfile, not args.notransfile, not args.nofirefile)
+
+    print(args.noplacesfile, args.notransfile, args.nofirefile)
+    print(pn.writePlaceFile, pn.writeTransFile, pn.writeFireFile)
 
     # Process place and transition print lists
     keyerr = ''
@@ -660,11 +669,19 @@ class PetriNet(object):
     transToPrint : list
         If a list of transition labels is given, only those transitions will
         be included in output files
+    writePlaceFile : boolean (Default = True)
+        Toggles file writing for places
+    writeTransFile : boolean (Default = True)
+        Toggles file writing for transitions
+    writeFireFile : boolean (Default = True)
+        Toggles file writing for fire list
+
     """
     def __init__(self, name=None, units='hrs', runMode='schedule', dot=False,
                  visualise=None, details=True, useGroup=True, orientation=None,
                  debug=False, dotLoc=None, placesToPrint=None,
-                 transToPrint=None):
+                 transToPrint=None, writePlaceFile=True, writeTransFile=True,
+                 writeFireFile=True):
         self.time = int(time.time())
         self.name = str(name)
         if name is None:
@@ -716,6 +733,10 @@ class PetriNet(object):
 
         self.placesToPrint = placesToPrint if placesToPrint is not None else []
         self.transToPrint = transToPrint if transToPrint is not None else []
+
+        self.writePlaceFile=writePlaceFile
+        self.writeTransFile=writeTransFile
+        self.writeFireFile=writeFireFile
 
         self.history = History()
         # Location of Graphviz's dot.exe:
@@ -1530,44 +1551,53 @@ class PetriNet(object):
             writen
         """
         path = os.path.join(os.getcwd(), self.name)
-        if not os.path.exists(path):
+        if not os.path.exists(path) and True in [self.writePlaceFile, self.writeTransFile, self.writeFireFile]:
             os.mkdir(path)
         # Make places file
-        name = 'Macchiato_PetriNet_Places_%d.csv' % self.time
-        if self.debug:
-            name = 'debug_Places.csv'
-        pfile = open(os.path.join(os.getcwd(), path, name), 'w')
-        header = '%s,Places,(Token Count),\nStep,'% self.name
-        if mode in ['stochastic', 'schedule']:
-            header += 'Time/%s,' % self.units
-        for p in self.places:
-            if self.placesToPrint and p not in self.placesToPrint:
-                continue
-            header += ('%s,' % self.places[p].label)
-        pfile.write('%s\n' % header)
+        if self.writePlaceFile:
+            name = 'Macchiato_PetriNet_Places_%d.csv' % self.time
+            if self.debug:
+                name = 'debug_Places.csv'
+            pfile = open(os.path.join(os.getcwd(), path, name), 'w')
+            header = '%s,Places,(Token Count),\nStep,'% self.name
+            if mode in ['stochastic', 'schedule']:
+                header += 'Time/%s,' % self.units
+            for p in self.places:
+                if self.placesToPrint and p not in self.placesToPrint:
+                    continue
+                header += ('%s,' % self.places[p].label)
+            pfile.write('%s\n' % header)
+        else:
+            pfile = None
         # Make transitions file
-        name = 'Macchiato_PetriNet_Trans_%d.csv' % self.time
-        if self.debug:
-            name = 'debug_Trans.csv'
-        tfile = open(os.path.join(os.getcwd(), path, name), 'w')
-        header = '%s,Transitions,(Fired Count),\nStep,'% self.name
-        if mode in ['stochastic', 'schedule']:
-            header += 'Time/%s,' % self.units
-        for t in self.trans:
-            if self.transToPrint and t not in self.transToPrint:
-                continue
-            header += ('%s,' % self.trans[t].label)
-        tfile.write('%s\n' % header)
+        if self.writeTransFile:
+            name = 'Macchiato_PetriNet_Trans_%d.csv' % self.time
+            if self.debug:
+                name = 'debug_Trans.csv'
+            tfile = open(os.path.join(os.getcwd(), path, name), 'w')
+            header = '%s,Transitions,(Fired Count),\nStep,'% self.name
+            if mode in ['stochastic', 'schedule']:
+                header += 'Time/%s,' % self.units
+            for t in self.trans:
+                if self.transToPrint and t not in self.transToPrint:
+                    continue
+                header += ('%s,' % self.trans[t].label)
+            tfile.write('%s\n' % header)
+        else:
+            tfile = None
         # Transitions fired at each step
-        name = 'Macchiato_PetriNet_FireList_%d.csv' % self.time
-        if self.debug:
-            name = 'debug_TransList.csv'
-        tlist = open(os.path.join(os.getcwd(), path, name), 'w')
-        header = '%s\nStep,' % self.name
-        if mode in ['stochastic', 'schedule']:
-            header += 'Time/%s,' % self.units
-        header += 'Transition,'
-        tlist.write('%s\n' % header)
+        if self.writeFireFile:
+            name = 'Macchiato_PetriNet_FireList_%d.csv' % self.time
+            if self.debug:
+                name = 'debug_TransList.csv'
+            tlist = open(os.path.join(os.getcwd(), path, name), 'w')
+            header = '%s\nStep,' % self.name
+            if mode in ['stochastic', 'schedule']:
+                header += 'Time/%s,' % self.units
+            header += 'Transition,'
+            tlist.write('%s\n' % header)
+        else:
+            tlist = None
         # Write 0th entry
         self.writeNet(pfile, tfile, tlist, mode)
         # Return file pointers
@@ -1595,30 +1625,33 @@ class PetriNet(object):
             Transitions firing on this step.
         """
         # Places
-        line = ('%d,' % self.step)
-        if mode in ['stochastic', 'schedule']:
-            line += ('%f,' % self.clock)
-        for p in self.places:
-            if self.placesToPrint and p not in self.placesToPrint:
-                continue
-            line += ('%d,' % self.places[p].tokens)
-        pfile.write('%s\n' % line)
+        if self.writePlaceFile:
+            line = ('%d,' % self.step)
+            if mode in ['stochastic', 'schedule']:
+                line += ('%f,' % self.clock)
+            for p in self.places:
+                if self.placesToPrint and p not in self.placesToPrint:
+                    continue
+                line += ('%d,' % self.places[p].tokens)
+            pfile.write('%s\n' % line)
         # Transitions
-        line = ('%d,' % self.step)
-        if mode in ['stochastic', 'schedule']:
-            line += ('%f,' % self.clock)
-        for t in self.trans:
-            if self.transToPrint and t not in self.transToPrint:
-                continue
-            line += ('%d,' % self.trans[t].firedCount)
-        tfile.write('%s\n' % line)
+        if self.writeTransFile:
+            line = ('%d,' % self.step)
+            if mode in ['stochastic', 'schedule']:
+                line += ('%f,' % self.clock)
+            for t in self.trans:
+                if self.transToPrint and t not in self.transToPrint:
+                    continue
+                line += ('%d,' % self.trans[t].firedCount)
+            tfile.write('%s\n' % line)
         # Transition List
-        line = ('%d,' % self.step)
-        if mode in ['stochastic', 'schedule']:
-            line += ('%f,' % self.clock)
-        for t in fireList:
-            line += ('%s,' % t.label)
-        tlist.write('%s\n' % line)
+        if self.writeFireFile:
+            line = ('%d,' % self.step)
+            if mode in ['stochastic', 'schedule']:
+                line += ('%f,' % self.clock)
+            for t in fireList:
+                line += ('%s,' % t.label)
+            tlist.write('%s\n' % line)
         # Visualisation
         if self.savedot:
             self.dot(mode=mode)
@@ -2146,8 +2179,11 @@ class PetriNet(object):
         lastFiles = []
         if fileOutput:
             for file in [pfile, tfile, tlist]:
-                lastFiles.append(os.path.realpath(file.name))
-                file.close()
+                if file is not None:
+                    lastFiles.append(os.path.realpath(file.name))
+                    file.close()
+                else:
+                    lastFiles.append(None)
 
         return lastFiles
 
@@ -2623,7 +2659,7 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, star
         # Run simulation
         lastFiles = pn.run(maxSteps, maxClock=maxClock, history=history, fileOutput=fileOutput, endOnly=endOnly)
         if fileOutput and concatenate:
-            catResults(lastFiles, pn.name, pn.time, backUp.time)
+            catResults(lastFiles, pn.name, pn.time, backUp.time, pn.writePlaceFile, pn.writeTransFile, pn.writeFireFile)
         # Record place history
         for p in pn.places:
             pStats[p][0] += pn.places[p].ins
@@ -2810,7 +2846,7 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, star
         wall = int(time.time()) - wall
         print('Analysis wall time: %d seconds' % wall)
 
-def catResults(lastFiles, name, ref, time):
+def catResults(lastFiles, name, ref, time, writePlaceFile, writeTransFile, writeFireFile):
     """
     Appends last output files to concatenated file
 
@@ -2824,21 +2860,37 @@ def catResults(lastFiles, name, ref, time):
         Marker for current file-set
     time : integer
         UNIX timestamp of Petri Net
+    writePlaceFile : boolean
+        Toogle for writing place data
+    writeTransFile : boolean
+        Toogle for writing transition data
+    writeFireFile : boolean
+        Toogle for writing firing list
     """
-    dir = os.path.dirname(lastFiles[0])
-    for path, info in zip(lastFiles, ['Places', 'Trans', 'FireList']):
-        # inter = ('>'*5+','+os.path.basename(path)+','+'<'*5+'\n').encode('utf-8')
-        # inter = (('>'*5+',')*3+'\n').encode('utf-8')
-        inter = ('>'*5+f',{ref},'+'<'*5+'\n').encode('utf-8')
-        with open(os.path.join(dir, f'{name}_{info}_{time}.csv'), 'ab') as allFile:
-            allFile.write(inter)
-            with open(path, 'rb') as lastFile:
-                shutil.copyfileobj(lastFile, allFile)
-        # Delete  path
+    if True not in [writePlaceFile, writeTransFile, writeFireFile]:
+        return
+    # dir = os.path.dirname(lastFiles[0])
+    for lf in lastFiles:
         try:
-            os.remove(path)
-        except FileNotFoundError:
-            pass
+            dir = os.path.dirname(lf)
+            break
+        except:
+            dir = None
+    assert dir is not None
+    for path, info, writeFile in zip(lastFiles, ['Places', 'Trans', 'FireList'], [writePlaceFile, writeTransFile, writeFireFile]):
+        if writeFile:
+            # inter = ('>'*5+','+os.path.basename(path)+','+'<'*5+'\n').encode('utf-8')
+            # inter = (('>'*5+',')*3+'\n').encode('utf-8')
+            inter = ('>'*5+f',{ref},'+'<'*5+'\n').encode('utf-8')
+            with open(os.path.join(dir, f'{name}_{info}_{time}.csv'), 'ab') as allFile:
+                allFile.write(inter)
+                with open(path, 'rb') as lastFile:
+                    shutil.copyfileobj(lastFile, allFile)
+            # Delete  path
+            try:
+                os.remove(path)
+            except FileNotFoundError:
+                pass
 
 
 def writeRepeatStats(summary, analysisStep, count, name, time):

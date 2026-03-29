@@ -5,7 +5,7 @@
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
 ## A Simple Petri Nets Implementation
-### [Version 1-9](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
+### [Version 1-10](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
 
 © Dr. Mark James Wootton<br>
 [`m.j.wootton@sheffield.ac.uk`](mailto:m.j.wootton@sheffield.ac.uk)
@@ -230,7 +230,7 @@ macchiato /path/to/PetriNet.mpn -p P0 P1 P2 -t T0 T1 T2
 
 The flag `-s` or `--start` can be used to offset the labels used for each simulation. For example, if unset, simulations are labelled 1, 2, 3, *etc*. With a value of 10, this becomes 11, 12, 13, *etc*.
 
-By default, the results from each simulation are stored in separate files. However, for some systems it is preferable to concatenate these in to a single file for each of the three types of data produced. This is achieved with the flag `-c` or `--concatenate`.
+By default, the results from each simulation are stored in separate files. However, for some systems it is preferable to concatenate these in to a single file for each of the three types of data produced. This is achieved with the flag `-c` or `--concatenate`. The flags `-P`, `-T`, and `-F`, or `--notransfile`, `--nofirefile`, `--noplacesfile`, can be used to suppress output of each of the file categories.
 
 The help text is displayed by:
 

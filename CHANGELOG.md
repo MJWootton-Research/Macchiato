@@ -69,3 +69,7 @@
 * Fixed bug with cyclic transitions that could lead to double firing in specific circumstances
 * Corrected cyclic timing behaviour to match documentation when system clock is zero 
 * Added option to offset the labels used for repeated simulations
+
+### Version 1-10
+
+* Added feature to suppress file output for places, transitions, and/or fire list
