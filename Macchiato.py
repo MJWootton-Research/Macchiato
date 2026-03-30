@@ -48,8 +48,8 @@ from builtins import print as speak
 def main():
     intro=f'''
     Macchiato – A Simple and Scriptable Petri Nets Implementation
-    Version 1-8
-    (c) Dr. Mark James Wootton 2016-2025
+    Version 1-10
+    (c) Dr. Mark James Wootton 2016-2026
     '''
     # Command line arguments and help text
     parser = argparse.ArgumentParser(prog='Macchiato', description=intro, formatter_class=RawFormatter,epilog=None)
@@ -70,9 +70,6 @@ def main():
 
     # Set file output flags
     pn.writePlaceFile, pn.writeTransFile, pn.writeFireFile = (not args.noplacesfile, not args.notransfile, not args.nofirefile)
-
-    print(args.noplacesfile, args.notransfile, args.nofirefile)
-    print(pn.writePlaceFile, pn.writeTransFile, pn.writeFireFile)
 
     # Process place and transition print lists
     keyerr = ''
