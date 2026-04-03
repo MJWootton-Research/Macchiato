@@ -40,6 +40,7 @@ def main():
 
     non_zero = [cc for cc in count if cc]
     nSims = len(non_zero)
+    std = np.std(non_zero)
     mean = np.mean(non_zero)
     meanEr = std/sqrt(nSims)
     medn = np.median(non_zero)
