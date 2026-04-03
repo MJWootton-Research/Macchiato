@@ -18,9 +18,12 @@ def main():
                     count.append(sim)
                 sim = 0
                 continue
-            if len(filter([line.split(',')[2]], tag)):
-                sim += 1
-                total += 1
+            try:
+                if len(filter([line.split(',')[2]], tag)):
+                    sim += 1
+                    total += 1
+            except IndexError:
+                pass
         count.append(sim)
     nSims = len(count)
     std = np.std(count)
