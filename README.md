@@ -62,7 +62,7 @@ See [`CITATION.cff`](https://raw.githubusercontent.com/MJWootton-Research/Macchi
   * [NumPy](https://numpy.org/) — only required by [analysis scripts](https://github.com/MJWootton-Research/Macchiato/tree/master/Analysis)
   * [Matplotlib](https://matplotlib.org/) — only required by [analysis scripts](https://github.com/MJWootton-Research/Macchiato/tree/master/Analysis)
 * [Graphiz](http://graphviz.org) — only required by [visualisation features](https://github.com/MJWootton-Research/Macchiato#graphviz)
-* [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for [graphical Petri Net construction tool](https://github.com/MJWootton-Research/Macchiato/tree/master/PetriNetDrawingTools)
+* [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for [graphical Petri Net construction tool](https://github.com/MJWootton-Research/Macchiato/tree/master/PetriNetDrawingTools/MicrosoftVisio)
 
 ## Installation
 ### Download
@@ -305,7 +305,7 @@ An incoming arc may be designated as a place conditional or inhibit arc with the
 #### Additional Transition Features
 Transitions may also be given the properties `VOTE` and `RESET`. A voting transition does not require all of its incoming arc weights to be met to become enabled. Instead, only a given threshold need be met, placed after `VOTE`, separated by a single space. For example, a transition, `T1` with the place relationship given by `T1:instant IN P1 P2 P3 OUT P4 VOTE 2` would only require two of `P1`, `P2`, and `P3` to hold a token in order to fire. Note that *all* incoming arcs whose weight is satisfied are treated normally for the purposes of removing tokens when the transition fires.
 
-A reset transition has an associated list of places, delimited by `:` and following `RESET`, separated by a single space, e.g. `RESET P1:P2:P3` (please note that colons must also be used to separate place tags in the shape data *Reset* field when working with the [Microsoft Visio](https://github.com/MJWootton-Research/Macchiato/blob/main/PetriNetDrawingTools/README.md) editor). *Glob*-style pattern recognition is supported, where `?` matches any one character, `*` matches any set of characters (including a zero-length string), `[abc]` matches any one of `a`, `b`, or `c`, and `[!abc]` matches any character except `a`, `b`, or `c`. When the transition fires, the places marked for reset are restored to the token count held at the beginning of the simulation.
+A reset transition has an associated list of places, delimited by `:` and following `RESET`, separated by a single space, e.g. `RESET P1:P2:P3` (please note that colons must also be used to separate place tags in the shape data *Reset* field when working with the [Microsoft Visio](https://github.com/MJWootton-Research/Macchiato/blob/main/PetriNetDrawingTools/MicrosoftVisio/README.md) editor). *Glob*-style pattern recognition is supported, where `?` matches any one character, `*` matches any set of characters (including a zero-length string), `[abc]` matches any one of `a`, `b`, or `c`, and `[!abc]` matches any character except `a`, `b`, or `c`. When the transition fires, the places marked for reset are restored to the token count held at the beginning of the simulation.
 
 #### Example
 
@@ -342,9 +342,9 @@ Transitions
 
 As an alternative to transcribing a Petri Net structure by hand, it is possible to graphically construct a model in Microsoft Visio and export as an `*.mpn`. This is general considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.
 
-In the directory [`PetriNetDrawingTools`](PetriNetDrawingTools), one will find a Microsoft Visio drawing and a stencil file. Create a copy of these files to produce Petri Nets graphically — both must be found in the same directory. To use the tool, make sure that stencils and shape data are set to be visible and that macros are enabled. The shortcut *Ctrl+e* will export the Petri Net to an `*.mpn` file with the properties specified in the *Parameters* object. It is recommended to export models frequently to avoid being caught out by the occasional idiosyncrasies of Microsoft Visio.
+In the directory [`PetriNetDrawingTools/MicrosoftVisio`](PetriNetDrawingTools/MicrosoftVisio), one will find a Microsoft Visio drawing and a stencil file. Create a copy of these files to produce Petri Nets graphically — both must be found in the same directory. To use the tool, make sure that stencils and shape data are set to be visible and that macros are enabled. The shortcut *Ctrl+e* will export the Petri Net to an `*.mpn` file with the properties specified in the *Parameters* object. It is recommended to export models frequently to avoid being caught out by the occasional idiosyncrasies of Microsoft Visio.
 
-[Full documentation for the tool is available here](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/README.md).
+[Full documentation for the tool is available here](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/MicrosoftVisio/README.md).
 
 ### Scripting Tools
 
