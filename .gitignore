@@ -8,6 +8,7 @@ PNBG_Models/
 *.pyc
 *.pyo
 *_WOP
+*.bkp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

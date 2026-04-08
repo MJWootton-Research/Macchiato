@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
   <diagram name="Page-1" id="w09R0wPlkSaECLNgurl3">
-    <mxGraphModel dx="2064" dy="1207" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="826" dy="483" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -170,7 +170,7 @@
             </mxGeometry>
           </mxCell>
         </object>
-        <object label="&lt;font&gt;&lt;b style=&quot;&quot;&gt;Name: %name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;units: %units%&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;maxClock: %maxClock%&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;maxSteps: %maxSteps%&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;simsFactor %simsFactor%&lt;/b&gt;&lt;/div&gt;" type="properties" name="PetriNet" units="hrs" maxClock="1E6" maxSteps="1E12" simsFactor="1.5E3" placeholders="1" id="AhunuUh0luzD3hoNHjrG-54">
+        <object label="&lt;font&gt;&lt;b style=&quot;&quot;&gt;Name: %name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;units: %units%&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;maxClock: %maxClock%&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;maxSteps: %maxSteps%&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;simsFactor: %simsFactor%&lt;/b&gt;&lt;/div&gt;" type="properties" name="PetriNet" units="hrs" maxClock="1E6" maxSteps="1E12" simsFactor="1.5E3" placeholders="1" id="AhunuUh0luzD3hoNHjrG-54">
           <mxCell parent="1" style="shape=process;html=1;backgroundOutline=1;fontFamily=Courier New;autosizeText=1;fontSize=8;whiteSpace=wrap;size=0.03810492621527759;" vertex="1">
             <mxGeometry height="80" width="80" x="40" y="40" as="geometry" />
           </mxCell>
