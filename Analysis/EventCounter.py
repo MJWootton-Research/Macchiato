@@ -34,7 +34,7 @@ def main():
     medn = np.median(count)
     mednEr = std*sqrt(pi/2*nSims)
     print(f'{tag} found {total} times in {nSims} simulations, {total/nSims} per simulation')
-    print(f'Proportion in which occuring: {prop}±{propEr}')
+    print(f'Proportion in which occurring: {prop}±{propEr}')
     print(f'Mean: {mean}±{meanEr}')
     print(f'Median: {medn}±{mednEr}')
 
