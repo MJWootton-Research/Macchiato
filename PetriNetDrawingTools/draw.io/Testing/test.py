@@ -13,7 +13,7 @@ for item in root[0][0][0]:
         iProp = ''
         # PLACES
         if atrb['type'] == 'place':
-            placeIDs[atrb['name']] = atrb['id']
+            placeIDs[atrb['id']] = atrb['name']
             iProp = 'Place: ' + atrb['name'] + ' ' + atrb['tokens']
             if atrb['min'].lower() != 'none':
                 iProp += '    MIN ' + atrb['min']
@@ -23,7 +23,7 @@ for item in root[0][0][0]:
                 iProp += '    LIM ' + atrb['limits']
         # TRANSITIONS
         if atrb['type'] == 'transition':
-            transIDs[atrb['name']] = atrb['id']
+            transIDs[atrb['id']] = atrb['name']
             for tm in timings:
                 if tm in atrb:
                     iProp += '  ' + tm + ':' + atrb[tm]
@@ -42,8 +42,23 @@ for item in root[0][0][0]:
     atrb = item.attrib
     if 'type' in atrb:
         if atrb['type'] in ['std', 'inh', 'tst', 'pcn']:
+            arcT = atrb['type']
             arcAtrb = item[0].attrib
-            print(atrb['id'] + ': ' + arcAtrb['source'] + ' to ' + arcAtrb['target'] + ' with weight ')# + arcAtrb['weight'])
+            arcID = atrb['id']
+            for itemW in root[0][0][0]:
+                try:
+                    a = itemW[0]
+                except IndexError:
+                    continue
+                if 'parent' in itemW[0].attrib:
+                    if itemW[0].attrib['parent'] == arcID:
+                        weight = itemW.attrib['weight'] if itemW.attrib['weight'] else 1
+
+            source = placeIDs[arcAtrb['source']] if arcAtrb['source'] in placeIDs else transIDs[arcAtrb['source']]
+            target = placeIDs[arcAtrb['target']] if arcAtrb['target'] in placeIDs else transIDs[arcAtrb['target']]
+            # print(arcID + ': ' + arcAtrb['source'] + ' to ' + arcAtrb['target'] + f' with weight {weight}')
+            print(arcID + ': ' + source + ' to ' + target + f' with weight {weight}, type {arcT}')
+            # exit()
             # print(item[0].attrib)
             # print(atrb)
         # STANDARD ARCS
@@ -54,3 +69,6 @@ for item in root[0][0][0]:
         # PRINT
         # if iProp:
         #     print(iProp)
+
+# print(placeIDs)
+# print(transIDs)
