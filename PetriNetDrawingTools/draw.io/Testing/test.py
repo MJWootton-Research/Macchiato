@@ -4,9 +4,37 @@ import xml.etree.ElementTree as ET
 tree = ET.parse(sys.argv[1])
 root = tree.getroot()
 
+import Macchiato as mc
+
 timings = ['delay','uniform','cyclic','weibull','rate','lognorm','beta']
 placeIDs = OD()
 transIDs = OD()
+
+name = None
+units = 'hrs'
+maxClock = None
+maxSteps = None
+simsFactor = None
+for item in root[0][0][0]:
+    atrb = item.attrib
+    if 'type' in atrb:
+        # Petri Net Properties
+        if atrb['type'] == 'properties':
+            if name is not None:
+                raise RuntimeError('Multiple properties object found')
+            else:
+                name = atrb['name']
+            print('Name:', atrb['name'])
+            print('units:', atrb['units'])
+            print('maxClock:', atrb['maxClock'])
+            print('maxSteps:', atrb['maxSteps'])
+            print('simsFactor:', atrb['simsFactor'])
+print()
+pn = mc.PetriNet(
+    name=name,
+    units=units,
+)
+
 for item in root[0][0][0]:
     atrb = item.attrib
     if 'type' in atrb:
@@ -21,8 +49,17 @@ for item in root[0][0][0]:
                 iProp += '    MAX ' + atrb['max']
             if atrb['limits'].lower() != 'none':
                 iProp += '    LIM ' + atrb['limits']
+
+            ##########
+            pn.addPlace(
+                atrb['name'],
+                int(atrb['tokens']),
+                min=0 if atrb['min'].lower() == 'none' else atrb['min'],
+                max=None if atrb['max'].lower() == 'none' else atrb['max'],
+                limits=None if atrb['limits'].lower() == 'none' else atrb['limits'].split(':'),
+            )
         # TRANSITIONS
-        if atrb['type'] == 'transition':
+        elif atrb['type'] == 'transition':
             transIDs[atrb['id']] = atrb['name']
             for tm in timings:
                 if tm in atrb:
@@ -34,6 +71,9 @@ for item in root[0][0][0]:
             if atrb['maxFire'].lower() != 'none':
                 iProp += '    MAX ' + atrb['maxFire']
             iProp = 'Trans: ' + atrb['name'] + ':' + iProp
+
+            ##########
+            # pn.addTrans()
         # PRINT
         if iProp:
             print(iProp)
@@ -56,11 +96,8 @@ for item in root[0][0][0]:
 
             source = placeIDs[arcAtrb['source']] if arcAtrb['source'] in placeIDs else transIDs[arcAtrb['source']]
             target = placeIDs[arcAtrb['target']] if arcAtrb['target'] in placeIDs else transIDs[arcAtrb['target']]
-            # print(arcID + ': ' + arcAtrb['source'] + ' to ' + arcAtrb['target'] + f' with weight {weight}')
             print(arcID + ': ' + source + ' to ' + target + f' with weight {weight}, type {arcT}')
-            # exit()
-            # print(item[0].attrib)
-            # print(atrb)
+
         # STANDARD ARCS
         # if atrb['type'] == 'std':
         # TEST ARCS
