@@ -14,7 +14,7 @@
 ----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
-Version 1-10-1
+Version 1-11-BETA
 (c) Dr. Mark James Wootton 2016-2026
 ============================================================================
 
@@ -41,6 +41,7 @@ import subprocess
 import collections
 from platform import system
 from builtins import print as speak
+import xml.etree.ElementTree as ET
 
 ############################################################################
 # File and Simulation Management Utilities
@@ -53,7 +54,7 @@ def main():
     '''
     # Command line arguments and help text
     parser = argparse.ArgumentParser(prog='Macchiato', description=intro, formatter_class=RawFormatter,epilog=None)
-    parser.add_argument('file', nargs=1, metavar='input_file', type=argparse.FileType('r'), help='*.mpn file containing a Petri Net')
+    parser.add_argument('file', nargs=1, metavar='input_file', type=argparse.FileType('r'), help='*.mpn, *.drawio, or *.xml file containing a Petri Net')
     parser.add_argument('nSims', nargs='?', default=None, type=int, help='Set fixed number of simulations to run [optional]')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose mode (slow)')
     parser.add_argument('-s', '--start', nargs='?', default=0, type=int, help='Starting offset for simulation label counter')
@@ -63,10 +64,11 @@ def main():
     parser.add_argument('-P', '--noplacesfile', action='store_true', help='Suppress file output for places')
     parser.add_argument('-T', '--notransfile', action='store_true', help='Suppress file output for transtions')
     parser.add_argument('-F', '--nofirefile', action='store_true', help='Suppress file output for fire list')
+    parser.add_argument('-x', '--xmlconvert', action='store_true', help='Convert *.drawio/*.xml file to *.mpn')
     args = parser.parse_args()
 
     # Get Petri Net and simulation parameters
-    pn, rp = read(args.file[0].name)
+    pn, rp = read(args.file[0].name, xmlconvert=args.xmlconvert)
 
     # Set file output flags
     pn.writePlaceFile, pn.writeTransFile, pn.writeFireFile = (not args.noplacesfile, not args.notransfile, not args.nofirefile)
@@ -154,7 +156,7 @@ def expandReset(pn, reset):
     else:
         return reset
 
-def read(file):
+def read(file, xmlconvert=False):
     """
     Reads Macchiato Petri Net (.mpn) files and returns structure in PetriNet
     object
@@ -163,6 +165,8 @@ def read(file):
     ----------
     file : string
         File path of .mpn file
+    xmlconvert : boolean (Default: False)
+        Creates *.mpn from provided *.drawio/*.xml file if True
 
     Returns
     ----------
@@ -196,218 +200,338 @@ def read(file):
     mode = None
 
     # Check file type
-    if not file.endswith('.mpn'):
+    if file.endswith('.mpn'):
+        # Macchiato Petri net file (*.mpn)
+        for line in open(file, 'r'):
+            # Skip blank lines
+            if not len(line.lstrip()):
+                continue
+            # Skip comment lines
+            if line.lstrip()[0] == '#':
+                continue
+            # Ignore line-end comments
+            line = line.split('#')[0]
+
+            # Split line for analysis
+            spln = line.split()
+
+            # Cut white space characters from line for easy inclusion in error messages
+            line = line.strip()
+
+            if spln[0] in ['Places', 'Transitions']:
+                # Create PetriNet object
+                if mode is None:
+                    pn = PetriNet(name=name, units=units, runMode=runMode, dot=dot,
+                                  visualise=visualise, details=details, useGroup=useGroup,
+                                  orientation=orientation, debug=debug, dotLoc=dotLoc)
+                mode = spln[0]
+                continue
+
+            if mode is None:
+                # Petri Net Parameters
+                if spln[0] == 'name':
+                    name = spln[1]
+                elif spln[0] == 'units':
+                    units = spln[1]
+                elif spln[0] == 'runMode':
+                    runMode = spln[1]
+                elif spln[0] == 'dot':
+                    dot = (spln[1].upper() == 'TRUE')
+                elif spln[0] == 'visualise':
+                    if spln[1] == 'None':
+                        visualise = None
+                    else:
+                        visualise = spln[1]
+                elif spln[0] == 'details':
+                    details = (spln[1].upper() == 'TRUE')
+                elif spln[0] == 'useGroup':
+                    useGroup = (spln[1].upper() == 'TRUE')
+                elif spln[0] == 'orientation':
+                    if spln[1] == 'None':
+                        orientation = None
+                    else:
+                        orientation = spln[1]
+                elif spln[0] == 'debug':
+                    debug = (spln[1].upper() == 'TRUE')
+                elif spln[0] == 'dotLoc':
+                    dotLoc = spln[1]
+                    if len(spln) > 2:
+                        for i in spln[2:]:
+                            dotLoc += ' %s' % i
+                    elif spln[1] == 'None':
+                        dotLoc = None
+
+                # Run Parameters
+                elif spln[0] == 'maxClock':
+                    maxClock = float(spln[1])
+                elif spln[0] == 'maxSteps':
+                    maxSteps = float(spln[1])
+                elif spln[0] == 'simsFactor':
+                    simsFactor = float(spln[1])
+                elif spln[0] == 'history':
+                    history = (spln[1].upper() == 'TRUE')
+                elif spln[0] == 'analysisStep':
+                    analysisStep = float(spln[1])
+                elif spln[0] == 'fileOutput':
+                    fileOutput = (spln[1].upper() == 'TRUE')
+                elif spln[0] == 'endOnly':
+                    endOnly = (spln[1].upper() == 'TRUE')
+
+                else:
+                    raise KeyError('Unknown parameter')
+
+            # Add places to Petri Net
+            elif mode == 'Places':
+                label = spln[0]
+                tokens = 0
+                group = None
+                # Slightly odd code here for legacy reasons.
+                if len(spln) > 1:
+                    if 'GROUP' in spln[-2]:
+                        # print(spln)
+                        group = int(spln[-1])
+                        if len(spln) > 3:
+                            tokens = int(spln[1])
+                    else:
+                        tokens = int(spln[1])
+                pn.addPlace(label, tokens=tokens, group=group)
+            # Add transitions to Petri Net
+            elif mode == 'Transitions':
+                tMode = None
+                label = ''
+                type = 'instant'
+                read = ''
+                for info in spln:
+                    if info == 'IN':
+                        tMode = 'IN'
+                        continue
+                    elif info == 'OUT':
+                        tMode = 'OUT'
+                        continue
+                    elif info == 'RESET':
+                        tMode = 'RESET'
+                        continue
+                    elif info == 'MAX':
+                        tMode = 'MAX'
+                        continue
+                    elif info == 'VOTE':
+                        tMode = 'VOTE'
+                        continue
+                    elif info == 'GROUP':
+                        tMode = 'GROUP'
+                        continue
+
+                    # Get transition type
+                    if tMode == None:
+                        read = info.split(':')
+                        label = read[0]
+                        try:
+                            type = read[1]
+                        except:
+                            raise KeyError('Error reading transition type from: %r\n[%s]' % (read, line))
+                        if type not in ['instant', 'rate', 'uniform', 'delay', 'weibull', 'beta', 'lognorm', 'cyclic']:
+                            if not type:
+                                raise KeyError('No type given for transition "%s"' % (label))
+                            raise KeyError('Unrecognised type "%r" for transition "%s"' % (type, label))
+
+                        try:
+                            if type == 'instant':
+                                pn.addTrans(label)
+                            elif type == 'rate':
+                                pn.addTrans(label, rate=float(read[2]))
+                            elif type == 'uniform':
+                                pn.addTrans(label, uniform=float(read[2]))
+                            elif type == 'delay':
+                                pn.addTrans(label, delay=float(read[2]))
+                            elif type == 'weibull':
+                                mt = float(read[2])
+                                beta = float(read[3])
+                                try:
+                                    sigma = float(read[4])
+                                except:
+                                    sigma = 0.0
+                                pn.addTrans(label, weibull=[mt, beta, sigma])
+                            elif type == 'beta':
+                                alpha = float(read[2])
+                                beta = float(read[3])
+                                try:
+                                    scale = float(read[4])
+                                except:
+                                    scale = 1
+                                pn.addTrans(label, beta=[alpha, beta, scale])
+                            elif type == 'lognorm':
+                                pn.addTrans(label, lognorm=[float(read[2]), float(read[3])])
+                            elif type == 'cyclic':
+                                pn.addTrans(label, cyclic=[float(read[2]), float(read[3])])
+                        except ValueError:
+                            sys.exit('ValueError creating transition "%s" with input: %r\n[%s]' % (label, read, line))
+                        except KeyError:
+                            sys.exit('KeyError creating transition "%s" with input: %r\n[%s] (posible duplicated name)' % (label, read, line))
+                        except:
+                            sys.exit('Miscellaneous error creating transition "%s" with input: %r\n[%s]' % (label, read, line))
+
+                    # Add incoming arcs to transition
+                    elif tMode == 'IN':
+                        type = 'std'
+                        weight = 1
+                        if 'inh' in info:
+                            type = 'inh'
+                        elif 'pcn' in info or 'pch' in info: # 'pch' appears in Visio macro generated input files instead of 'pcn'
+                            type = 'pcn'
+                        read = info.split(':')
+                        if len(read) > 1 and read[1] not in ['inh', 'pcn']:
+                            if type not in ['pcn']:
+                                weight = int(read[1])
+                            else:
+                                weight = float(read[1])
+                        pn.trans[label].addInArc(read[0], weight=weight, type=type)
+                    # Add outgoing arcs to transition
+                    elif tMode == 'OUT':
+                        weight = 1
+                        read = info.split(':')
+                        if len(read) > 1:
+                            badArc = False
+                            if 'inh' in info:
+                                badArc = 'inhibit'
+                            elif 'pcn' in info:
+                                badArc = 'place conditional'
+                            if badArc is not False:
+                                raise ValueError('Attempt to create %s arc from transition, "%s", to place, "%s". Outgoing arcs may only be of standard type, and %s arcs can only run from a place to a transtion.' % (badArc, label, read[0], badArc))
+                            weight = int(read[1])
+                        pn.trans[label].addOutArc(read[0], weight=weight)
+                    # Assign places to reset on fire
+                    elif tMode == 'RESET':
+                        pn.trans[label].reset = expandReset(pn, info.split(':'))
+                    # Set maxium number of times a transition can fire
+                    elif tMode == 'MAX':
+                        pn.trans[label].maxFire = int(info)
+                    # Create voting threshold
+                    elif tMode == 'VOTE':
+                        pn.trans[label].vote = int(info)
+                    # Assign grouping to transition
+                    elif tMode == 'GROUP':
+                        pn.trans[label].group = int(info)
+    elif True in [file.endswith(dx) for dx in['.drawio', '.xml']]:
+        # Convert from drawio/xml
+        nothing = ['', 'none']
+        timings = ['delay','uniform','cyclic','weibull','rate','lognorm','beta']
+        placeIDs = collections.OrderedDict()
+        transIDs = collections.OrderedDict()
+        properties = False
+        # Get file
+        tree = ET.parse(file)
+        root = tree.getroot()
+        # Loop through objects
+        for item in root[0][0][0]:
+            atrb = item.attrib
+            if 'type' in atrb:
+                # Petri Net Properties
+                if atrb['type'] == 'properties':
+                    if properties:
+                        raise RuntimeError('Multiple properties object found')
+                    else:
+                        name = atrb['name']
+                        properties = True
+                    maxClock = float(atrb['maxClock'])
+                    maxSteps = float(atrb['maxSteps'])
+                    simsFactor = float(atrb['simsFactor'])
+        pn = PetriNet(name=name, units=units, runMode=runMode, dot=dot,
+                      visualise=visualise, details=details, useGroup=useGroup,
+                      orientation=orientation, debug=debug, dotLoc=dotLoc)
+
+        for item in root[0][0][0]:
+            atrb = item.attrib
+            if 'type' in atrb:
+                iProp = ''
+                # PLACES
+                if atrb['type'] == 'place':
+                    placeIDs[atrb['id']] = atrb['name']
+                    pn.addPlace(
+                        atrb['name'],
+                        tokens=int(atrb['tokens']),
+                        min=0 if atrb['min'].lower() in nothing else int(atrb['min']),
+                        max=None if atrb['max'].lower() in nothing else int(atrb['max']),
+                        limits=None if atrb['limits'].lower() in nothing else [int(lim) for lim in atrb['limits'].split(':')],
+                    )
+                # TRANSITIONS
+                elif atrb['type'] == 'transition':
+                    transIDs[atrb['id']] = atrb['name']
+                    maxFire = None if atrb['maxFire'].lower() in nothing else int(atrb['maxFire'])
+                    reset = None if atrb['reset'].lower() in nothing else atrb['reset']
+                    vote = None if atrb['vote'].lower() in nothing else int(atrb['vote'])
+                    instant = True
+                    for tm in timings:
+                        if tm in atrb:
+                            instant = False
+                            exec(f"pn.addTrans(atrb['name'], {tm}={[float(atm) for atm in atrb[tm].split(':')] if ':' in atrb[tm] else float(atrb[tm])}, maxFire={maxFire}, reset={reset}, vote={vote})")
+                            break
+                    if instant:
+                        pn.addTrans(atrb['name'], maxFire=maxFire, reset=reset, vote=vote)
+
+        for item in root[0][0][0]:
+            atrb = item.attrib
+            if 'type' in atrb:
+                if atrb['type'] in ['std', 'inh', 'tst', 'pcn']:
+                    arcT = atrb['type']
+                    arcAtrb = item[0].attrib
+                    arcID = atrb['id']
+                    for itemW in root[0][0][0]:
+                        try:
+                            a = itemW[0]
+                        except IndexError:
+                            continue
+                        if 'parent' in itemW[0].attrib:
+                            if itemW[0].attrib['parent'] == arcID:
+                                weight = itemW.attrib['weight'] if itemW.attrib['weight'] else 1
+
+                    weight = float(weight) if arcT == 'pcn' else int(weight)
+                    source = placeIDs[arcAtrb['source']] if arcAtrb['source'] in placeIDs else transIDs[arcAtrb['source']]
+                    target = placeIDs[arcAtrb['target']] if arcAtrb['target'] in placeIDs else transIDs[arcAtrb['target']]
+
+                    if (source and not target) or (target and not source):
+                        raise RuntimeError(f'Loose arc attached to {source+target} without connection at other end.')
+                    elif not source and not targe:
+                        raise RuntimeError(f'Floating arc detected, ID: {arcID}. Check all connectivity.')
+
+                    if arcAtrb['source'] in placeIDs and arcAtrb['target'] in placeIDs:
+                        raise RuntimeError(f'Cannot create arc from place to place ({placeIDs[arcAtrb["source"]]} & {placeIDs[arcAtrb["target"]]})')
+                    elif arcAtrb['source'] in transIDs and arcAtrb['target'] in transIDs:
+                        raise RuntimeError(f'Cannot create arc from transition to transition ({transIDs[arcAtrb["source"]]} & {transIDs[arcAtrb["target"]]})')
+
+                    if source in pn.trans:
+                        if arcT not in ['std', 'tst']:
+                            raise TypeError(f'Outgoing arc must be standard (std/tst) type. Check transition {source}')
+                        pn.trans[source].addOutArc(target, weight=weight)
+                        if arcT == 'tst':
+                            pn.trans[source].addInArc(target, weight=weight)
+                    elif target in pn.trans:
+                        pn.trans[target].addInArc(source, weight=weight, type=arcT if arcT != 'tst' else 'std')
+                        if arcT == 'tst':
+                            pn.trans[target].addOutArc(source, weight=weight)
+                    else:
+                        print('Dumping place keys:')
+                        print(pn.places.keys())
+                        print('Dumping transition keys:')
+                        print(pn.trans.keys())
+                        raise RuntimeError(f'Unable to create arc from {source} to {target}. Check labels and connectivity.')
+
+        if xmlconvert:
+            write(
+                pn,
+                overwrite=True,
+                rp=[
+                    maxClock,
+                    maxSteps,
+                    simsFactor,
+                    history,
+                    analysisStep,
+                    fileOutput,
+                    endOnly,
+                ]
+            )
+    else:
         print('Warning: Given file is not ".mpn"')
         time.sleep(1)
-    for line in open(file, 'r'):
-        # Skip blank lines
-        if not len(line.lstrip()):
-            continue
-        # Skip comment lines
-        if line.lstrip()[0] == '#':
-            continue
-        # Ignore line-end comments
-        line = line.split('#')[0]
-
-        # Split line for analysis
-        spln = line.split()
-
-        # Cut white space characters from line for easy inclusion in error messages
-        line = line.strip()
-
-        if spln[0] in ['Places', 'Transitions']:
-            # Create PetriNet object
-            if mode is None:
-                pn = PetriNet(name=name, units=units, runMode=runMode, dot=dot,
-                              visualise=visualise, details=details, useGroup=useGroup,
-                              orientation=orientation, debug=debug, dotLoc=dotLoc)
-            mode = spln[0]
-            continue
-
-        if mode is None:
-            # Petri Net Parameters
-            if spln[0] == 'name':
-                name = spln[1]
-            elif spln[0] == 'units':
-                units = spln[1]
-            elif spln[0] == 'runMode':
-                runMode = spln[1]
-            elif spln[0] == 'dot':
-                dot = (spln[1].upper() == 'TRUE')
-            elif spln[0] == 'visualise':
-                if spln[1] == 'None':
-                    visualise = None
-                else:
-                    visualise = spln[1]
-            elif spln[0] == 'details':
-                details = (spln[1].upper() == 'TRUE')
-            elif spln[0] == 'useGroup':
-                useGroup = (spln[1].upper() == 'TRUE')
-            elif spln[0] == 'orientation':
-                if spln[1] == 'None':
-                    orientation = None
-                else:
-                    orientation = spln[1]
-            elif spln[0] == 'debug':
-                debug = (spln[1].upper() == 'TRUE')
-            elif spln[0] == 'dotLoc':
-                dotLoc = spln[1]
-                if len(spln) > 2:
-                    for i in spln[2:]:
-                        dotLoc += ' %s' % i
-                elif spln[1] == 'None':
-                    dotLoc = None
-
-            # Run Parameters
-            elif spln[0] == 'maxClock':
-                maxClock = float(spln[1])
-            elif spln[0] == 'maxSteps':
-                maxSteps = float(spln[1])
-            elif spln[0] == 'simsFactor':
-                simsFactor = float(spln[1])
-            elif spln[0] == 'history':
-                history = (spln[1].upper() == 'TRUE')
-            elif spln[0] == 'analysisStep':
-                analysisStep = float(spln[1])
-            elif spln[0] == 'fileOutput':
-                fileOutput = (spln[1].upper() == 'TRUE')
-            elif spln[0] == 'endOnly':
-                endOnly = (spln[1].upper() == 'TRUE')
-
-            else:
-                raise KeyError('Unknown parameter')
-
-        # Add places to Petri Net
-        elif mode == 'Places':
-            label = spln[0]
-            tokens = 0
-            group = None
-            # Slightly odd code here for legacy reasons.
-            if len(spln) > 1:
-                if 'GROUP' in spln[-2]:
-                    # print(spln)
-                    group = int(spln[-1])
-                    if len(spln) > 3:
-                        tokens = int(spln[1])
-                else:
-                    tokens = int(spln[1])
-            pn.addPlace(label, tokens=tokens, group=group)
-        # Add transitions to Petri Net
-        elif mode == 'Transitions':
-            tMode = None
-            label = ''
-            type = 'instant'
-            read = ''
-            for info in spln:
-                if info == 'IN':
-                    tMode = 'IN'
-                    continue
-                elif info == 'OUT':
-                    tMode = 'OUT'
-                    continue
-                elif info == 'RESET':
-                    tMode = 'RESET'
-                    continue
-                elif info == 'MAX':
-                    tMode = 'MAX'
-                    continue
-                elif info == 'VOTE':
-                    tMode = 'VOTE'
-                    continue
-                elif info == 'GROUP':
-                    tMode = 'GROUP'
-                    continue
-
-                # Get transition type
-                if tMode == None:
-                    read = info.split(':')
-                    label = read[0]
-                    try:
-                        type = read[1]
-                    except:
-                        raise KeyError('Error reading transition type from: %r\n[%s]' % (read, line))
-                    if type not in ['instant', 'rate', 'uniform', 'delay', 'weibull', 'beta', 'lognorm', 'cyclic']:
-                        if not type:
-                            raise KeyError('No type given for transition "%s"' % (label))
-                        raise KeyError('Unrecognised type "%r" for transition "%s"' % (type, label))
-
-                    try:
-                        if type == 'instant':
-                            pn.addTrans(label)
-                        elif type == 'rate':
-                            pn.addTrans(label, rate=float(read[2]))
-                        elif type == 'uniform':
-                            pn.addTrans(label, uniform=float(read[2]))
-                        elif type == 'delay':
-                            pn.addTrans(label, delay=float(read[2]))
-                        elif type == 'weibull':
-                            mt = float(read[2])
-                            beta = float(read[3])
-                            try:
-                                sigma = float(read[4])
-                            except:
-                                sigma = 0.0
-                            pn.addTrans(label, weibull=[mt, beta, sigma])
-                        elif type == 'beta':
-                            alpha = float(read[2])
-                            beta = float(read[3])
-                            try:
-                                scale = float(read[4])
-                            except:
-                                scale = 1
-                            pn.addTrans(label, beta=[alpha, beta, scale])
-                        elif type == 'lognorm':
-                            pn.addTrans(label, lognorm=[float(read[2]), float(read[3])])
-                        elif type == 'cyclic':
-                            pn.addTrans(label, cyclic=[float(read[2]), float(read[3])])
-                    except ValueError:
-                        sys.exit('ValueError creating transition "%s" with input: %r\n[%s]' % (label, read, line))
-                    except KeyError:
-                        sys.exit('KeyError creating transition "%s" with input: %r\n[%s] (posible duplicated name)' % (label, read, line))
-                    except:
-                        sys.exit('Miscellaneous error creating transition "%s" with input: %r\n[%s]' % (label, read, line))
-
-                # Add incoming arcs to transition
-                elif tMode == 'IN':
-                    type = 'std'
-                    weight = 1
-                    if 'inh' in info:
-                        type = 'inh'
-                    elif 'pcn' in info or 'pch' in info: # 'pch' appears in Visio macro generated input files instead of 'pcn'
-                        type = 'pcn'
-                    read = info.split(':')
-                    if len(read) > 1 and read[1] not in ['inh', 'pcn']:
-                        if type not in ['pcn']:
-                            weight = int(read[1])
-                        else:
-                            weight = float(read[1])
-                    pn.trans[label].addInArc(read[0], weight=weight, type=type)
-                # Add outgoing arcs to transition
-                elif tMode == 'OUT':
-                    weight = 1
-                    read = info.split(':')
-                    if len(read) > 1:
-                        badArc = False
-                        if 'inh' in info:
-                            badArc = 'inhibit'
-                        elif 'pcn' in info:
-                            badArc = 'place conditional'
-                        if badArc is not False:
-                            raise ValueError('Attempt to create %s arc from transition, "%s", to place, "%s". Outgoing arcs may only be of standard type, and %s arcs can only run from a place to a transtion.' % (badArc, label, read[0], badArc))
-                        weight = int(read[1])
-                    pn.trans[label].addOutArc(read[0], weight=weight)
-                # Assign places to reset on fire
-                elif tMode == 'RESET':
-                    pn.trans[label].reset = expandReset(pn, info.split(':'))
-                # Set maxium number of times a transition can fire
-                elif tMode == 'MAX':
-                    pn.trans[label].maxFire = int(info)
-                # Create voting threshold
-                elif tMode == 'VOTE':
-                    pn.trans[label].vote = int(info)
-                # Assign grouping to transition
-                elif tMode == 'GROUP':
-                    pn.trans[label].group = int(info)
 
     # Return complete PetriNet and simulation run options
     return pn, [maxClock, maxSteps, simsFactor, history, analysisStep, fileOutput, endOnly]
@@ -2626,6 +2750,9 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, star
     # log : boolean
     #     Toggle log file
     """
+    if fixedNumber < 1:
+        print(f'{fixedNumber} simulations requested -- exitting.')
+        return
     # Wall time log
     wall = int(time.time())
     # Back Petri Net structure

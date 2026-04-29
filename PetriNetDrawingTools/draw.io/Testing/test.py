@@ -61,7 +61,7 @@ for item in root[0][0][0]:
             ##########
             pn.addPlace(
                 atrb['name'],
-                int(atrb['tokens']),
+                tokens=int(atrb['tokens']),
                 min=0 if atrb['min'].lower() in nothing else atrb['min'],
                 max=None if atrb['max'].lower() in nothing else atrb['max'],
                 limits=None if atrb['limits'].lower() in nothing else atrb['limits'].split(':'),
@@ -131,7 +131,7 @@ for item in root[0][0][0]:
             elif target in pn.trans:
                 pn.trans[target].addInArc(source, weight=weight, type=arcT if arcT != 'tst' else 'std')
                 if arcT == 'tst':
-                    pn.trans[target].addOutArc(target, weight=weight)
+                    pn.trans[target].addOutArc(source, weight=weight)
             else:
                 print(pn.places.keys())
                 print(pn.trans.keys())

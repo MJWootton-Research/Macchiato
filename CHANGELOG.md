@@ -77,3 +77,7 @@
 #### Version 1-10-1
 
 * Bug fixes for `*.mpn` file write function
+
+### Version 1-10-BETA
+
+* Test version of new drawio (xml) support
