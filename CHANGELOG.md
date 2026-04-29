@@ -24,7 +24,7 @@
 
 #### Version 1-4-4
 
-* Removed case sensitivity of Boolean options in *.mpn files
+* Removed case sensitivity of Boolean options in `*.mpn` files
 
 #### Version 1-4-5
 
@@ -73,3 +73,7 @@
 ### Version 1-10
 
 * Added feature to suppress file output for places, transitions, and/or fire list
+
+#### Version 1-10-1
+
+* Bug fixes for `*.mpn` file write function
