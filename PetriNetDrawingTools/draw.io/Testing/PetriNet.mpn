@@ -1,0 +1,39 @@
+# Petri Net Parameters
+	name PetriNet
+	units hrs
+	runMode schedule
+	dot False
+	visualise None
+	details True
+	useGroup True
+	orientation None
+	debug False
+	dotLoc None
+
+# Run Parameters
+	maxClock 1e+06
+	maxSteps 1000000000000
+	simsFactor 1500
+	history False
+	analysisStep 100.000000
+	fileOutput True
+	endOnly False
+
+# Build Petri Net
+Places
+	P1 1
+	P2
+	P3
+	P4
+	P5
+	P6
+
+Transitions
+	T_instant:instant IN P6 OUT P1 RESET P5 MAX 10
+	T_Weibull:weibull:1.000000:1.000000:0.000000 IN P1 OUT P2
+	T_lognorm:lognorm:1.000000:1.000000 IN P3:2:inh P2 OUT P4
+	T_uniform:uniform:1.000000 IN P3:2 OUT P6
+	T_delay:delay:1.000000 IN P4:2.0:pcn P3:pcn P5 OUT P6
+	T_rate:rate:1.000000 IN P2 P1:inh OUT P5
+	T_beta:beta:1.000000:2.000000:0.750000 IN P2 OUT T_beta P3 VOTE 1
+	T_cyclic:cyclic:1.000000:0.000000 IN P3:2 P4 OUT T_cyclic:2 P6

@@ -9,42 +9,42 @@
             <mxGeometry height="80" width="80" x="200" y="40" as="geometry" />
           </mxCell>
         </object>
-        <object label="%name%" placeholders="1" type="transition" name="T_instant" maxFire="None" reset="None" id="AhunuUh0luzD3hoNHjrG-21">
+        <object label="%name%" placeholders="1" type="transition" name="T_instant" maxFire="" reset="" vote="" id="AhunuUh0luzD3hoNHjrG-21">
           <mxCell parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Courier New;fontStyle=1;fontSize=14;fillColor=#D8D8D8;" vertex="1">
             <mxGeometry height="80" width="80" x="360" y="40" as="geometry" />
           </mxCell>
         </object>
-        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;W:%weibull%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_Weibull" maxFire="None" reset="None" weibull="1:1" id="AhunuUh0luzD3hoNHjrG-23">
+        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;W:%weibull%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_Weibull" maxFire="" reset="" weibull="1:1" vote="" id="AhunuUh0luzD3hoNHjrG-23">
           <mxCell parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Courier New;fontStyle=1;fontSize=14;" vertex="1">
             <mxGeometry height="80" width="80" x="360" y="200" as="geometry" />
           </mxCell>
         </object>
-        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;L:%lognorm%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_lognorm" maxFire="None" reset="None" lognorm="1:1" id="AhunuUh0luzD3hoNHjrG-24">
+        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;L:%lognorm%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_lognorm" maxFire="" reset="" lognorm="1:1" vote="" id="AhunuUh0luzD3hoNHjrG-24">
           <mxCell parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Courier New;fontStyle=1;fontSize=14;" vertex="1">
             <mxGeometry height="80" width="80" x="520" y="200" as="geometry" />
           </mxCell>
         </object>
-        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;U:%uniform%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_uniform" maxFire="None" reset="None" uniform="1" id="AhunuUh0luzD3hoNHjrG-25">
+        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;U:%uniform%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_uniform" maxFire="" reset="" uniform="1" vote="" id="AhunuUh0luzD3hoNHjrG-25">
           <mxCell parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Courier New;fontStyle=1;fontSize=14;" vertex="1">
             <mxGeometry height="80" width="80" x="680" y="40" as="geometry" />
           </mxCell>
         </object>
-        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;D:%delay%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_delay" maxFire="None" reset="None" delay="1" id="AhunuUh0luzD3hoNHjrG-26">
+        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;D:%delay%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_delay" maxFire="" reset="" delay="1" vote="" id="AhunuUh0luzD3hoNHjrG-26">
           <mxCell parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Courier New;fontStyle=1;fontSize=14;" vertex="1">
             <mxGeometry height="80" width="80" x="520" y="40" as="geometry" />
           </mxCell>
         </object>
-        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;R:%rate%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_rate" maxFire="None" reset="None" rate="1" id="AhunuUh0luzD3hoNHjrG-27">
+        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;R:%rate%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_rate" maxFire="" reset="" rate="1" vote="" id="AhunuUh0luzD3hoNHjrG-27">
           <mxCell parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Courier New;fontStyle=1;fontSize=14;" vertex="1">
             <mxGeometry height="80" width="80" x="680" y="200" as="geometry" />
           </mxCell>
         </object>
-        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;B:%beta%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_beta" maxFire="None" reset="None" beta="1:2" id="AhunuUh0luzD3hoNHjrG-28">
+        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;B:%beta%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_beta" maxFire="" reset="" beta="1:2" vote="" id="AhunuUh0luzD3hoNHjrG-28">
           <mxCell parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Courier New;fontStyle=1;fontSize=14;" vertex="1">
             <mxGeometry height="80" width="80" x="840" y="200" as="geometry" />
           </mxCell>
         </object>
-        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;C:%cyclic%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_cyclic" maxFire="None" reset="None" cyclic="1:0" id="AhunuUh0luzD3hoNHjrG-29">
+        <object label="%name%&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;C:%cyclic%&lt;/font&gt;&lt;/div&gt;" placeholders="1" type="transition" name="T_cyclic" maxFire="" reset="" cyclic="1:0" vote="" id="AhunuUh0luzD3hoNHjrG-29">
           <mxCell parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Courier New;fontStyle=1;fontSize=14;" vertex="1">
             <mxGeometry height="80" width="80" x="840" y="40" as="geometry" />
           </mxCell>

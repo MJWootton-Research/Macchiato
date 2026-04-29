@@ -457,7 +457,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
     wr += '\n'
     wr += '# Run Parameters\n'
     if type(rp) is list:
-        if len(rp) == 5:
+        if len(rp) == 7:
             wr += '\tmaxClock %g\n' % rp[0]
             wr += '\tmaxSteps %d\n' % rp[1]
             wr += '\tsimsFactor %g\n' % rp[2]
@@ -466,7 +466,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
             wr += '\tfileOutput %s\n' % rp[5]
             wr += '\tendOnly %s\n' % rp[6]
         else:
-            raise IndexError('rp should be of length, 5, received(%d)' % len)
+            raise IndexError('rp should be of length, 5, received (%d)' % len(rp))
     elif rp is None:
         wr += '\tmaxClock %g\n' % 1E6
         wr += '\tmaxSteps %g\n' % 1E12
@@ -500,7 +500,7 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
         elif pn.trans[t].weibull is not None:
             wr += 'weibull:%f:%f:%f' % (pn.trans[t].weibull[0], pn.trans[t].weibull[1], pn.trans[t].weibull[2])
         elif pn.trans[t].beta is not None:
-            wr += 'beta:%f:%f' % (pn.trans[t].beta[0], pn.trans[t].beta[1],pn.trans[t].beta[2])
+            wr += 'beta:%f:%f:%f' % (pn.trans[t].beta[0], pn.trans[t].beta[1],pn.trans[t].beta[2])
         elif pn.trans[t].lognorm is not None:
             wr += 'lognorm:%f:%f' % (pn.trans[t].lognorm[0], pn.trans[t].lognorm[1])
         elif pn.trans[t].cyclic is not None:
