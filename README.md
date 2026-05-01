@@ -47,7 +47,7 @@ See [`CITATION.cff`](https://raw.githubusercontent.com/MJWootton-Research/Macchi
         * [Arc Properties](#arc-properties)
         * [Additional Transition Features](#additional-transition-features)
         * [Example](#example)
-    * [Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)
+    * [Graphical Petri Net Construction](#graphical-petri-net-construction)
     * [Scripting Tools](#scripting-tools)
         * [Reading & Writing `*.mpn` Files](#reading--writing-mpn-files)
         * [Manipulating Petri Nets](#manipulating-petri-nets)
@@ -61,8 +61,9 @@ See [`CITATION.cff`](https://raw.githubusercontent.com/MJWootton-Research/Macchi
 * [Python 3](https://www.python.org)
   * [NumPy](https://numpy.org/) — only required by [analysis scripts](https://github.com/MJWootton-Research/Macchiato/tree/master/Analysis)
   * [Matplotlib](https://matplotlib.org/) — only required by [analysis scripts](https://github.com/MJWootton-Research/Macchiato/tree/master/Analysis)
-* [Graphiz](http://graphviz.org) — only required by [visualisation features](https://github.com/MJWootton-Research/Macchiato#graphviz)
-* [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for [graphical Petri Net construction tool](https://github.com/MJWootton-Research/Macchiato/tree/master/PetriNetDrawingTools/MicrosoftVisio)
+* [Graphiz](http://graphviz.org) — only required by [visualisation features](https://github.com/MJWootton-Research/Macchiato#graphviz) (not recommended)
+* [draw.io](https://www.drawio.com) — only required for [draw.io graphical construction tool](https://github.com/MJWootton-Research/Macchiato/tree/master/PetriNetDrawingTools/draw.io)
+* [Microsoft Visio](https://www.microsoft.com/en/microsoft-365/visio/flowchart-software) — only required for [Microsoft Visio graphical construction tool](https://github.com/MJWootton-Research/Macchiato/tree/master/PetriNetDrawingTools/MicrosoftVisio)
 
 ## Installation
 ### Download
@@ -338,13 +339,11 @@ Transitions
 	V:beta:1:2:0.25 IN P0 P1 P3 OUT P2 VOTE 2
 ```
 
-#### Graphical Petri Net Construction with Microsoft Visio
+#### Graphical Petri Net Construction
 
-As an alternative to transcribing a Petri Net structure by hand, it is possible to graphically construct a model in Microsoft Visio and export as an `*.mpn`. This is general considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.
+As an alternative to transcribing a Petri Net structure by hand, it is possible to graphically construct a model in with either draw.io or Microsoft Visio. Files created in draw.io can be read by Macchiato directly. Petri Nets created in Microsoft Visio must be exported to  `*.mpn`. Either method is generally considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.
 
-In the directory [`PetriNetDrawingTools/MicrosoftVisio`](PetriNetDrawingTools/MicrosoftVisio), one will find a Microsoft Visio drawing and a stencil file. Create a copy of these files to produce Petri Nets graphically — both must be found in the same directory. To use the tool, make sure that stencils and shape data are set to be visible and that macros are enabled. The shortcut *Ctrl+e* will export the Petri Net to an `*.mpn` file with the properties specified in the *Parameters* object. It is recommended to export models frequently to avoid being caught out by the occasional idiosyncrasies of Microsoft Visio.
-
-[Full documentation for the tool is available here](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/MicrosoftVisio/README.md).
+Template files and further instructions are found in [`PetriNetDrawingTools/draw.io`](PetriNetDrawingTools/MicrosoftVisio) and [`PetriNetDrawingTools/MicrosoftVisio`](PetriNetDrawingTools/MicrosoftVisio).
 
 ### Scripting Tools
 
@@ -352,7 +351,7 @@ The Python module provided by [`Macchiato.py`](Macchiato.py) can be imported int
 
 #### Reading & Writing `*.mpn` Files
 
-Importing  [`Macchiato.py`](Macchiato.py)  gives access to the `read` and `write` functions, which allow the handling of `*.mpn` files. The function `read` takes a file path and returns a `PetriNet` object and `list` object containing the simulation parameters in the file.
+Importing  [`Macchiato.py`](Macchiato.py)  gives access to the `read` and `write` functions, which allow the handling of `*.mpn` and `*.drawio` files. The function `read` takes a file path and returns a `PetriNet` object and `list` object containing the simulation parameters in the file.
 
 ```python
 # Import module
