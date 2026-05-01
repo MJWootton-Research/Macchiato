@@ -343,7 +343,7 @@ Transitions
 
 As an alternative to transcribing a Petri Net structure by hand, it is possible to graphically construct a model in with either draw.io or Microsoft Visio. Files created in draw.io can be read by Macchiato directly. Petri Nets created in Microsoft Visio must be exported to  `*.mpn`. Either method is generally considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.
 
-Template files and further instructions are found in [`PetriNetDrawingTools/draw.io`](PetriNetDrawingTools/MicrosoftVisio) and [`PetriNetDrawingTools/MicrosoftVisio`](PetriNetDrawingTools/MicrosoftVisio).
+Template files and further instructions are found in [`PetriNetDrawingTools/draw.io`](PetriNetDrawingTools/draw.io) and [`PetriNetDrawingTools/MicrosoftVisio`](PetriNetDrawingTools/MicrosoftVisio).
 
 ### Scripting Tools
 
