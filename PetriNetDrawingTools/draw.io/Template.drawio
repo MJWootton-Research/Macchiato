@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36">
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
   <diagram name="Page-1" id="w09R0wPlkSaECLNgurl3">
-    <mxGraphModel dx="1144" dy="696" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="2066" dy="1208" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -174,8 +174,8 @@
             <mxGeometry height="80" width="80" x="40" y="40" as="geometry" />
           </mxCell>
         </object>
-        <mxCell id="AhunuUh0luzD3hoNHjrG-55" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Tips&lt;/h1&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;Here I will put some useful information at a later time....&lt;/p&gt;" vertex="1">
-          <mxGeometry height="240" width="200" x="960" y="40" as="geometry" />
+        <mxCell id="AhunuUh0luzD3hoNHjrG-55" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;/p&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Tips&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;ul style=&quot;padding-left: 20px; padding-bottom: 0px;&quot;&gt;&lt;li&gt;Build your Petri net using only these objects. Make sure you use these arcs for your connections. General arrows won&#39;t work!&lt;/li&gt;&lt;li&gt;Macchiato can read *.drawio files directly. Remember to save changes first.&lt;/li&gt;&lt;li&gt;Drag and drop these objects onto the Scratchpad for easy access across multiple files.&lt;/li&gt;&lt;li&gt;Change an object&#39;s parameters by right clicking and selecting &quot;Edit Data...&quot;. For arcs, make sure you right click on the weight textbox rather than the line itself.&lt;/li&gt;&lt;li&gt;Remember to click apply after editing an object’s data. Be careful not to accidentally insert line breaks.&lt;/li&gt;&lt;li&gt;You can change font and colouring freely.&lt;/li&gt;&lt;li&gt;Arcs can be routed through waypoints to create clearer or more aesthetically pleasing results.&lt;/li&gt;&lt;li&gt;You can use boxes like this one to annotate your Petri nets.&lt;/li&gt;&lt;/ul&gt;" vertex="1">
+          <mxGeometry height="790" width="200" x="960" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
