@@ -78,6 +78,6 @@
 
 * Bug fixes for `*.mpn` file write function
 
-### Version 1-10-BETA
+### Version 1-11
 
-* Test version of new drawio (xml) support
+* Petri net graphical construction tool via draw.io (xml)

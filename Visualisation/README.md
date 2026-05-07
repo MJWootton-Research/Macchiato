@@ -7,6 +7,30 @@
 * [Python 3](https://www.python.org)
 * [Graphiz](https://github.com/MJWootton-Research/Macchiato#graphviz)
 
+The recommended method for installing Graphviz is via a package manager, such that the rendering of `*.dot` files as images be made available at the command line via `dot {etc}`.
+
+#### Linux
+
+Graphviz is available through the package managers of most Linux distributions
+
+**`apt` (Debian, Ubuntu, Linux Mint, Pop!_OS, elementary OS, etc.):**
+
+```bash
+sudo apt install graphviz
+```
+
+**`yum` (Fedora, CentOS, RHEL, Scientific Linux, Yellow Dog Linux, Oracle Linux, etc.)**
+
+```bash
+sudo yum install graphviz
+```
+
+**`pacman`  (Arch, Manjaro, etc.)**
+
+```bash
+sudo pacman -Syy graphviz
+```
+
 ## Usage
 
 Two scripts are provided for visualisation. Due to the limitations of Graphviz, they are not recommended as tools to produce images for reports etc. For this purpose, a dedicated graphical tool such as Microsoft Visio is better suited, see [Macchiato Petri Net Graphical Construction](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/README.md). By default, Graphviz will attempt to enforce a hierarchical structure on the Petri Net visualisation, but this is unsuitable in many cases, particularly with systems with multiple looping sequences. To compensate for this, one can add a place or transition to a grouping, which will force objects to appear next to those of the same assignment. This is achieved through the addition of the label `GROUP` to the end of the line on which the object is specified followed by a space and an integer, which serves as its group reference. Note that places and transitions have separate groupings, i.e. the places and transitions in `P1 GROUP 1`, `P2 GROUP 1`, `T1:instant IN P1 OUT P2 GROUP 1`, and `T2:instant IN P2 OUT P1 GROUP 1` will be organised as two independent groups.

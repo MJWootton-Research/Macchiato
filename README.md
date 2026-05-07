@@ -1,11 +1,10 @@
 <p align="center">
   <img src='.src/MacchiatoBanner_Thin.png' width='1200' title='Macchiato'>
 </p>
-
-[[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri Net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
+[[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
 ## A Simple Petri Nets Implementation
-### [Version 1-11-BETA](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
+### [Version 1-11](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
 
 © Dr. Mark James Wootton<br>
 [`m.j.wootton@sheffield.ac.uk`](mailto:m.j.wootton@sheffield.ac.uk)
@@ -157,32 +156,6 @@ Click *"OK"* on the three open windows to save your changes, which will take eff
 
 You may need to change the above paths if Macchiato was installed at a different location. Likewise, you may need to substitute `python3` for `python` in the profile file.
 
-### Graphviz
-
-The recommended method for installing Graphviz is via a package manager, such that the rendering of `*.dot` files as images be made available at the command line via `dot {etc}`.
-
-#### Linux
-
-Graphviz is available through the package managers of most Linux distributions
-
-**`apt` (Debian, Ubuntu, Linux Mint, Pop!_OS, elementary OS, etc.):**
-
-```bash
-sudo apt install graphviz
-```
-
-**`yum` (Fedora, CentOS, RHEL, Scientific Linux, Yellow Dog Linux, Oracle Linux, etc.)**
-
-```bash
-sudo yum install graphviz
-```
-
-**`pacman`  (Arch, Manjaro, etc.)**
-
-```bash
-sudo pacman -Syy graphviz
-```
-
 #### Windows
 
 Windows users will need to install an appropriate command line installer first, for example [Scoop](https://scoop.sh), from which Graphviz is installed by:
@@ -205,7 +178,7 @@ brew install graphviz
 
 ## Petri Net Integration Algorithm
 
-The below flowchart depicts the process followed by Macchiato to execute an individual Petri Net simulation. Image from [Wootton *et al.* 2022](https://doi.org/10.1002/asmb.2722), ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0))
+The below flowchart depicts the process followed by Macchiato to execute an individual Petri net simulation. Image from [Wootton *et al.* 2022](https://doi.org/10.1002/asmb.2722), ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0))
 
 <p align="center">
   <img src='.src/Algorithm.png' width='750' title='Macchiato&#39s Petri Net Integration Algorithm'>
@@ -213,7 +186,7 @@ The below flowchart depicts the process followed by Macchiato to execute an indi
 
 ## Usage
 
-Macchiato Petri Net structures are stored in `*.mpn` files, the creation of which is discussed [below](#macchiato-petri-net-files-mpn).
+Macchiato Petri net structures are stored in `*.mpn` files, the creation of which is discussed [below](#macchiato-petri-net-files-mpn).
 
 Assuming the instructions for [system integration](#system-integration) have been followed, the following command will run a batch of simulations, where `{nSims}` should be replaced with the desired number of iterations:
 
@@ -221,7 +194,7 @@ Assuming the instructions for [system integration](#system-integration) have bee
 macchiato /path/to/PetriNet.mpn {nSims}
 ```
 
-Note that regardless of the locations of Macchiato or the Petri Net file, the simulation output will be delivered within the current working directory. If `{nSims}` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-v` or `--verbose` at the end of the above command, but be aware that this will negatively impact performance.
+Note that regardless of the locations of Macchiato or the Petri net file, the simulation output will be delivered within the current working directory. If `{nSims}` is omitted from the above command, the simulations will continue until the total time simulated across all iterations reaches the product of `maxClock` and `simsFactor`, see [*Simulation Parameters*](#simulation-parameters). Additional terminal output can be activated by placing `-v` or `--verbose` at the end of the above command, but be aware that this will negatively impact performance.
 
 If it is necessary to restrict the output in the relevant `*.cvs` files produced to a limited selection of places or transitions, this can be done by adding the command line flags `-p` and `-t`, for example:
 
@@ -241,9 +214,9 @@ macchiato --help
 
 ### Macchiato Petri Net Files (`*.mpn`)
 
-A Petri Net description in `*.mpn` format may be created textually, as outlined in the following subsections, or via the tools seen in *[Graphical Petri Net Construction with Microsoft Visio](#graphical-petri-net-construction-with-microsoft-visio)*. One may also create and manipulate Petri Net structures in a Python script using the tools provided in the module `PetriNet.py` as documented in [*Scripting Tools*](#scripting-tools).
+A Petri net description in `*.mpn` format may be created textually, as outlined in the following subsections, or via the tools for [draw.io and Microsoft Visio](#graphical-petri-net-construction). One may also create and manipulate Petri net structures in a Python script using the tools provided in the module `PetriNet.py` as documented in [*Scripting Tools*](#scripting-tools).
 
-It is assumed that the reader is already familiar with the basics of standard Petri Net modelling<sup>[[1]](#r1)</sup>.
+It is assumed that the reader is already familiar with the basics of standard Petri n modelling<sup>[[1]](#r1)</sup>.
 
 #### Structure
 
@@ -253,21 +226,21 @@ An `*.mpn` should be comprised of three sections — the simulation parameters, 
 
 If a parameter is not specified in the `*.mpn` file, it takes its default value. To set a parameter, add a line with its name, followed directly by a single space and the desired value.
 
-- `name` — The label given to the Petri Net and used in output directories
-- `units` — The units of time to be used by the Petri Net (Default is `hrs`)
+- `name` — The label given to the Petri net and used in output directories
+- `units` — The units of time to be used by the Petri net (Default is `hrs`)
 - `runMode` — The mode of integration to be used for simulation (Default is `schedule`). Don't play with this setting unless you know what you are doing.
-- `dot` — Toggle creation of snapshots of the Petri Net during simulation in `*.dot` format (Default is `False`).
+- `dot` — Toggle creation of snapshots of the Petri net during simulation in `*.dot` format (Default is `False`).
 - `visualise` — The file format for images produced from snapshots. Supported formats include, but are not limited to, `svg` (recommended),  `pdf`, and `png` (Default is `None`, which produces no images. Note that `dot` must also be set to `True`, otherwise `visualise` will have no effect).
-- `details` — Toggles label with Petri Net name, step, and clock in visualisations (Default is `True`)
+- `details` — Toggles label with Petri n name, step, and clock in visualisations (Default is `True`)
 - `useGroup` — Toggles use of place and transition groups in visualisation (Default is `True`)
-- `orientation` — Orientation of Petri Net in visualisations.  Options are `LR`, `RL`, `TB`, and `BT` (Default is `None` — produces default behaviour of Graphviz algorithm).
+- `orientation` — Orientation of Petri net in visualisations.  Options are `LR`, `RL`, `TB`, and `BT` (Default is `None` — produces default behaviour of Graphviz algorithm).
 - `debug` — Default is `False`.
 - `maxClock` — Greatest clock duration permitted in any one simulation (Default is 10<sup>6</sup> `units` of time)
 - `maxSteps` — Greatest number of steps permitted in any one simulation (Default is 10<sup>12</sup>)
 - `simsFactor` — Parameterises the total number of simulations performed (Default is 1.5×10<sup>3</sup>).  Repetition of simulations ends once the total simulated time surpasses the product of `maxClock` and `simsFactor`.  If a set number of simulations is specified at the command line, `simsFactor` is overruled.
 - `dotLoc` — (Default is `None`) Directory containing `dot.exe` for legacy mode visualisations (not recommended).
 
-**Important Note:** It is not recommended to use the `visualise` option beyond testing and development of Petri Nets and performance is significantly affected. Instead, consider using the tools provided by [`mpn_to_dot.py`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation/mpn_to_dot.py) and [`dot_to_image.py`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation/mpn_to_dot.py) after the simulations are complete. If one is not intending to use `dot_to_image.py`, then it is also recommended to set `dot` to `False`.
+**Important Note:** It is not recommended to use the `visualise` option beyond testing and development of Petri nets and performance is significantly affected. Instead, consider using the tools provided by [`mpn_to_dot.py`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation/mpn_to_dot.py) and [`dot_to_image.py`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation/mpn_to_dot.py) after the simulations are complete. If one is not intending to use `dot_to_image.py`, then it is also recommended to set `dot` to `False`.
 
 #### Places
 
@@ -306,7 +279,7 @@ An incoming arc may be designated as a place conditional or inhibit arc with the
 #### Additional Transition Features
 Transitions may also be given the properties `VOTE` and `RESET`. A voting transition does not require all of its incoming arc weights to be met to become enabled. Instead, only a given threshold need be met, placed after `VOTE`, separated by a single space. For example, a transition, `T1` with the place relationship given by `T1:instant IN P1 P2 P3 OUT P4 VOTE 2` would only require two of `P1`, `P2`, and `P3` to hold a token in order to fire. Note that *all* incoming arcs whose weight is satisfied are treated normally for the purposes of removing tokens when the transition fires.
 
-A reset transition has an associated list of places, delimited by `:` and following `RESET`, separated by a single space, e.g. `RESET P1:P2:P3` (please note that colons must also be used to separate place tags in the shape data *Reset* field when working with the [Microsoft Visio](https://github.com/MJWootton-Research/Macchiato/blob/main/PetriNetDrawingTools/MicrosoftVisio/README.md) editor). *Glob*-style pattern recognition is supported, where `?` matches any one character, `*` matches any set of characters (including a zero-length string), `[abc]` matches any one of `a`, `b`, or `c`, and `[!abc]` matches any character except `a`, `b`, or `c`. When the transition fires, the places marked for reset are restored to the token count held at the beginning of the simulation.
+A reset transition has an associated list of places, delimited by `:` and following `RESET`, separated by a single space, e.g. `RESET P1:P2:P3` (please note that colons must also be used to separate place tags in the shape data *Reset* field when working with the [draw.io](https://github.com/MJWootton-Research/Macchiato/blob/main/PetriNetDrawingTools/draw.io/README.md) [Microsoft Visio](https://github.com/MJWootton-Research/Macchiato/blob/main/PetriNetDrawingTools/MicrosoftVisio/README.md) editors). *Glob*-style pattern recognition is supported, where `?` matches any one character, `*` matches any set of characters (including a zero-length string), `[abc]` matches any one of `a`, `b`, or `c`, and `[!abc]` matches any character except `a`, `b`, or `c`. When the transition fires, the places marked for reset are restored to the token count held at the beginning of the simulation.
 
 #### Example
 
@@ -341,13 +314,13 @@ Transitions
 
 #### Graphical Petri Net Construction
 
-As an alternative to transcribing a Petri Net structure by hand, it is possible to graphically construct a model in with either draw.io or Microsoft Visio. Files created in draw.io can be read by Macchiato directly. Petri Nets created in Microsoft Visio must be exported to  `*.mpn`. Either method is generally considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.
+As an alternative to transcribing a Petri net structure by hand, it is possible to graphically construct a model in with either draw.io or Microsoft Visio. Files created in draw.io can be read by Macchiato directly. Petri ns created in Microsoft Visio must be exported to  `*.mpn`. Either method is generally considerably simpler and more expedient, and has the secondary benefit of concurrently producing high quality figures for reports and publications.
 
 Template files and further instructions are found in [`PetriNetDrawingTools/draw.io`](PetriNetDrawingTools/draw.io) and [`PetriNetDrawingTools/MicrosoftVisio`](PetriNetDrawingTools/MicrosoftVisio).
 
 ### Scripting Tools
 
-The Python module provided by [`Macchiato.py`](Macchiato.py) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri Net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function. A few examples are found below.
+The Python module provided by [`Macchiato.py`](Macchiato.py) can be imported into a script to provide a range of tools suitable for more complex creation and manipulation of Petri net models, as well as basic functions such as reading and writing from `*.mpn` files. For example, if one wished to create a range of similar systems with varying parameters or varying number of duplicated sections, the scripting tools would enable the automation of this process. The documentation for the features is found within the module files themselves, with descriptions provided for each object type, method, and function. A few examples are found below.
 
 #### Reading & Writing `*.mpn` Files
 
@@ -379,7 +352,7 @@ pn = mc.PetriNet(name='Example')
 mc.write(pn, overwrite=False, rp=None, altName=None)
 ```
 
-Note the parameters `overwrite`, `rp`, and `altName` are optional, and respectively control whether existing files can be overwritten (default value is `False`), a `list` object containing the simulation parameters written to the file (default value is `None`, resulting in the default parameters being used, see [Simulation Parameters](#simulation-parameters)), and the name given to the Petri Net in the file produced (default value is `None`, which results in no change in name).
+Note the parameters `overwrite`, `rp`, and `altName` are optional, and respectively control whether existing files can be overwritten (default value is `False`), a `list` object containing the simulation parameters written to the file (default value is `None`, resulting in the default parameters being used, see [Simulation Parameters](#simulation-parameters)), and the name given to the Petri net in the file produced (default value is `None`, which results in no change in name).
 
 #### Manipulating Petri Nets
 
@@ -421,7 +394,7 @@ The optional parameters for `addPlace` are:
 * `tokens` — Type: `integer`. The initial number of tokens held (Default is 0)
 * `min` — Type: `integer`. Minimum limit for tokens held by the place (Default is `None`, i.e. no lower limit)
 * `max` — Type: `integer`. Maximum limit for tokens held by the place (Default is `None`, i.e. no upper limit)
-* `limits` — Type: `list` of length two, containing `integer` types. If the number of tokens held by the place is found to be less than the first entry or greater than the second, a simulation of the Petri Net is terminated.
+* `limits` — Type: `list` of length two, containing `integer` types. If the number of tokens held by the place is found to be less than the first entry or greater than the second, a simulation of the Petri net is terminated.
 * group — Type: `integer`. Grouping label for Graphviz
 
 The optional parameters for `addTrans` are:
@@ -451,9 +424,9 @@ There is one optional parameter for `addOutArc`:
 
 * `weight` — Type: `integer`. The weight of the arc.
 
-The methods `rmvPlace`, `rmvTrans`, `rmInArc`, and `rmOutArc` all remove objects of the corresponding type from the parent object (a `PetriNet` for `Place` and `Trans`, a `Trans` for `Arc`). They all only take only one argument, i.e. a `string` containing the relevant object label, which is the label of the object itself for `Place` and `Trans`, but is the label of the connecting `Place` object for `Arc` objects. Removing a place or transition from the Petri Net also removes all of its  associated arcs.
+The methods `rmvPlace`, `rmvTrans`, `rmInArc`, and `rmOutArc` all remove objects of the corresponding type from the parent object (a `PetriNet` for `Place` and `Trans`, a `Trans` for `Arc`). They all only take only one argument, i.e. a `string` containing the relevant object label, which is the label of the object itself for `Place` and `Trans`, but is the label of the connecting `Place` object for `Arc` objects. Removing a place or transition from the Petri net also removes all of its  associated arcs.
 
-The `PetriNet` object has the method `run` which will simulate the Petri Net specified up to a given maximum number of steps (`integer`), and optionally, a maximum simulated time (`float`). In the example below, a `PetriNet` object, `pn`, is to be run for maximum of 100 steps or a maximum simulated time of 5×10<sup>5</sup> units.
+The `PetriNet` object has the method `run` which will simulate the Petri net specified up to a given maximum number of steps (`integer`), and optionally, a maximum simulated time (`float`). In the example below, a `PetriNet` object, `pn`, is to be run for maximum of 100 steps or a maximum simulated time of 5×10<sup>5</sup> units.
 
 ```python
 pn.run(100, maxClock=500000)
@@ -482,7 +455,7 @@ pn.trans['T2'].addOutArc('P1', weight=2)
 # Write initial structure to *.mpn file
 mc.write(pn, altName='%s_start'%pn.name)
 
-# Write initial Petri Net marking to file
+# Write initial Petri net marking to file
 pfile, tfile, tlist = pn.writeNetStart(pn.runMode)
 
 # Begin simulation process
@@ -494,7 +467,7 @@ while True:
         # ...
         fooProcess(pn)
         # ...
-        if MarkingAltered: # Record changes to the marking of the Petri Net
+        if MarkingAltered: # Record changes to the marking of the Petri net
             pn.step += 1
             pn.clock = newTime # if relevant
             pn.writeNet(pfile, tfile, tlist,
@@ -516,19 +489,19 @@ mc.write(pn, altName='%s_end'%pn.name)
 
 ### Analysis
 
-Four Python scripts are available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri Net simulations. As the data produced by Macchiato is saved in `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
+Four Python scripts are available in the [`Analysis`](Analysis) directory to aid in the extraction of results from Petri net simulations. As the data produced by Macchiato is saved in `*.csv` format, it is fairly simple to produce new analysis tools and users are encouraged to do so.
 
 Documentation for the usage of the analysis scripts is found [here](https://github.com/MJWootton-Research/Macchiato/tree/main/Analysis/README.md).
 
 ### Visualisation
 
-In the [`Visualisation`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation) directory, two scripts are available to produce images of Petri Nets from `*.mpn` files or Macchiato simulation output. These depend on Graphviz and are best suited for inspection and verification rather instead of creating report quality images, for which the [Visio tools](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/README.md) are recommended.
+In the [`Visualisation`](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation) directory, two scripts are available to produce images of Petri nets from `*.mpn` files or Macchiato simulation output. These depend on Graphviz and are best suited for inspection and verification rather instead of creating report quality images, for which the [draw.io](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/draw.io/README.md) or [Visio](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/MicrosoftVisio/README.md) tools are recommended.
 
 Documentation for the usage of the visualisation scripts is found [here](https://github.com/MJWootton-Research/Macchiato/tree/main/Visualisation/README.md).
 
 ### FMU Interface
 
-Macchiato Petri Nets can also be used in conjunction with a physical model provided in [FMU format](https://en.wikipedia.org/wiki/Functional_Mock-up_Interface), the tools for which are provided in the [`FMUInterface`](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface) directory.
+Macchiato Petri nets can also be used in conjunction with a physical model provided in [FMU format](https://en.wikipedia.org/wiki/Functional_Mock-up_Interface), the tools for which are provided in the [`FMUInterface`](https://github.com/MJWootton-Research/Macchiato/tree/main/FMUInterface) directory.
 
 ## Acknowledgements
 With thanks to Dr Robert *"Larus"* Lee for developing the original Macchiato stencil and macro for Microsoft Visio.
