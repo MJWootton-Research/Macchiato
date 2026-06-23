@@ -9,7 +9,7 @@
 
 ## Usage
 
-Open the [template file](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/draw.io). From here all of the supported Petri-net objects can be copied and pasted into a new file. Alternatively, drag and drop them into the scratchpad for ease of access without having to return to the template repeatedly. Connect arcs by dragging one end to a transition or place, either centrally (blue) or on a perimeter link point (green). Only use the arcs provided as generic arrow connectors will not be read correctly by Macchiato.
+Open the [template file](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/draw.io/Template.drawio). From here all of the supported Petri-net objects can be copied and pasted into a new file. Alternatively, import the [scratchpad](https://github.com/MJWootton-Research/Macchiato/tree/main/PetriNetDrawingTools/draw.io/MacchiatoScratchpad.xml) for ease of access without having to return to the template repeatedly. Connect arcs by dragging one end to a transition or place, either centrally (blue) or on a perimeter link point (green). Only use the arcs provided as generic arrow connectors will not be read correctly by Macchiato.
 
 <p align="center"><img src=".src/Central.png" width='300' /> <img src=".src/LinkPoint.png" width='300' /></p>
 
