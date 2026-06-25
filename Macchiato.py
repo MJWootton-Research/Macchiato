@@ -105,7 +105,6 @@ def main():
         enablePrint()
     lt = time.localtime()[:6]
     print('='*80 + '\nSimulations complete after %.2g hrs (%04d-%02d-%02d %02d:%02d:%02d)\n' % (float(time.time()-wall)/float(3600), lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) + '='*80)
-    print(os.getcwd())
 
 def silence(*args):
     """
@@ -439,11 +438,10 @@ def read(file, xmlconvert=False):
                       visualise=visualise, details=details, useGroup=useGroup,
                       orientation=orientation, debug=debug, dotLoc=dotLoc)
 
+      # PLACES
         for item in root[0][0][0]:
             atrb = item.attrib
             if 'type' in atrb:
-                iProp = ''
-                # PLACES
                 if atrb['type'] == 'place':
                     placeIDs[atrb['id']] = atrb['name']
                     pn.addPlace(
@@ -453,21 +451,24 @@ def read(file, xmlconvert=False):
                         max=None if atrb['max'].lower() in nothing else int(atrb['max']),
                         limits=None if atrb['limits'].lower() in nothing else [int(lim) for lim in atrb['limits'].split(':')],
                     )
-                # TRANSITIONS
-                elif atrb['type'] == 'transition':
+        # TRANSITIONS
+        for item in root[0][0][0]:
+            atrb = item.attrib
+            if 'type' in atrb:
+                if atrb['type'] == 'transition':
                     transIDs[atrb['id']] = atrb['name']
                     maxFire = None if atrb['maxFire'].lower() in nothing else int(atrb['maxFire'])
-                    reset = None if atrb['reset'].lower() in nothing else atrb['reset']
+                    reset = None if atrb['reset'].lower() in nothing else "'"+atrb['reset']+"'"
                     vote = None if atrb['vote'].lower() in nothing else int(atrb['vote'])
                     instant = True
                     for tm in timings:
                         if tm in atrb:
                             instant = False
-                            exec(f"pn.addTrans(atrb['name'], {tm}={[float(atm) for atm in atrb[tm].split(':')] if ':' in atrb[tm] else float(atrb[tm])}, maxFire={maxFire}, reset={reset}, vote={vote})")
+                            exec(f"pn.addTrans(atrb['name'], {tm}={"'"+atrb[tm]+"'" if any(special in atrb[tm] for special in ['$', '£', '€']) else [float(atm) for atm in atrb[tm].split(':')] if ':' in atrb[tm] else float(atrb[tm])}, maxFire={maxFire}, reset={reset}, vote={vote})")
                             break
                     if instant:
                         pn.addTrans(atrb['name'], maxFire=maxFire, reset=reset, vote=vote)
-
+        # ARCS
         for item in root[0][0][0]:
             atrb = item.attrib
             if 'type' in atrb:
@@ -515,7 +516,7 @@ def read(file, xmlconvert=False):
                         print(pn.trans.keys())
                         raise RuntimeError(f'Unable to create arc from {source} to {target}. Check labels and connectivity.')
 
-        if xmlconvert:
+        if xmlconvert: # For Petri nets produced in drawio
             write(
                 pn,
                 overwrite=True,
@@ -527,8 +528,12 @@ def read(file, xmlconvert=False):
                     analysisStep,
                     fileOutput,
                     endOnly,
-                ]
+                ],
+                useResetString=True
             )
+            filename = pn.name+'.mpn'
+            sys.exit(f'Petri net conversion from *.drawio/*.xml file saved at: "{os.path.join(os.getcwd(), filename)}"')
+            # Quit to avoid unexpected behaviour. Simulations should be run separately from conversiond.
     else:
         print('Warning: Given file is not ".mpn"')
         time.sleep(1)
@@ -536,7 +541,7 @@ def read(file, xmlconvert=False):
     # Return complete PetriNet and simulation run options
     return pn, [maxClock, maxSteps, simsFactor, history, analysisStep, fileOutput, endOnly]
 
-def write(pn, overwrite=False, rp=None, altName=None, path=None):
+def write(pn, overwrite=False, rp=None, altName=None, path=None, useResetString=False):
     """
     Takes Petri Net structure and writes it out to .mpn file
 
@@ -552,6 +557,8 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
         Provides alternative directory for file output (do not include '.mpn')
     path : string (Default: None)
         Path to save file. Uses current working directory+name if None
+    useResetString : boolean (Default: False)
+        Override reset attribute on transitions with originally supplied string
 
     """
     name = pn.name
@@ -616,19 +623,19 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
     for t in pn.trans:
         wr += '\t%s:' % t
         if pn.trans[t].rate is not None:
-            wr += 'rate:%f' % pn.trans[t].rate
+            wr += f'rate:{pn.trans[t].rate}' # 'rate:%f' % pn.trans[t].rate
         elif pn.trans[t].uniform is not None:
-            wr += 'uniform:%f' % pn.trans[t].uniform
+            wr += f'uniform:{pn.trans[t].uniform}' #  'uniform:%f' % pn.trans[t].uniform
         elif pn.trans[t].delay is not None:
-            wr += 'delay:%f' % pn.trans[t].delay
+            wr += f'delay:{pn.trans[t].delay}' # 'delay:%f' % pn.trans[t].delay
         elif pn.trans[t].weibull is not None:
-            wr += 'weibull:%f:%f:%f' % (pn.trans[t].weibull[0], pn.trans[t].weibull[1], pn.trans[t].weibull[2])
+            wr += f'weibull:{pn.trans[t].weibull[0]}:{pn.trans[t].weibull[1]}:{pn.trans[t].weibull[2]}' #  'weibull:%f:%f:%f' % (pn.trans[t].weibull[0], pn.trans[t].weibull[1], pn.trans[t].weibull[2])
         elif pn.trans[t].beta is not None:
-            wr += 'beta:%f:%f:%f' % (pn.trans[t].beta[0], pn.trans[t].beta[1],pn.trans[t].beta[2])
+            wr += f'beta:{pn.trans[t].beta[0]}:{pn.trans[t].beta[1]}:{pn.trans[t].beta[2]}' # 'beta:%f:%f:%f' % (pn.trans[t].beta[0], pn.trans[t].beta[1],pn.trans[t].beta[2])
         elif pn.trans[t].lognorm is not None:
-            wr += 'lognorm:%f:%f' % (pn.trans[t].lognorm[0], pn.trans[t].lognorm[1])
+            wr += f'lognorm:{pn.trans[t].lognorm[0]}:{pn.trans[t].lognorm[1]}' # 'lognorm:%f:%f' % (pn.trans[t].lognorm[0], pn.trans[t].lognorm[1])
         elif pn.trans[t].cyclic is not None:
-            wr += 'cyclic:%f:%f' % (pn.trans[t].cyclic[0], pn.trans[t].cyclic[1])
+            wr += f'cyclic:{pn.trans[t].cyclic[0]}:{pn.trans[t].cyclic[1]}' # 'cyclic:%f:%f' % (pn.trans[t].cyclic[0], pn.trans[t].cyclic[1])
         else:
             wr += 'instant'
         if len(pn.trans[t].inArcs):
@@ -647,9 +654,12 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None):
                     wr += ':%r' % pn.trans[t].outArcs[p].weight
         if len(pn.trans[t].reset):
             wr += ' RESET '
-            for p in pn.trans[t].reset:
-                wr += '%s:' % p
-            wr = wr[:-1]
+            if useResetString:
+                wr += pn.trans[t].resetString
+            else:
+                for p in pn.trans[t].reset:
+                    wr += '%s:' % p
+                wr = wr[:-1]
         if pn.trans[t].vote is not None:
                 wr += ' VOTE %d' % pn.trans[t].vote
         if pn.trans[t].maxFire is not None:
@@ -997,6 +1007,7 @@ class PetriNet(object):
         group : integer
             Label used to group transitions for visualisation
         """
+        resetString = reset
         if not label in self.trans:
             if reset is not None:
                 if type(reset) is not list:
@@ -1005,7 +1016,7 @@ class PetriNet(object):
                     else:
                         reset = [reset]
                 reset = expandReset(self, reset)
-            self.trans[label] = Trans(label, rate=rate, uniform=uniform, delay=delay, weibull=weibull, beta=beta, lognorm=lognorm, cyclic=cyclic, maxFire=maxFire, reset=reset, vote=vote, group=group)
+            self.trans[label] = Trans(label, rate=rate, uniform=uniform, delay=delay, weibull=weibull, beta=beta, lognorm=lognorm, cyclic=cyclic, maxFire=maxFire, reset=reset, resetString=resetString, vote=vote, group=group)
         else:
             raise KeyError('Transition with label, "%s", already exists' % label)
         # if ' ' in label:
@@ -2472,7 +2483,9 @@ class Trans(object):
         Maximum number of times the transition may fire before simulation is
         halted
     reset : list
-        A list of places to reset on firing
+        A list of places to reset on firing (if provided)
+    resetString :string
+        The literal string provided for reset
     vote : integer
         Minimum number of incoming arcs required for voting behaviour
         (Default = None - i.e. no voting behaviour)
@@ -2495,7 +2508,7 @@ class Trans(object):
     group : integer
         Label used to group transitions for visualisation
     """
-    def __init__(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=None, vote=None, group=None):
+    def __init__(self, label, rate=None, uniform=None, delay=None, weibull=None, beta=None, lognorm=None, cyclic=None, maxFire=None, reset=None, resetString=None, vote=None, group=None):
         self.label = str(label)
         if ' ' in self.label:
             raise ValueError('"%s" is an invalid label, spaces are not permitted' % self.label)
@@ -2538,6 +2551,7 @@ class Trans(object):
         self.firedCount = 0
         self.lastFired = None
         self.reset = reset if reset is not None else []
+        self.resetString = resetString
         if vote is not None:
             if type(vote) is not int:
                 raise TypeError('Voting threshold (%r) must be positive integer (transition "%s")' % (vote, self.label))
@@ -2751,7 +2765,7 @@ def repeat(pn, maxClock, maxSteps=1E12, simsFactor=1.5E3, fixedNumber=None, star
     #     Toggle log file
     """
     if fixedNumber < 1:
-        print(f'{fixedNumber} simulations requested -- exitting.')
+        speak(f'{fixedNumber} simulations requested -- exiting.')
         return
     # Wall time log
     wall = int(time.time())

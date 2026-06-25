@@ -81,3 +81,8 @@
 ### Version 1-11
 
 * Petri net graphical construction tool via draw.io (xml)
+
+#### Version 1-11-1
+
+* Conversion from draw.io now handles expandable features ($£€) correctly.
+* Macchiato exits following conversion from draw.io. Simulations must now be actioned separately.

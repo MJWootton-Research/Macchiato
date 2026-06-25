@@ -28,7 +28,5 @@ Make sure a properties object is added to set the name of the Petri net, units, 
 Macchiato can read `*.drawio` files directly, so there is no requirement to export a Petri net first. If the equivalent `*.mpn` file is desired, the conversion can be done using the `-x` option, e.g.
 
 ```shell
-macchiato PetriNet.drawio 0 -x
+macchiato PetriNet.drawio -x
 ```
-
-The `0` option means no simulations are run, although conversion and simulation can be run in the same command.
