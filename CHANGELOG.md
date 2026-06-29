@@ -86,3 +86,7 @@
 
 * Conversion from draw.io now handles expandable features (glob characters and $£€) correctly.
 * Macchiato exits following conversion from draw.io. Simulations must now be actioned separately.
+
+#### Version 1-11-2
+
+* Fix for syntax limitations on older Python versions

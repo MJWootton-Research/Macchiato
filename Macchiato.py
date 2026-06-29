@@ -14,7 +14,7 @@
 ----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
-Version 1-11
+Version 1-11-2
 (c) Dr. Mark James Wootton 2016-2026
 ============================================================================
 
@@ -42,6 +42,9 @@ import collections
 from platform import system
 from builtins import print as speak
 import xml.etree.ElementTree as ET
+
+qmS="'"
+qmD='"'
 
 ############################################################################
 # File and Simulation Management Utilities
@@ -464,7 +467,7 @@ def read(file, xmlconvert=False):
                     for tm in timings:
                         if tm in atrb:
                             instant = False
-                            exec(f"pn.addTrans(atrb['name'], {tm}={"'"+atrb[tm]+"'" if any(special in atrb[tm] for special in ['$', '£', '€']) else [float(atm) for atm in atrb[tm].split(':')] if ':' in atrb[tm] else float(atrb[tm])}, maxFire={maxFire}, reset={reset}, vote={vote})")
+                            exec(f"pn.addTrans(atrb['name'], {tm}={qmS+atrb[tm]+qmS if any(special in atrb[tm] for special in ['$', '£', '€']) else [float(atm) for atm in atrb[tm].split(':')] if ':' in atrb[tm] else float(atrb[tm])}, maxFire={maxFire}, reset={reset}, vote={vote})")
                             break
                     if instant:
                         pn.addTrans(atrb['name'], maxFire=maxFire, reset=reset, vote=vote)
