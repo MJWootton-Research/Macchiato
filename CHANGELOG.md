@@ -90,3 +90,7 @@
 #### Version 1-11-2
 
 * Fix for syntax limitations on older Python versions
+
+### Version 1-12
+
+* Fixes and rework of syntax for place properties in `*.mpn` files.

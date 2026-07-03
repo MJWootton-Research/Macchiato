@@ -4,7 +4,7 @@
 [[makˈkjaːto](https://www.howtopronounce.com/italian/macchiato/8648604)], *from the Italian, meaning "spotted", "marked", or  "stained", in reference to a [latte macchiato](https://i.insider.com/568a8b92e6183e591e8b6575), which resembles a [Petri net](https://en.wikipedia.org/wiki/Petri_net) place with a token.*
 
 ## A Simple Petri Nets Implementation
-### [Version 1-11-2](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
+### [Version 1-12](https://github.com/MJWootton-Research/Macchiato/tree/main/CHANGELOG.md)
 
 © Dr. Mark James Wootton<br>
 [`m.j.wootton@sheffield.ac.uk`](mailto:m.j.wootton@sheffield.ac.uk)
@@ -244,7 +244,7 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 
 #### Places
 
-The places section of the file begins following the line `Places`.  To add a place, simple add a new line with the desired name (spaces are not permitted). By default, a place's initial token count is zero, but a value may be specified after a space on the same line, e.g. `P1 2` will add a place of name *P1* with two tokens at the start of each simulation.
+The places section of the file begins following the line `Places`.  To add a place, simple add a new line with the desired name (spaces are not permitted). By default, a place's initial token count is zero, but a value may be specified after a space on the same line, e.g. `P1 2` will add a place of name *P1* with two tokens at the start of each simulation. Token maximum, minimum, or limits, can be also specified on the same line, e.g. `MAX:5`, `MIN:2`, `LIMITS:3:6`. For limits unbounded on one side, use `_`, e.g. `LIMITS:_:6` or `LIMITS:3:_`.
 
 #### Transitions
 

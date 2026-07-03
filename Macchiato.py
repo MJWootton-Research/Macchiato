@@ -14,7 +14,7 @@
 ----------------------------------------------------------------------------
 
 Welcome to Macchiato – A Simple and Scriptable Petri Nets Implementation
-Version 1-11-2
+Version 1-12
 (c) Dr. Mark James Wootton 2016-2026
 ============================================================================
 
@@ -286,17 +286,35 @@ def read(file, xmlconvert=False):
             elif mode == 'Places':
                 label = spln[0]
                 tokens = 0
+                min = 0
+                max = None
+                limits = None
                 group = None
-                # Slightly odd code here for legacy reasons.
                 if len(spln) > 1:
-                    if 'GROUP' in spln[-2]:
-                        # print(spln)
-                        group = int(spln[-1])
-                        if len(spln) > 3:
-                            tokens = int(spln[1])
-                    else:
-                        tokens = int(spln[1])
-                pn.addPlace(label, tokens=tokens, group=group)
+                    for info in spln[1:]:
+                        if ':' in info:
+                            spinfo = info.split(':')
+                            if spinfo[0] == 'MIN':
+                                min = int(spinfo[1])
+                            elif spinfo[0] == 'MAX':
+                                max = int(spinfo[1])
+                            elif spinfo[0] == 'LIMITS':
+                                limits = [
+                                    None if spinfo[1]=='_' else int(spinfo[1]),
+                                    None if spinfo[2]=='_' else int(spinfo[2])
+                                ]
+                            elif spinfo[0] == 'GROUP':
+                                group = int(spinfo[1])
+                        else:
+                            tokens = int(info)
+                pn.addPlace(
+                    label,
+                    tokens=tokens,
+                    min=min,
+                    max=max,
+                    limits=limits,
+                    group=group
+                )
             # Add transitions to Petri Net
             elif mode == 'Transitions':
                 tMode = None
@@ -452,7 +470,7 @@ def read(file, xmlconvert=False):
                         tokens=int(atrb['tokens']),
                         min=0 if atrb['min'].lower() in nothing else int(atrb['min']),
                         max=None if atrb['max'].lower() in nothing else int(atrb['max']),
-                        limits=None if atrb['limits'].lower() in nothing else [int(lim) for lim in atrb['limits'].split(':')],
+                        limits=None if atrb['limits'].lower() in nothing else [None if lim=='_' else int(lim) for lim in atrb['limits'].split(':')],
                     )
         # TRANSITIONS
         for item in root[0][0][0]:
@@ -618,8 +636,17 @@ def write(pn, overwrite=False, rp=None, altName=None, path=None, useResetString=
         wr += '\t%s' % p
         if pn.places[p].tokens:
             wr += ' %d' % pn.places[p].tokens
+        if pn.places[p].limits != [None, None]:
+            wr += ' LIMITS:'
+            wr += '_' if pn.places[p].limits[0] is None else f'{pn.places[p].limits[0]}'
+            wr += ':'
+            wr += '_' if pn.places[p].limits[1] is None else f'{pn.places[p].limits[1]}'
+        if pn.places[p].min > 0:
+            wr += ' MIN:%d' % pn.places[p].min
+        if pn.places[p].max < float('INF'):
+            wr += ' MAX:%d' % pn.places[p].max
         if pn.places[p].group is not None:
-            wr += ' GROUP %d' % pn.places[p].group
+            wr += ' GROUP:%d' % pn.places[p].group
         wr += '\n'
     wr += '\n'
     wr += 'Transitions\n'
@@ -2371,7 +2398,7 @@ class Place(object):
             self.limits = [None, None]
         assert len(self.limits) == 2, 'Invalid token range for place, "%s"' % self.label
         if self.limits[0] is not None and self.limits[1] is not None:
-            assert self.limits[0] < self.limits[1], 'Place "%s" has invalid limits -- must be low to high'
+            assert self.limits[0] < self.limits[1], f'Place "{self.label}" has invalid limits {self.limits} -- must be low to high'
 
         self.ins = 0
         self.outs = 0
