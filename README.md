@@ -245,7 +245,13 @@ If a parameter is not specified in the `*.mpn` file, it takes its default value.
 
 #### Places
 
-The places section of the file begins following the line `Places`.  To add a place, simple add a new line with the desired name (spaces are not permitted). By default, a place's initial token count is zero, but a value may be specified after a space on the same line, e.g. `P1 2` will add a place of name *P1* with two tokens at the start of each simulation. Token maximum, minimum, or limits, can be also specified on the same line, e.g. `MAX:5`, `MIN:2`, `LIMITS:3:6`. For limits unbounded on one side, use `_`, e.g. `LIMITS:_:6` or `LIMITS:3:_`.
+The places section of the file begins following the line `Places`.  To add a place, simple add a new line with the desired name (spaces are not permitted). By default, a place's initial token count is zero, but a value may be specified after a space on the same line, e.g. `P1 2` will add a place of name *P1* with two tokens at the start of each simulation. Token maximum, minimum, or limits, can be also specified on the same line, e.g. `MAX:5`, `MIN:2`, `LIMITS:3:6`, formatted thus (do not include brackets):
+
+```
+{Name} {Tokens} MIN:{Min} MAX:{Max} LIMITS:{Lower}:{Upper}
+```
+
+For limits unbounded on one side, use `_`, e.g. `LIMITS:_:6` or `LIMITS:3:_`. Maximums and minimums prevent transitions from being able to fire if doing so would violate those bounds. Limits set an end condition if the token count of the place is set to a value below the lower limit or above the upper limit. In the example given above, a token bout of 2 or 7 would result in the end of the simulation.
 
 #### Transitions
 
